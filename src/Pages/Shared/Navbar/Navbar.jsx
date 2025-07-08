@@ -99,7 +99,7 @@ const Navbar = ({ isTransparent }) => {
     <header
       className={`p-4 fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isTransparent
-          ? "bg-transparent text-white"
+          ? "bg-black/60 backdrop-blur-xl text-white"
           : "bg-white shadow-md text-black"
       }`}
     >
