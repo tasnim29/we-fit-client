@@ -1,22 +1,32 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router";
+import React, { use, useState } from "react";
+import { Link, NavLink } from "react-router"; // or "react-router-dom" if you're using that
+import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 const Navbar = ({ isTransparent }) => {
+  const { user, logOutUser } = use(AuthContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
   const closeDrawer = () => setIsDrawerOpen(false);
 
-  const navItems = (
+  const handleLogout = () => {
+    logOutUser().then(() => {
+      console.log("log out successful");
+    });
+  };
+
+  const navItems = (isTransparent) => (
     <>
       <li>
         <NavLink
           to="/"
           onClick={closeDrawer}
           className={({ isActive }) =>
-            `block px-4 py-2 hover:text-secondary ${
-              isActive ? "font-bold text-secondary text-xl" : ""
-            }`
+            `block px-4 py-2 transition duration-300 ${
+              isTransparent
+                ? "text-white hover:text-secondary"
+                : "text-black hover:text-secondary"
+            } ${isActive ? "font-bold  text-xl " : ""}`
           }
         >
           Home
@@ -27,9 +37,11 @@ const Navbar = ({ isTransparent }) => {
           to="/all-trainers"
           onClick={closeDrawer}
           className={({ isActive }) =>
-            `block px-4 py-2 hover:text-secondary ${
-              isActive ? "font-bold text-secondary text-xl" : ""
-            }`
+            `block px-4 py-2 transition duration-300 ${
+              isTransparent
+                ? "text-white hover:text-secondary"
+                : "text-black hover:text-secondary"
+            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
           }
         >
           All Trainers
@@ -40,9 +52,11 @@ const Navbar = ({ isTransparent }) => {
           to="/all-classes"
           onClick={closeDrawer}
           className={({ isActive }) =>
-            `block px-4 py-2 hover:text-secondary ${
-              isActive ? "font-bold text-secondary text-xl" : ""
-            }`
+            `block px-4 py-2 transition duration-300 ${
+              isTransparent
+                ? "text-white hover:text-secondary"
+                : "text-black hover:text-secondary"
+            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
           }
         >
           All Classes
@@ -53,9 +67,11 @@ const Navbar = ({ isTransparent }) => {
           to="/beARider"
           onClick={closeDrawer}
           className={({ isActive }) =>
-            `block px-4 py-2 hover:text-secondary ${
-              isActive ? "font-bold text-secondary text-xl" : ""
-            }`
+            `block px-4 py-2 transition duration-300 ${
+              isTransparent
+                ? "text-white hover:text-secondary"
+                : "text-black hover:text-secondary"
+            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
           }
         >
           Dashboard
@@ -66,9 +82,11 @@ const Navbar = ({ isTransparent }) => {
           to="/about"
           onClick={closeDrawer}
           className={({ isActive }) =>
-            `block px-4 py-2 hover:text-secondary ${
-              isActive ? "font-bold text-secondary text-xl" : ""
-            }`
+            `block px-4 py-2 transition duration-300 ${
+              isTransparent
+                ? "text-white hover:text-secondary"
+                : "text-black hover:text-secondary"
+            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
           }
         >
           Community
@@ -86,33 +104,50 @@ const Navbar = ({ isTransparent }) => {
       }`}
     >
       <div className="container mx-auto flex justify-between items-center h-16">
+        {/* Logo */}
         <div>
-          <h1>WeFIT</h1>
+          <h1
+            className={`text-xl font-bold ${
+              isTransparent ? "text-white" : "text-secondary"
+            }`}
+          >
+            WeFIT
+          </h1>
         </div>
 
+        {/* Desktop nav */}
         <ul className="hidden lg:flex space-x-4 items-center font-semibold">
-          {navItems}
+          {navItems(isTransparent)}
         </ul>
 
+        {/* Login + menu toggle */}
         <div className="flex items-center space-x-2">
-          <button
-            className={`px-5 py-2 border rounded text-sm ${
-              isTransparent
-                ? "border-white text-white hover:bg-white hover:text-black"
-                : "border-secondary text-secondary hover:bg-secondary hover:text-white"
-            }`}
-          >
-            Sign In
-          </button>
-          <button
-            className={`px-5 py-2 rounded text-sm ${
-              isTransparent
-                ? "bg-white text-black hover:bg-secondary hover:text-white"
-                : "bg-secondary text-white hover:bg-black"
-            }`}
-          >
-            Sign Up
-          </button>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              to="login"
+              className={`px-5 py-2 rounded text-sm transition cursor-pointer ${
+                isTransparent
+                  ? "bg-secondary text-white hover:bg-light hover:text-primary"
+                  : "bg-secondary text-white hover:bg-black"
+              }`}
+            >
+              Log out
+            </button>
+          ) : (
+            <Link
+              to="login"
+              className={`px-5 py-2 rounded text-sm transition ${
+                isTransparent
+                  ? "bg-secondary text-white hover:bg-light hover:text-primary"
+                  : "bg-secondary text-white hover:bg-black"
+              }`}
+            >
+              Log in
+            </Link>
+          )}
+
+          {/* Drawer toggle */}
           <button onClick={toggleDrawer} className="lg:hidden p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -162,14 +197,17 @@ const Navbar = ({ isTransparent }) => {
             </svg>
           </button>
         </div>
-        <ul className="flex flex-col py-4 space-y-2 text-black">{navItems}</ul>
+        <ul className="flex flex-col py-4 space-y-2 text-black">
+          {navItems(false)}
+        </ul>
       </div>
 
+      {/* Overlay */}
       {isDrawerOpen && (
         <div
           className="fixed inset-0 bg-black/30 z-30 lg:hidden"
           onClick={closeDrawer}
-        ></div>
+        />
       )}
     </header>
   );

@@ -35,10 +35,10 @@ const Banner = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1500, // slower fade transition (1.5 seconds)
+    speed: 1500,
     fade: true,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
@@ -74,7 +74,7 @@ const Banner = () => {
             <img
               src={slide.image}
               alt={`Banner ${index + 1}`}
-              className="w-full h-full object-cover z-0"
+              className="w-full h-full"
             />
 
             {/* Dark overlay */}
@@ -82,7 +82,7 @@ const Banner = () => {
 
             {/* Content */}
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white px-4">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-wide drop-shadow-lg">
+              <h2 className="text-3xl md:text-6xl font-bold mb-4 tracking-wide drop-shadow-lg">
                 {slide.heading}
               </h2>
               <p className="text-light md:text-xl font-medium mb-6 max-w-2xl drop-shadow">
