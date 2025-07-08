@@ -1,6 +1,7 @@
 import React, { use, useState } from "react";
-import { Link, NavLink } from "react-router"; // or "react-router-dom" if you're using that
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
+import logo from "../../../assets/companyLogo.png";
 
 const Navbar = ({ isTransparent }) => {
   const { user, logOutUser } = use(AuthContext);
@@ -106,13 +107,7 @@ const Navbar = ({ isTransparent }) => {
       <div className="container mx-auto flex justify-between items-center h-16">
         {/* Logo */}
         <div>
-          <h1
-            className={`text-xl font-bold ${
-              isTransparent ? "text-white" : "text-secondary"
-            }`}
-          >
-            WeFIT
-          </h1>
+          <img className="w-32" src={logo} alt="" />
         </div>
 
         {/* Desktop nav */}

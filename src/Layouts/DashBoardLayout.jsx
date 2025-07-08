@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { MdHome } from "react-icons/md";
+import logo from "../assets/companyLogo.png";
 
 const DashBoardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,7 +26,12 @@ const DashBoardLayout = () => {
         </div>
 
         <Link to="/" className="p-4">
-          <h1 className="text-xl font-bold">WeFIT</h1>
+          {/* Logo */}
+          <Link to="/">
+            <div>
+              <img className="w-32" src={logo} alt="" />
+            </div>
+          </Link>
         </Link>
         <ul className="p-4 space-y-2 text-primary font-medium">
           <li>
