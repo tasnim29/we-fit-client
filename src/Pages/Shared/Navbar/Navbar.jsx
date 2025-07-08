@@ -64,7 +64,7 @@ const Navbar = ({ isTransparent }) => {
       </li>
       <li>
         <NavLink
-          to="/beARider"
+          to="/dashboard"
           onClick={closeDrawer}
           className={({ isActive }) =>
             `block px-4 py-2 transition duration-300 ${
