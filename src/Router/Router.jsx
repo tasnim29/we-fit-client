@@ -6,6 +6,7 @@ import Register from "../Pages/Authentication/Register/Register";
 import DashBoardLayout from "../Layouts/DashBoardLayout";
 import DashBoardHome from "../Pages/DashBoard/DashBoardHome/DashBoardHome";
 import PrivateRoute from "../Privates/PrivateRoute";
+import AddClassForm from "../Pages/DashBoard/AddClassForm/AddClassForm";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: DashBoardHome,
+      },
+      {
+        path: "add-class",
+        Component: AddClassForm,
       },
     ],
   },

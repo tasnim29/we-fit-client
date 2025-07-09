@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router";
-import { MdHome } from "react-icons/md";
+import {
+  MdAccountBalanceWallet,
+  MdHome,
+  MdHowToReg,
+  MdLibraryAdd,
+  MdMailOutline,
+  MdPeopleAlt,
+} from "react-icons/md";
 import logo from "../assets/companyLogo.png";
+import UseUserRole from "../Hooks/UseUserRole";
 
 const DashBoardLayout = () => {
+  const { role, isLoading } = UseUserRole();
+  console.log(role);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
@@ -25,14 +35,13 @@ const DashBoardLayout = () => {
           </button>
         </div>
 
-        <Link to="/" className="p-4">
-          {/* Logo */}
-          <Link to="/">
-            <div>
-              <img className="w-32" src={logo} alt="" />
-            </div>
-          </Link>
+        {/* Logo */}
+        <Link className="p-4" to="/">
+          <div>
+            <img className="w-32" src={logo} alt="" />
+          </div>
         </Link>
+
         <ul className="p-4 space-y-2 text-primary font-medium">
           <li>
             <NavLink
@@ -43,6 +52,60 @@ const DashBoardLayout = () => {
               <MdHome /> Dashboard Home
             </NavLink>
           </li>
+          {/* admin links */}
+          {!isLoading && role === "admin" && (
+            <div>
+              <li>
+                <NavLink
+                  to="/dashboard/newsletter-subscribers"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdMailOutline /> Newsletter Subscribers
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/all-trainers"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdPeopleAlt /> All Trainers
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/applied-trainers"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdHowToReg /> Applied Trainers
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/balance"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdAccountBalanceWallet /> Balance Overview
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/add-class"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdLibraryAdd /> Add New Class
+                </NavLink>
+              </li>
+            </div>
+          )}
         </ul>
       </div>
 
