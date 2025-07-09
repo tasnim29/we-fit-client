@@ -10,6 +10,8 @@ import AddClassForm from "../Pages/DashBoard/AddClassForm/AddClassForm";
 import BeTrainer from "../Pages/BeTrainer/BeTrainer";
 import AppliedTrainers from "../Pages/DashBoard/AppliedTrainers/AppliedTrainers";
 import AppliedTrainerDetails from "../Pages/DashBoard/AppliedTrainers/AppliedTrainerDetails";
+import AllTrainers from "../Pages/AllTrainers/AllTrainers";
+import TrainerDetails from "../Pages/AllTrainers/TrainerDetails";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,15 @@ export const router = createBrowserRouter([
         path: "register",
         Component: Register,
       },
+      {
+        path: "all-trainers",
+        Component: AllTrainers,
+      },
+      {
+        path: "/trainer-details/:id",
+        Component: TrainerDetails,
+      },
+
       {
         path: "beTrainer",
         element: (

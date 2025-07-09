@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router";
 import { router } from "./Router/Router";
 import AuthProvider from "./Context/AuthContext/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const queryClient = new QueryClient();
 
