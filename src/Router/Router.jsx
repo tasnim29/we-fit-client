@@ -12,6 +12,7 @@ import AppliedTrainers from "../Pages/DashBoard/AppliedTrainers/AppliedTrainers"
 import AppliedTrainerDetails from "../Pages/DashBoard/AppliedTrainers/AppliedTrainerDetails";
 import AllTrainers from "../Pages/AllTrainers/AllTrainers";
 import TrainerDetails from "../Pages/AllTrainers/TrainerDetails";
+import TrainerBookedPage from "../Pages/TrainerBookedPage/TrainerBookedPage";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
         Component: AllTrainers,
       },
       {
-        path: "/trainer-details/:id",
+        path: "trainer-details/:id",
         Component: TrainerDetails,
       },
 
@@ -45,6 +46,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BeTrainer></BeTrainer>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "book-trainer/:id",
+        element: (
+          <PrivateRoute>
+            <TrainerBookedPage></TrainerBookedPage>
           </PrivateRoute>
         ),
       },
