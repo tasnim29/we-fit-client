@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import axios from "axios";
-import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
+import RejectModal from "./RejectModal";
 
 const AppliedTrainerDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosSecure = UseAxiosSecure();
+  const [showRejectModal, setShowRejectModal] = useState(false);
 
-  // Fetch trainer using TanStack query
   const {
     data: trainer,
     isLoading,
@@ -25,38 +25,31 @@ const AppliedTrainerDetails = () => {
 
   const handleApprove = async () => {
     try {
-      await axios.patch(`/api/trainers/approve/${id}`);
+      await axiosSecure.patch(`/trainers/${id}`, {
+        status: "approved",
+        email: trainer.email,
+      });
       Swal.fire("Approved!", "Trainer has been confirmed.", "success");
       navigate("/dashboard/applied-trainers");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       Swal.fire("Error", "Something went wrong", "error");
     }
   };
 
-  const handleReject = async () => {
-    const { value: feedback } = await Swal.fire({
-      title: "Reject Application",
-      html: `
-        <p><strong>Name:</strong> ${trainer.fullName}</p>
-        <p><strong>Email:</strong> ${trainer.email}</p>
-        <textarea id="feedback" class="swal2-textarea" placeholder="Write feedback here..."></textarea>
-      `,
-      focusConfirm: false,
-      preConfirm: () => document.getElementById("feedback").value,
-      showCancelButton: true,
-      confirmButtonText: "Submit Feedback",
-    });
-
-    if (feedback) {
-      try {
-        await axios.post(`/api/trainers/reject/${id}`, { feedback });
-        Swal.fire("Rejected", "Trainer has been rejected", "info");
-        navigate("/dashboard/applied-trainers");
-      } catch (err) {
-        console.log(err);
-        Swal.fire("Error", "Something went wrong", "error");
-      }
+  const handleRejectSubmit = async (feedback) => {
+    try {
+      await axiosSecure.patch(`/trainers/${id}`, {
+        status: "rejected",
+        email: trainer.email,
+        feedback,
+      });
+      Swal.fire("Rejected", "Trainer has been rejected", "info");
+      setShowRejectModal(false);
+      navigate("/dashboard/applied-trainers");
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Failed to reject trainer", "error");
     }
   };
 
@@ -103,11 +96,20 @@ const AppliedTrainerDetails = () => {
         </button>
         <button
           className="bg-red-600 text-white px-4 py-2 rounded"
-          onClick={handleReject}
+          onClick={() => setShowRejectModal(true)}
         >
           Reject
         </button>
       </div>
+
+      {/* Modal for rejection */}
+      {showRejectModal && (
+        <RejectModal
+          trainer={trainer}
+          onClose={() => setShowRejectModal(false)}
+          onSubmit={handleRejectSubmit}
+        />
+      )}
     </div>
   );
 };
