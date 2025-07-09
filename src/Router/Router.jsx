@@ -8,6 +8,8 @@ import DashBoardHome from "../Pages/DashBoard/DashBoardHome/DashBoardHome";
 import PrivateRoute from "../Privates/PrivateRoute";
 import AddClassForm from "../Pages/DashBoard/AddClassForm/AddClassForm";
 import BeTrainer from "../Pages/BeTrainer/BeTrainer";
+import AppliedTrainers from "../Pages/DashBoard/AppliedTrainers/AppliedTrainers";
+import AppliedTrainerDetails from "../Pages/DashBoard/AppliedTrainers/AppliedTrainerDetails";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
       {
         path: "add-class",
         Component: AddClassForm,
+      },
+      {
+        path: "applied-trainers",
+        Component: AppliedTrainers,
+      },
+      {
+        path: "applied-trainers/:id",
+        Component: AppliedTrainerDetails,
       },
     ],
   },
