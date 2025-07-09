@@ -7,6 +7,7 @@ import DashBoardLayout from "../Layouts/DashBoardLayout";
 import DashBoardHome from "../Pages/DashBoard/DashBoardHome/DashBoardHome";
 import PrivateRoute from "../Privates/PrivateRoute";
 import AddClassForm from "../Pages/DashBoard/AddClassForm/AddClassForm";
+import BeTrainer from "../Pages/BeTrainer/BeTrainer";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,14 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "beTrainer",
+        element: (
+          <PrivateRoute>
+            <BeTrainer></BeTrainer>
+          </PrivateRoute>
+        ),
       },
     ],
   },
