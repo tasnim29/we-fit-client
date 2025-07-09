@@ -63,21 +63,23 @@ const Navbar = ({ isTransparent }) => {
           All Classes
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          onClick={closeDrawer}
-          className={({ isActive }) =>
-            `block px-4 py-2 transition duration-300 ${
-              isTransparent
-                ? "text-white hover:text-secondary"
-                : "text-black hover:text-secondary"
-            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
-          }
-        >
-          Dashboard
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard"
+            onClick={closeDrawer}
+            className={({ isActive }) =>
+              `block px-4 py-2 transition duration-300 ${
+                isTransparent
+                  ? "text-white hover:text-secondary"
+                  : "text-black hover:text-secondary"
+              } ${isActive ? "font-bold text-secondary text-xl" : ""}`
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           to="/about"

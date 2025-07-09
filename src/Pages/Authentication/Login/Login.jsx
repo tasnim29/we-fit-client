@@ -1,11 +1,14 @@
 import React, { use } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const { signInUser } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,6 +18,11 @@ const Login = () => {
     signInUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        toast.success("Successfully Signed in");
+        setTimeout(
+          () => navigate(`${location.state ? location.state : "/"}`),
+          1500
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +94,7 @@ const Login = () => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -28,8 +28,9 @@ const Featured = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
-        {features.map((feature) => (
+        {features.map((feature, index) => (
           <div
+            key={index}
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="relative p-8 rounded-2xl border overflow-hidden shadow-md backdrop-blur-md 
     border-blue-100 text-center bg-white/80 transition-all duration-300 group cursor-pointer"

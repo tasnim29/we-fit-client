@@ -1,10 +1,14 @@
 import React, { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import UseAxios from "../../../Hooks/UseAxios";
+import { useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const SocialLogin = () => {
   const { googleSignIn } = use(AuthContext);
   const axiosInstance = UseAxios();
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleGoogleLogin = async () => {
     try {
       const result = await googleSignIn();
@@ -18,6 +22,11 @@ const SocialLogin = () => {
 
       const res = await axiosInstance.post("/users", userInformation);
       console.log("social login", res.data);
+      toast.success("Successfully Signed in");
+      setTimeout(
+        () => navigate(`${location.state ? location.state : "/"}`),
+        1500
+      );
     } catch (error) {
       console.log(error);
     }

@@ -11,12 +11,14 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 import { AuthContext } from "./AuthContext";
+import UseAxios from "../../Hooks/UseAxios";
 
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosInstance = UseAxios();
 
   // createUser
   const createUser = (email, password) => {
@@ -50,6 +52,16 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       console.log("from authProvider", currentUser);
+
+      // post request for jwt
+      if (currentUser?.email) {
+        axiosInstance
+          .post("/jwt", { email: currentUser?.email })
+          .then((res) => localStorage.setItem("token", res.data.token));
+      } else {
+        localStorage.removeItem("token");
+      }
+
       setLoading(false);
     });
     return () => {

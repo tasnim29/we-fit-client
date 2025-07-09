@@ -1,14 +1,17 @@
 import React, { use, useState } from "react";
 import SocialLogin from "../Login/SocialLogin";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import UseAxios from "../../../Hooks/UseAxios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [profilePic, setProfilePic] = useState("");
   const { createUser, updateUser } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const axiosInstance = UseAxios();
   const {
     register,
@@ -37,6 +40,11 @@ const Register = () => {
       updateUser(profileInfo)
         .then(() => {
           console.log("profile updated successfully");
+          toast.success("Successfully registered");
+          setTimeout(
+            () => navigate(`${location.state ? location.state : "/"}`),
+            1500
+          );
         })
         .catch((error) => {
           console.log(error);
