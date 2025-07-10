@@ -16,6 +16,7 @@ import TrainerBookedPage from "../Pages/TrainerBookedPage/TrainerBookedPage";
 import AddSlotForm from "../Pages/DashBoard/AddSlotForm/AddSlotForm";
 import AddForum from "../Pages/DashBoard/AddForum/AddForum";
 import ActivityLog from "../Pages/DashBoard/ActivityLog/ActivityLog";
+import ProfilePage from "../Pages/DashBoard/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: "activity-log",
         Component: ActivityLog,
+      },
+      {
+        path: "profile",
+        Component: ProfilePage,
       },
     ],
   },
