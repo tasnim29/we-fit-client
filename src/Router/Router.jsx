@@ -17,6 +17,7 @@ import AddSlotForm from "../Pages/DashBoard/AddSlotForm/AddSlotForm";
 import AddForum from "../Pages/DashBoard/AddForum/AddForum";
 import ActivityLog from "../Pages/DashBoard/ActivityLog/ActivityLog";
 import ProfilePage from "../Pages/DashBoard/ProfilePage/ProfilePage";
+import AllTrainersInAdmin from "../Pages/DashBoard/AllTrainersInAdmin/AllTrainersInAdmin";
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
       {
         path: "applied-trainers/:id",
         Component: AppliedTrainerDetails,
+      },
+      {
+        path: "all-trainers",
+        Component: AllTrainersInAdmin,
       },
       // trainer routes
       {
