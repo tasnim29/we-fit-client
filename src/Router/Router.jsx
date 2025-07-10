@@ -18,6 +18,7 @@ import AddForum from "../Pages/DashBoard/AddForum/AddForum";
 import ActivityLog from "../Pages/DashBoard/ActivityLog/ActivityLog";
 import ProfilePage from "../Pages/DashBoard/ProfilePage/ProfilePage";
 import AllTrainersInAdmin from "../Pages/DashBoard/AllTrainersInAdmin/AllTrainersInAdmin";
+import NewsletterSubscribers from "../Pages/DashBoard/NewsletterSubscribers/NewsletterSubscribers";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: "all-trainers",
         Component: AllTrainersInAdmin,
+      },
+      {
+        path: "newsletter-subscribers",
+        Component: NewsletterSubscribers,
       },
       // trainer routes
       {
