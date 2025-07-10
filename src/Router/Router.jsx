@@ -19,6 +19,7 @@ import ActivityLog from "../Pages/DashBoard/ActivityLog/ActivityLog";
 import ProfilePage from "../Pages/DashBoard/ProfilePage/ProfilePage";
 import AllTrainersInAdmin from "../Pages/DashBoard/AllTrainersInAdmin/AllTrainersInAdmin";
 import NewsletterSubscribers from "../Pages/DashBoard/NewsletterSubscribers/NewsletterSubscribers";
+import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <TrainerBookedPage></TrainerBookedPage>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <PaymentPage />
           </PrivateRoute>
         ),
       },
