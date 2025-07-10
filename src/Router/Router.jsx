@@ -13,6 +13,7 @@ import AppliedTrainerDetails from "../Pages/DashBoard/AppliedTrainers/AppliedTra
 import AllTrainers from "../Pages/AllTrainers/AllTrainers";
 import TrainerDetails from "../Pages/AllTrainers/TrainerDetails";
 import TrainerBookedPage from "../Pages/TrainerBookedPage/TrainerBookedPage";
+import AddSlotForm from "../Pages/DashBoard/AddSlotForm/AddSlotForm";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,7 @@ export const router = createBrowserRouter([
         index: true,
         Component: DashBoardHome,
       },
+      // admin routes
       {
         path: "add-class",
         Component: AddClassForm,
@@ -82,6 +84,11 @@ export const router = createBrowserRouter([
       {
         path: "applied-trainers/:id",
         Component: AppliedTrainerDetails,
+      },
+      // trainer routes
+      {
+        path: "add-slot",
+        Component: AddSlotForm,
       },
     ],
   },

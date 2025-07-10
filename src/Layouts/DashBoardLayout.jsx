@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import {
+  MdAccessTime,
   MdAccountBalanceWallet,
+  MdEventNote,
+  MdForum,
   MdHome,
   MdHowToReg,
   MdLibraryAdd,
@@ -102,6 +105,43 @@ const DashBoardLayout = () => {
                   onClick={() => setIsSidebarOpen(false)}
                 >
                   <MdLibraryAdd /> Add New Class
+                </NavLink>
+              </li>
+            </div>
+          )}
+          {/* trainer links */}
+          {!isLoading && role === "trainer" && (
+            <div>
+              {/* Manage Slots */}
+              <li>
+                <NavLink
+                  to="/dashboard/manage-slots"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdEventNote /> Manage Slots
+                </NavLink>
+              </li>
+
+              {/* Add New Slot */}
+              <li>
+                <NavLink
+                  to="/dashboard/add-slot"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdAccessTime /> Add New Slot
+                </NavLink>
+              </li>
+
+              {/* Add New Forum (Shared with Admin) */}
+              <li>
+                <NavLink
+                  to="/dashboard/add-forum"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdForum /> Add New Forum
                 </NavLink>
               </li>
             </div>
