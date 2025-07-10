@@ -34,6 +34,7 @@ const AddSlotForm = () => {
   });
 
   const onSubmit = async (data) => {
+    const selectedClass = classes.find((cls) => cls._id === data.classId);
     const slotData = {
       trainerId: trainer._id,
       trainerName: trainer.fullName,
@@ -42,6 +43,7 @@ const AddSlotForm = () => {
       slotTime: data.slotTime,
       days: trainer.availableDays,
       classId: data.classId,
+      className: selectedClass.className,
     };
 
     try {

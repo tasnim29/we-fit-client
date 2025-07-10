@@ -55,6 +55,21 @@ const DashBoardLayout = () => {
               <MdHome /> Dashboard Home
             </NavLink>
           </li>
+          {/* Add New Forum (Shared with Admin and trainer) */}
+          {!isLoading && role !== "member" && (
+            <div>
+              <li>
+                <NavLink
+                  to="/dashboard/add-forum"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <MdForum /> Add New Forum
+                </NavLink>
+              </li>
+            </div>
+          )}
+
           {/* admin links */}
           {!isLoading && role === "admin" && (
             <div>
@@ -109,6 +124,7 @@ const DashBoardLayout = () => {
               </li>
             </div>
           )}
+
           {/* trainer links */}
           {!isLoading && role === "trainer" && (
             <div>
@@ -133,15 +149,39 @@ const DashBoardLayout = () => {
                   <MdAccessTime /> Add New Slot
                 </NavLink>
               </li>
+            </div>
+          )}
 
-              {/* Add New Forum (Shared with Admin) */}
+          {/* member links */}
+          {!isLoading && role === "member" && (
+            <div>
               <li>
                 <NavLink
-                  to="/dashboard/add-forum"
+                  to="/dashboard/activity-log"
                   className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
                   onClick={() => setIsSidebarOpen(false)}
                 >
-                  <MdForum /> Add New Forum
+                  <i className="fa-solid fa-clock-rotate-left"></i> Activity Log
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/profile"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <i className="fa-solid fa-user"></i> Profile
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/booked-trainer"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <i className="fa-solid fa-calendar-check"></i> Booked Trainer
                 </NavLink>
               </li>
             </div>

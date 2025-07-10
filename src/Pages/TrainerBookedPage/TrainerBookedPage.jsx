@@ -1,6 +1,5 @@
 import { useSearchParams, useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-
 import { useState } from "react";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
@@ -35,25 +34,28 @@ const packages = [
 ];
 
 const TrainerBookedPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // this is trainerId
   const [searchParams] = useSearchParams();
-  const selectedSlot = searchParams.get("day");
+  const selectedSlot = searchParams.get("slot"); // this is slotName
   const axiosSecure = UseAxiosSecure();
   const navigate = useNavigate();
-
   const [selectedPackage, setSelectedPackage] = useState("Basic");
 
+  // Fetch all slots of this trainer
   const {
-    data: trainer,
+    data: slots = [],
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["trainerDetails", id],
+    queryKey: ["trainerSlots", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/trainers/approved/${id}`);
+      const res = await axiosSecure.get(`/slots/trainer/${id}`);
       return res.data;
     },
   });
+
+  // Find the selected slot from the array
+  const selectedSlotInfo = slots.find((slot) => slot.slotName === selectedSlot);
 
   const handleJoinNow = () => {
     navigate(
@@ -62,8 +64,8 @@ const TrainerBookedPage = () => {
   };
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (isError || !trainer)
-    return <p className="text-red-500 text-center py-10">Trainer not found.</p>;
+  if (isError || !selectedSlotInfo)
+    return <p className="text-red-500 text-center py-10">Slot not found.</p>;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-32">
@@ -73,14 +75,14 @@ const TrainerBookedPage = () => {
 
       <div className="bg-white p-6 rounded-lg shadow space-y-4">
         <p>
-          <strong>Trainer Name:</strong> {trainer.fullName}
+          <strong>Trainer Name:</strong> {selectedSlotInfo.trainerName}
         </p>
         <p>
-          <strong>Selected Slot:</strong> {selectedSlot} -{" "}
-          {trainer.availableTime}
+          <strong>Selected Slot:</strong> {selectedSlotInfo.slotName} -{" "}
+          {selectedSlotInfo.slotTime}
         </p>
         <p>
-          <strong>Expertise / Class:</strong> {trainer.skills?.join(", ")}
+          <strong>Expertise / Class:</strong> {selectedSlotInfo.className}
         </p>
       </div>
 
@@ -93,7 +95,7 @@ const TrainerBookedPage = () => {
           <div
             key={pkg.name}
             onClick={() => setSelectedPackage(pkg.name)}
-            className={`p-6  rounded-xl cursor-pointer shadow hover:shadow-lg transition ${
+            className={`p-6 rounded-xl cursor-pointer shadow hover:shadow-lg transition ${
               selectedPackage === pkg.name
                 ? "border border-primary scale-105"
                 : "hover:border-gray-300"
