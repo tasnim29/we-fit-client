@@ -46,6 +46,7 @@ const CheckoutForm = ({ trainerId, slot, price, packageName }) => {
       await axiosSecure.post("/payments", {
         trainerId,
         slotId: slot._id,
+        classId: slot.classId,
         trainerName: slot.trainerName,
         slotName: slot.slotName,
         className: slot.className,

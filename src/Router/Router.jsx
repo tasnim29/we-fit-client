@@ -24,6 +24,7 @@ import AllClasses from "../Pages/AllClasses/AllClasses";
 import ForumPage from "../Pages/ForumPage/ForumPage";
 import Balance from "../Pages/DashBoard/Balance/Balance";
 import ManageSlots from "../Pages/DashBoard/ManageSlots/ManageSlots";
+import BookedTrainer from "../Pages/DashBoard/BookedTrainer/BookedTrainer";
 
 export const router = createBrowserRouter([
   {
@@ -145,6 +146,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         Component: ProfilePage,
+      },
+      {
+        path: "booked-trainer",
+        Component: BookedTrainer,
       },
     ],
   },

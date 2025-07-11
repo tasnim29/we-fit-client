@@ -42,9 +42,7 @@ const AllTrainers = () => {
               className="w-28 h-28 object-cover rounded-full mb-4"
             />
             <h3 className="text-xl font-semibold mb-1">{trainer.fullName}</h3>
-            <p className="text-sm text-gray-500 mb-2">
-              <strong>Experience:</strong> {trainer.experience || "2+ years"}
-            </p>
+
             <p className="text-sm mb-2">
               <strong>Available:</strong> {trainer.availableDays?.join(", ")}
             </p>
