@@ -53,6 +53,7 @@ const CheckoutForm = ({ trainerId, slot, price, packageName }) => {
         userEmail: user.email,
         userName: user.displayName,
         date: new Date(),
+        transactionId: paymentIntent.id,
       });
 
       // 4. Increase booking count of this class

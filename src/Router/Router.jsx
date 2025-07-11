@@ -20,6 +20,7 @@ import ProfilePage from "../Pages/DashBoard/ProfilePage/ProfilePage";
 import AllTrainersInAdmin from "../Pages/DashBoard/AllTrainersInAdmin/AllTrainersInAdmin";
 import NewsletterSubscribers from "../Pages/DashBoard/NewsletterSubscribers/NewsletterSubscribers";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
+import AllClasses from "../Pages/AllClasses/AllClasses";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "all-trainers",
         Component: AllTrainers,
+      },
+      {
+        path: "all-classes",
+        Component: AllClasses,
       },
       {
         path: "trainer-details/:id",
