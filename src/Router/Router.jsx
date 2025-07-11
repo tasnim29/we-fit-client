@@ -22,6 +22,7 @@ import NewsletterSubscribers from "../Pages/DashBoard/NewsletterSubscribers/News
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import ForumPage from "../Pages/ForumPage/ForumPage";
+import Balance from "../Pages/DashBoard/Balance/Balance";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +117,10 @@ export const router = createBrowserRouter([
       {
         path: "newsletter-subscribers",
         Component: NewsletterSubscribers,
+      },
+      {
+        path: "balance",
+        Component: Balance,
       },
       // trainer routes
       {
