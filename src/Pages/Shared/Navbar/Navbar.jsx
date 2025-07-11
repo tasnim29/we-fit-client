@@ -97,7 +97,7 @@ const Navbar = ({ isTransparent }) => {
       )}
       <li>
         <NavLink
-          to="/about"
+          to="/forums"
           onClick={closeDrawer}
           className={({ isActive }) =>
             `block px-4 py-2 transition duration-300 ${
@@ -107,7 +107,7 @@ const Navbar = ({ isTransparent }) => {
             } ${isActive ? "font-bold text-secondary text-xl" : ""}`
           }
         >
-          Community
+          Forums
         </NavLink>
       </li>
     </>

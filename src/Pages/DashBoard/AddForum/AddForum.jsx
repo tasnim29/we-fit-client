@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { use } from "react";
@@ -20,7 +19,6 @@ const AddForum = () => {
       authorName: user.displayName,
       authorEmail: user.email,
       role: role, // 'admin' or 'trainer'
-      createdAt: new Date(),
     };
 
     try {
@@ -28,7 +26,7 @@ const AddForum = () => {
       Swal.fire("Success", "Forum post created!", "success");
       reset();
     } catch (err) {
-      console.log(err);
+      console.error(err);
       Swal.fire("Error", "Could not create forum post.", "error");
     }
   };

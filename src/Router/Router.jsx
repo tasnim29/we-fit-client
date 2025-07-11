@@ -21,6 +21,7 @@ import AllTrainersInAdmin from "../Pages/DashBoard/AllTrainersInAdmin/AllTrainer
 import NewsletterSubscribers from "../Pages/DashBoard/NewsletterSubscribers/NewsletterSubscribers";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import AllClasses from "../Pages/AllClasses/AllClasses";
+import ForumPage from "../Pages/ForumPage/ForumPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "all-classes",
         Component: AllClasses,
+      },
+      {
+        path: "forums",
+        Component: ForumPage,
       },
       {
         path: "trainer-details/:id",
