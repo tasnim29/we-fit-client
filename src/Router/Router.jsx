@@ -23,6 +23,7 @@ import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import ForumPage from "../Pages/ForumPage/ForumPage";
 import Balance from "../Pages/DashBoard/Balance/Balance";
+import ManageSlots from "../Pages/DashBoard/ManageSlots/ManageSlots";
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,10 @@ export const router = createBrowserRouter([
       {
         path: "add-slot",
         Component: AddSlotForm,
+      },
+      {
+        path: "manage-slots",
+        Component: ManageSlots,
       },
       // both admin and trainer
       {

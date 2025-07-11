@@ -45,6 +45,7 @@ const CheckoutForm = ({ trainerId, slot, price, packageName }) => {
       // 3. Save payment info to DB
       await axiosSecure.post("/payments", {
         trainerId,
+        slotId: slot._id,
         trainerName: slot.trainerName,
         slotName: slot.slotName,
         className: slot.className,
