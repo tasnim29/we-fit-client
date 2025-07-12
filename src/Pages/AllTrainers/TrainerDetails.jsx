@@ -26,60 +26,65 @@ const TrainerDetails = () => {
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-32">
+    <div className="max-w-7xl mx-auto px-6 py-32 space-y-16">
       {/* Be A Trainer CTA */}
-      <div className="bg-primary text-white p-6 rounded-md text-center mb-12">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-6 rounded-md text-center shadow-lg">
         <h2 className="text-2xl font-bold mb-2">Passionate about fitness?</h2>
         <p className="mb-4">Join our growing team of professional trainers!</p>
         <Link
           to="/beTrainer"
-          className="btn bg-white text-primary font-semibold hover:bg-gray-200"
+          className="px-5 py-2 rounded-lg bg-white text-primary font-semibold hover:bg-gray-200 transition"
         >
           Become a Trainer
         </Link>
       </div>
 
-      {/* Trainer Info Section */}
-      <div className="grid md:grid-cols-2 gap-8 mb-12 bg-white p-6 rounded shadow">
+      {/* Trainer Info */}
+      <div className="grid md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-xl shadow-md">
         <div>
           <img
             src={trainer.image}
             alt={trainer.fullName}
-            className="rounded-lg w-full h-[300px] object-cover"
+            className="rounded-xl w-full h-[320px] object-cover shadow"
           />
         </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-2">{trainer.fullName}</h2>
-          <p className="mb-2">
+        <div className="space-y-3">
+          <h2 className="text-3xl font-bold text-gray-800">
+            {trainer.fullName}
+          </h2>
+          <p className="text-gray-700 text-sm italic">{trainer.bio}</p>
+          <p>
             <strong>Age:</strong> {trainer.age}
           </p>
-          <p className="mb-2">
-            <strong>Skills:</strong> {trainer.skills.join(", ")}
+          <p>
+            <strong>Skills:</strong>{" "}
+            <span className="text-primary">{trainer.skills.join(", ")}</span>
           </p>
-          <p className="mb-2">
+          <p>
             <strong>Available Days:</strong> {trainer.availableDays.join(", ")}
           </p>
-          <p className="mb-2">
+          <p>
             <strong>Available Time:</strong> {trainer.availableTime}
           </p>
         </div>
       </div>
 
-      {/* Slots Section */}
-      <div className="bg-white p-6 rounded shadow">
-        <h3 className="text-2xl font-semibold mb-4 text-center text-primary">
+      {/* Slot Section */}
+      <div className="bg-white p-8 rounded-xl shadow-md">
+        <h3 className="text-2xl font-semibold mb-6 text-center text-primary">
           📅 Available Slots
         </h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {slots.length === 0 ? (
-            <p className="text-center col-span-full">
+            <p className="text-center col-span-full text-gray-500">
               No slots added by this trainer yet.
             </p>
           ) : (
             slots.map((slot) => (
               <div
                 key={slot._id}
-                className="border rounded p-4 shadow hover:shadow-lg transition"
+                className="border rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300"
               >
                 <p>
                   <strong>Slot Name:</strong> {slot.slotName}
@@ -96,7 +101,7 @@ const TrainerDetails = () => {
                 <Link
                   to={`/trainer-booking/${trainer._id}?slot=${slot.slotName}`}
                 >
-                  <button className="px-4 py-2 bg-primary text-white cursor-pointer mt-3 w-full">
+                  <button className="mt-4 w-full py-2 bg-primary text-white rounded hover:bg-primary/90 transition">
                     Book Slot
                   </button>
                 </Link>

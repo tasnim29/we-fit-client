@@ -1,10 +1,10 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
-
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import axios from "axios";
 
 const dayOptions = [
   { value: "Sunday", label: "Sunday" },
@@ -21,6 +21,9 @@ const skillsList = ["Yoga", "HIIT", "Strength Training", "Pilates", "Cardio"];
 const BeTrainer = () => {
   const axiosSecure = UseAxiosSecure();
   const { user } = use(AuthContext);
+  const [photoURL, setPhotoURL] = useState("");
+  const [uploading, setUploading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -29,12 +32,39 @@ const BeTrainer = () => {
     formState: { errors },
   } = useForm();
 
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    setUploading(true);
+
+    try {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMAGE_UPLOAD_KEY
+        }`,
+        formData
+      );
+      setPhotoURL(res.data.data.url);
+      setUploading(false);
+    } catch (err) {
+      console.error("Image upload failed", err);
+      setUploading(false);
+    }
+  };
+
   const onSubmit = async (data) => {
     const trainerData = {
-      ...data,
+      fullName: data.fullName,
       email: user?.email,
+      age: data.age,
+      image: photoURL,
+      skills: data.skills,
+      availableDays: data.availableDays.map((d) => d.value),
+      availableTime: data.availableTime,
+      experience: data.experience,
+      bio: data.bio,
       status: "pending",
-      availableDays: data.availableDays.map((day) => day.value), // Extract values from select
     };
 
     try {
@@ -42,6 +72,7 @@ const BeTrainer = () => {
       if (res.data.insertedId || res.data.success) {
         Swal.fire("Success", "Trainer application submitted!", "success");
         reset();
+        setPhotoURL("");
       } else {
         Swal.fire("Error", "Failed to apply", "error");
       }
@@ -52,7 +83,7 @@ const BeTrainer = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-32 bg-white rounded shadow">
+    <div className="max-w-3xl mx-auto py-32 bg-white rounded shadow px-6">
       <h2 className="text-2xl font-bold text-center mb-6">
         Apply to Be a Trainer
       </h2>
@@ -71,14 +102,14 @@ const BeTrainer = () => {
           )}
         </div>
 
-        {/* Email (read-only) */}
+        {/* Email (readonly) */}
         <div>
           <label className="block mb-1 font-medium">Email</label>
           <input
             type="email"
             value={user?.email || ""}
             readOnly
-            className="w-full p-2 border rounded bg-gray-100 cursor-not-allowed"
+            className="w-full p-2 border rounded bg-gray-100"
           />
         </div>
 
@@ -96,22 +127,48 @@ const BeTrainer = () => {
           )}
         </div>
 
-        {/* Profile Image URL */}
+        {/* Upload Professional Photo */}
         <div>
-          <label className="block mb-1 font-medium">Profile Image URL</label>
+          <label className="block mb-1 font-medium">Professional Photo</label>
           <input
-            type="text"
-            defaultValue={user?.photoURL || ""}
-            {...register("image", { required: "Profile image is required" })}
+            type="file"
+            onChange={handleImageUpload}
             className="w-full p-2 border rounded"
-            placeholder="https://example.com/profile.jpg"
           />
-          {errors.image && (
-            <p className="text-red-500 text-sm">{errors.image.message}</p>
+          {uploading && <p className="text-sm text-blue-500">Uploading...</p>}
+        </div>
+
+        {/* Experience */}
+        <div>
+          <label className="block mb-1 font-medium">Years of Experience</label>
+          <input
+            type="number"
+            {...register("experience", {
+              required: "Experience is required",
+              min: 0,
+            })}
+            className="w-full p-2 border rounded"
+            placeholder="e.g. 3"
+          />
+          {errors.experience && (
+            <p className="text-red-500 text-sm">{errors.experience.message}</p>
           )}
         </div>
 
-        {/* Skills (checkbox) */}
+        {/* Bio */}
+        <div>
+          <label className="block mb-1 font-medium">Brief Biography</label>
+          <textarea
+            {...register("bio", { required: "Bio is required" })}
+            className="w-full p-2 border rounded"
+            placeholder="Tell us a little about yourself..."
+          />
+          {errors.bio && (
+            <p className="text-red-500 text-sm">{errors.bio.message}</p>
+          )}
+        </div>
+
+        {/* Skills */}
         <div>
           <label className="block mb-1 font-medium">Skills</label>
           <div className="flex flex-wrap gap-4">
@@ -121,7 +178,7 @@ const BeTrainer = () => {
                   type="checkbox"
                   value={skill}
                   {...register("skills")}
-                  className="accent-[var(--color-accent)]"
+                  className="accent-primary"
                 />
                 <span>{skill}</span>
               </label>
@@ -129,21 +186,18 @@ const BeTrainer = () => {
           </div>
         </div>
 
-        {/* Available Days (React Select) */}
+        {/* Available Days */}
         <div>
-          <label className="block mb-1 font-medium">
-            Available Days (Pick multiple)
-          </label>
+          <label className="block mb-1 font-medium">Available Days</label>
           <Controller
             name="availableDays"
             control={control}
-            rules={{ required: "Please select at least one day" }}
+            rules={{ required: "Select at least one day" }}
             render={({ field }) => (
               <Select
                 {...field}
                 options={dayOptions}
                 isMulti
-                isSearchable={false}
                 closeMenuOnSelect={false}
                 className="text-black"
               />
@@ -172,11 +226,12 @@ const BeTrainer = () => {
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="text-center">
           <button
             type="submit"
-            className="bg-[var(--color-accent)] hover:bg-orange-600 px-6 py-2 text-white font-semibold rounded"
+            disabled={!photoURL || uploading}
+            className="bg-primary text-white px-6 py-2 rounded hover:bg-opacity-80 transition"
           >
             Apply
           </button>

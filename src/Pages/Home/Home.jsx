@@ -6,6 +6,7 @@ import NewsletterSubscription from "./NewsletterSubscription";
 import FeaturedClasses from "./FeaturedClasses";
 import Testimonials from "./Testimonials/Testimonials";
 import LatestForums from "./LatestForums";
+import TeamSection from "./TeamSection/TeamSection";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <FeaturedClasses></FeaturedClasses>
       <Testimonials></Testimonials>
       <LatestForums></LatestForums>
+      <TeamSection></TeamSection>
       <NewsletterSubscription></NewsletterSubscription>
     </div>
   );
