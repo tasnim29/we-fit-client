@@ -15,6 +15,7 @@ const AddForum = () => {
   const onSubmit = async (data) => {
     const forumPost = {
       title: data.title,
+      image: data.image,
       description: data.description,
       authorName: user.displayName,
       authorEmail: user.email,
@@ -53,6 +54,16 @@ const AddForum = () => {
           </div>
 
           <div>
+            <label className="block font-medium mb-1">Image URL</label>
+            <input
+              type="url"
+              placeholder="https://example.com/image.jpg"
+              {...register("image", { required: true })}
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div>
             <label className="block font-medium mb-1">Description</label>
             <textarea
               placeholder="Write your discussion or question here..."
@@ -62,7 +73,7 @@ const AddForum = () => {
           </div>
 
           <button
-            className="btn btn-primary w-full rounded-full shadow-md hover:shadow-lg transition"
+            className="bg-primary text-light py-2 w-full rounded-full shadow-md hover:shadow-lg transition"
             type="submit"
           >
             Post to Forum

@@ -25,6 +25,7 @@ import ForumPage from "../Pages/ForumPage/ForumPage";
 import Balance from "../Pages/DashBoard/Balance/Balance";
 import ManageSlots from "../Pages/DashBoard/ManageSlots/ManageSlots";
 import BookedTrainer from "../Pages/DashBoard/BookedTrainer/BookedTrainer";
+import ForumDetails from "../Pages/ForumPage/ForumDetails";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: "trainer-details/:id",
         Component: TrainerDetails,
+      },
+      {
+        path: "forums/:id",
+        Component: ForumDetails,
       },
 
       {

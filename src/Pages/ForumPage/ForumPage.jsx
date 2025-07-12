@@ -4,6 +4,7 @@ import { ThumbsUp, ThumbsDown } from "lucide-react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import UseAxios from "../../Hooks/UseAxios";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import { Link } from "react-router";
 
 const ForumPage = () => {
   const [page, setPage] = useState(1);
@@ -44,8 +45,33 @@ const ForumPage = () => {
 
       {data?.forums?.map((forum) => (
         <div key={forum._id} className="bg-white rounded-lg p-6 shadow-md mb-6">
+          {/* Image */}
+          {forum.image && (
+            <img
+              src={forum.image}
+              alt={forum.title}
+              className="w-full h-52 object-cover rounded-md mb-4"
+            />
+          )}
+
           <h2 className="text-xl font-semibold">{forum.title}</h2>
-          <p className="text-gray-700 mt-2">{forum.description}</p>
+
+          {/* Truncated Description */}
+          <p className="text-gray-700 mt-2">
+            {forum.description.length > 150
+              ? `${forum.description.slice(0, 150)}...`
+              : forum.description}
+          </p>
+
+          {/* Read More Button */}
+          <div className="mt-2">
+            <Link
+              to={`/forums/${forum._id}`}
+              className="text-primary font-medium hover:underline"
+            >
+              Read More
+            </Link>
+          </div>
 
           <div className="flex items-center gap-4 mt-4 text-sm text-gray-600">
             <span>

@@ -25,6 +25,7 @@ const ReviewModal = ({ isOpen, onClose, trainerId }) => {
         trainerId,
         userEmail: user.email,
         userName: user.displayName,
+        userImage: user.photoURL,
         rating,
         feedback,
         date: new Date(),
