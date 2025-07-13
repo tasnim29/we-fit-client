@@ -48,48 +48,59 @@ const ReviewModal = ({ isOpen, onClose, trainerId }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md"
+        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xl flex flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-xl font-semibold mb-4">Submit Your Review</h3>
+        <h2 className="text-3xl font-semibold text-center mb-4">
+          Your opinion matters!
+        </h2>
 
-        <div className="flex justify-center mb-4">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Star
-              key={star}
-              filled={star <= rating}
-              onClick={() => setRating(star)}
-            />
-          ))}
+        {/* Star Rating */}
+        <div className="flex flex-col items-center py-4 space-y-3 w-full">
+          <span className="text-center text-gray-700 text-lg">
+            How was your experience?
+          </span>
+          <div className="flex space-x-3">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                filled={star <= rating}
+                onClick={() => setRating(star)}
+              />
+            ))}
+          </div>
         </div>
 
-        <textarea
-          className="w-full border rounded px-3 py-2 mb-4"
-          placeholder="Write your feedback..."
-          rows={4}
-          value={feedback}
-          onChange={(e) => setFeedback(e.target.value)}
-        />
+        {/* Feedback Box */}
+        <div className="w-full">
+          <textarea
+            className="w-full p-4 rounded-md border border-gray-300 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+            rows="4"
+            placeholder="Write your feedback..."
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+          />
+        </div>
 
-        <div className="flex justify-end space-x-2">
-          <button
-            className="btn btn-outline btn-sm"
-            onClick={onClose}
-            disabled={submitting}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={handleSubmit}
-            disabled={submitting}
-          >
-            {submitting ? "Submitting..." : "Submit"}
-          </button>
+        {/* Submit Button */}
+        <button
+          className="mt-6 cursor-pointer w-full py-3 font-semibold text-white bg-accent hover:bg-blue-700 rounded-md transition "
+          onClick={handleSubmit}
+          disabled={submitting}
+        >
+          {submitting ? "Submitting..." : "Leave Feedback"}
+        </button>
+
+        {/* Optional: Cancel/Skip */}
+        <div
+          className="mt-4 text-sm text-gray-500 hover:underline cursor-pointer"
+          onClick={onClose}
+        >
+          Maybe later
         </div>
       </div>
     </div>

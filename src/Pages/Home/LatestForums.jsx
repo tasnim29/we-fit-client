@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../Hooks/UseAxios";
+import SkeletonLoader from "../Shared/SkeletonLoader/SkeletonLoader";
 
 const LatestForums = () => {
   const axiosInstance = UseAxios();
@@ -13,7 +14,20 @@ const LatestForums = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center py-10">Loading forums...</p>;
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-base-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-10">
+            Latest Community Posts
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <SkeletonLoader type="forum" count={6} />
+          </div>
+        </div>
+      </section>
+    );
+  }
   if (!forums.length)
     return <p className="text-center py-10">No community posts found.</p>;
 
@@ -24,7 +38,7 @@ const LatestForums = () => {
           Latest Community Posts
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {forums.map((forum) => (
             <div
               key={forum._id}

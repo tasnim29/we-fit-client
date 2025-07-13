@@ -10,10 +10,9 @@ import "slick-carousel/slick/slick-theme.css";
 const NextArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer
-               w-12 h-12 md:w-14 md:h-14 flex items-center justify-center
-               rounded-full bg-black/70 text-white text-2xl md:text-3xl
-               hover:bg-[#a80000] transition duration-300 ease-in-out shadow-lg"
+    className="absolute right-6 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer
+               w-12 h-12 flex items-center justify-center rounded-full bg-black/60
+               text-white text-3xl hover:bg-secondary transition shadow-lg"
   >
     ❯
   </div>
@@ -22,10 +21,9 @@ const NextArrow = ({ onClick }) => (
 const PrevArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer
-               w-12 h-12 md:w-14 md:h-14 flex items-center justify-center
-               rounded-full bg-black/70 text-white text-2xl md:text-3xl
-               hover:bg-[#a80000] transition duration-300 ease-in-out shadow-lg"
+    className="absolute left-6 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer
+               w-12 h-12 flex items-center justify-center rounded-full bg-black/60
+               text-white text-3xl hover:bg-secondary transition shadow-lg"
   >
     ❮
   </div>
@@ -38,7 +36,7 @@ const Banner = () => {
     speed: 1500,
     fade: true,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
@@ -67,31 +65,28 @@ const Banner = () => {
   ];
 
   return (
-    <div>
+    <div className=" pt-5">
       <Slider {...settings}>
         {slides.map((slide, index) => (
-          <div key={index} className="relative h-[700px]">
+          <div key={index} className="relative h-[600px] md:h-[700px] w-full">
             <img
               src={slide.image}
-              alt={`Banner ${index + 1}`}
-              className="w-full h-full"
+              alt={`Slide ${index + 1}`}
+              className="w-full h-full object-cover brightness-[0.6] transition-transform duration-[4000ms] ease-linear hover:scale-105"
             />
 
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/70 z-10"></div>
-
-            {/* Content */}
+            {/* Text overlay */}
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white px-4">
-              <h2 className="text-3xl md:text-6xl font-bold mb-4 tracking-wide drop-shadow-lg">
+              <h2 className="text-3xl md:text-6xl font-extrabold mb-4 leading-tight tracking-wide drop-shadow-lg">
                 {slide.heading}
               </h2>
-              <p className="text-light md:text-xl font-medium mb-6 max-w-2xl drop-shadow">
+              <p className="text-base md:text-xl font-light mb-8 max-w-2xl drop-shadow-sm">
                 {slide.subheading}
               </p>
               <button
-                className="bg-secondary hover:bg-[#f2f2f2] hover:text-black transition-colors duration-300
-             px-6 py-2 rounded-full text-white font-semibold text-sm md:text-base shadow-lg
-             hover:scale-105 transform cursor-pointer ease-in-out"
+                className="bg-accent hover:bg-white hover:text-primary transition-all duration-300
+                  px-7 py-3 rounded-lg text-white font-medium text-sm md:text-base shadow-xl
+                  hover:scale-105 transform ease-in-out"
               >
                 {slide.buttonText}
               </button>

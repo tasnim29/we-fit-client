@@ -22,39 +22,39 @@ const Register = () => {
 
   // form submit
   const onsubmit = async (data) => {
-    console.log(data);
     try {
+      // 1. Create Firebase user
       const result = await createUser(data?.email, data?.password);
-      // post profile in database
-      const userInformation = {
-        email: result?.user?.email,
-        role: "member",
-      };
-      const res = await axiosInstance.post("/users", userInformation);
-      console.log("userInfo saved to mongoDB", res.data);
-      // update user profile in firebase
+
+      // 2. Update Firebase profile with display name and image
       const profileInfo = {
         displayName: data.name,
         photoURL: profilePic,
       };
-      updateUser(profileInfo)
-        .then(() => {
-          console.log("profile updated successfully");
-          toast.success("Successfully registered");
-          setTimeout(
-            () => navigate(`${location.state ? location.state : "/"}`),
-            1500
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      console.log(result.user);
+
+      await updateUser(profileInfo); // ✅ wait until updated
+
+      // 3. Now use updated info to save to DB
+      const userInformation = {
+        name: data.name,
+        email: result?.user?.email,
+        userImage: profilePic,
+        role: "member",
+      };
+
+      const res = await axiosInstance.post("/users", userInformation);
+      console.log("User saved to MongoDB:", res.data);
+
+      toast.success("Successfully registered");
       reset();
+
+      setTimeout(() => navigate(location.state || "/"), 1500);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Registration failed");
     }
   };
+
   //get image
   const handleImage = async (e) => {
     const photo = e.target.files[0];
@@ -147,12 +147,17 @@ const Register = () => {
               </div>
               <input
                 type="password"
-                {...register("password", { required: true, minLength: 6 })}
+                {...register("password", { required: true, minLength: 8 })}
                 placeholder="*****"
                 className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 "
               />
               {errors.password?.type === "required" && (
-                <p className="text-red-500">Name is required</p>
+                <p className="text-red-500">Password is required</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-500">
+                  Password must be at least 8 characters
+                </p>
               )}
             </div>
           </div>

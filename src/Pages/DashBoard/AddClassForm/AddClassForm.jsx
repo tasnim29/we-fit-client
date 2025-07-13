@@ -28,72 +28,83 @@ const AddClassForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4 text-center">Add New Class</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
+      <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">
+        Add New Class
+      </h2>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Class Name */}
         <div>
-          <label className="block mb-1 font-medium">Class Name</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Class Name
+          </label>
           <input
             type="text"
             {...register("className", { required: true })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
             placeholder="e.g. Full Body Strength"
           />
           {errors.className && (
-            <p className="text-red-500 text-sm">classname is required</p>
+            <p className="text-red-500 text-sm mt-1">Class name is required</p>
           )}
         </div>
 
         {/* Image URL */}
         <div>
-          <label className="block mb-1 font-medium">Image URL</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Image URL
+          </label>
           <input
             type="text"
             {...register("image", { required: true })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
             placeholder="https://example.com/image.jpg"
           />
           {errors.image && (
-            <p className="text-red-500 text-sm">image URL is required</p>
+            <p className="text-red-500 text-sm mt-1">Image URL is required</p>
           )}
         </div>
 
         {/* Details */}
         <div>
-          <label className="block mb-1 font-medium">Details</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Details
+          </label>
           <textarea
             {...register("details", { required: true })}
-            className="w-full p-2 border rounded h-24"
+            className="w-full p-3 border border-gray-300 rounded-lg h-28 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
             placeholder="Write a description of the class"
           />
           {errors.details && (
-            <p className="text-red-500 text-sm">details is required</p>
+            <p className="text-red-500 text-sm mt-1">Details are required</p>
           )}
         </div>
 
         {/* Duration */}
         <div>
-          <label className="block mb-1 font-medium">
-            Duration (e.g. 45 mins)
+          <label className="block mb-1 font-semibold text-gray-700">
+            Duration
           </label>
           <input
             type="text"
             {...register("duration", { required: true })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
             placeholder="e.g. 45 mins"
           />
           {errors.duration && (
-            <p className="text-red-500 text-sm">duration is required</p>
+            <p className="text-red-500 text-sm mt-1">Duration is required</p>
           )}
         </div>
 
         {/* Category */}
         <div>
-          <label className="block mb-1 font-medium">Category</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Category
+          </label>
           <select
             {...register("category", { required: true })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
           >
             <option value="">Select category</option>
             <option value="HIIT">HIIT</option>
@@ -101,18 +112,22 @@ const AddClassForm = () => {
             <option value="Strength">Strength</option>
             <option value="Cardio">Cardio</option>
             <option value="Pilates">Pilates</option>
+            <option value="Zumba">Zumba</option>
+            <option value="functional Training">Functional Training</option>
           </select>
           {errors.category && (
-            <p className="text-red-500 text-sm">category is required</p>
+            <p className="text-red-500 text-sm mt-1">Category is required</p>
           )}
         </div>
 
         {/* Level */}
         <div>
-          <label className="block mb-1 font-medium">Level</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Level
+          </label>
           <select
             {...register("level", { required: true })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
           >
             <option value="">Select level</option>
             <option value="Beginner">Beginner</option>
@@ -120,29 +135,31 @@ const AddClassForm = () => {
             <option value="Advanced">Advanced</option>
           </select>
           {errors.level && (
-            <p className="text-red-500 text-sm">level is required</p>
+            <p className="text-red-500 text-sm mt-1">Level is required</p>
           )}
         </div>
 
         {/* Equipment */}
         <div>
-          <label className="block mb-1 font-medium">Equipment Needed</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Equipment Needed
+          </label>
           <input
             type="text"
             {...register("equipment")}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
             placeholder="e.g. Dumbbells, Yoga Mat"
           />
           {errors.equipment && (
-            <p className="text-red-500 text-sm">equipment is required</p>
+            <p className="text-red-500 text-sm mt-1">Equipment is required</p>
           )}
         </div>
 
         {/* Submit Button */}
-        <div className="text-center">
+        <div className="text-center pt-4">
           <button
             type="submit"
-            className="bg-[var(--color-accent)] hover:bg-orange-600 text-white px-6 py-2 rounded font-semibold"
+            className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg shadow"
           >
             Add Class
           </button>

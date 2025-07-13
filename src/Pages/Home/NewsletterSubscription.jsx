@@ -36,7 +36,7 @@ const NewsletterSubscription = () => {
         setFormData({ name: "", email: "" });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire(
         "Error",
         "Failed to subscribe. Please try again later.",
@@ -48,11 +48,11 @@ const NewsletterSubscription = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-100 to-indigo-100 py-12 px-6 rounded-xl shadow-lg max-w-3xl mx-auto mt-12">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">
+    <div className="bg-primary/10 py-12 px-6 rounded-xl shadow-lg max-w-3xl mx-auto mt-12">
+      <h2 className="text-3xl font-bold text-center text-primary mb-4">
         Subscribe to Our Newsletter
       </h2>
-      <p className="text-center text-gray-600 mb-8">
+      <p className="text-center text-primary/70 mb-8">
         Get the latest updates, tips, and insights delivered straight to your
         inbox.
       </p>
@@ -67,7 +67,7 @@ const NewsletterSubscription = () => {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your Name"
-          className="input input-bordered w-full md:w-1/3 rounded px-4 py-2 border border-gray-300 focus:outline-none"
+          className="w-full md:w-1/3 rounded border border-primary/50 bg-white px-4 py-2 text-primary placeholder-primary/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
         />
         <input
           type="email"
@@ -75,12 +75,12 @@ const NewsletterSubscription = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Your Email"
-          className="input input-bordered w-full md:w-1/3 rounded px-4 py-2 border border-gray-300 focus:outline-none"
+          className="w-full md:w-1/3 rounded border border-primary/50 bg-white px-4 py-2 text-primary placeholder-primary/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
         />
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow"
+          className="w-full cursor-pointer md:w-auto bg-primary text-white font-semibold px-6 py-2 rounded shadow hover:bg-accent transition disabled:opacity-60"
         >
           {loading ? "Subscribing..." : "Subscribe Now"}
         </button>

@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
 
 const AllTrainersInAdmin = () => {
   const axiosSecure = UseAxiosSecure();
@@ -59,55 +60,71 @@ const AllTrainersInAdmin = () => {
     });
   };
 
-  if (isLoading) return <p>Loading trainers...</p>;
+  if (isLoading) return <GlobalLoader></GlobalLoader>;
+
   if (isError) return <p className="text-red-500">Failed to load trainers.</p>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded shadow">
-      <h2 className="text-3xl font-bold mb-6">All Trainers</h2>
+    <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-3xl font-extrabold mb-8 text-gray-800">
+        All Trainers
+      </h2>
 
       {trainers.length === 0 ? (
-        <p>No trainers found.</p>
+        <p className="text-center text-gray-500 text-lg">No trainers found.</p>
       ) : (
-        <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Email</th>
-              <th className="border border-gray-300 px-4 py-2">Role</th>
-              <th className="border border-gray-300 px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trainers.map((trainer) => (
-              <tr key={trainer._id} className="text-center">
-                <td className="border border-gray-300 px-4 py-2">
-                  {trainer.fullName || trainer.name || "N/A"}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {trainer.email}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 capitalize">
-                  {trainer.role}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <button
-                    onClick={() =>
-                      handleRevoke(
-                        trainer._id,
-                        trainer.fullName || trainer.name
-                      )
-                    }
-                    className="text-red-600 hover:text-red-800 font-semibold"
-                    disabled={revokeMutation.isPending}
-                  >
-                    Revoke Role
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-200 rounded-md">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="border border-gray-200 px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                  Name
+                </th>
+                <th className="border border-gray-200 px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                  Email
+                </th>
+                <th className="border border-gray-200 px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                  Role
+                </th>
+                <th className="border border-gray-200 px-6 py-3 text-center text-sm font-semibold text-gray-700">
+                  Action
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {trainers.map((trainer) => (
+                <tr
+                  key={trainer._id}
+                  className="text-gray-800 hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <td className="border border-gray-200 px-6 py-4 whitespace-nowrap">
+                    {trainer.fullName || trainer.name || "N/A"}
+                  </td>
+                  <td className="border border-gray-200 px-6 py-4 whitespace-nowrap break-all">
+                    {trainer.email}
+                  </td>
+                  <td className="border border-gray-200 px-6 py-4 capitalize whitespace-nowrap">
+                    {trainer.role}
+                  </td>
+                  <td className="border border-gray-200 px-6 py-4 text-center">
+                    <button
+                      onClick={() =>
+                        handleRevoke(
+                          trainer._id,
+                          trainer.fullName || trainer.name
+                        )
+                      }
+                      className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-4 py-2 rounded transition cursor-pointer"
+                      disabled={revokeMutation.isPending}
+                    >
+                      Revoke Role
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

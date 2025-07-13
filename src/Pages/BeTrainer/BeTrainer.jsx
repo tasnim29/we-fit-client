@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import axios from "axios";
+import UseUserRole from "../../Hooks/UseUserRole";
 
 const dayOptions = [
   { value: "Sunday", label: "Sunday" },
@@ -16,10 +17,19 @@ const dayOptions = [
   { value: "Saturday", label: "Saturday" },
 ];
 
-const skillsList = ["Yoga", "HIIT", "Strength Training", "Pilates", "Cardio"];
+const skillsList = [
+  "Yoga",
+  "HIIT",
+  "Strength Training",
+  "Pilates",
+  "Cardio",
+  "Zumba",
+  "Functional Training",
+];
 
 const BeTrainer = () => {
   const axiosSecure = UseAxiosSecure();
+  const { role } = UseUserRole();
   const { user } = use(AuthContext);
   const [photoURL, setPhotoURL] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -82,103 +92,147 @@ const BeTrainer = () => {
     }
   };
 
+  if (role === "trainer") {
+    return (
+      <div className="max-w-xl mx-auto my-32 text-center bg-white rounded-lg shadow-lg p-10">
+        <h2 className="text-3xl font-extrabold mb-4 text-primary">
+          You are already a trainer
+        </h2>
+        <p className="mb-6 text-gray-700">
+          Thanks for being part of our trainer community! You don’t need to
+          apply again.
+        </p>
+        <a
+          href="/trainer-dashboard"
+          className="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-primary-dark transition"
+        >
+          Go to Trainer Dashboard
+        </a>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-3xl mx-auto py-32 bg-white rounded shadow px-6">
-      <h2 className="text-2xl font-bold text-center mb-6">
+    <div className="max-w-3xl mx-auto py-32 bg-white rounded-2xl shadow-lg px-8">
+      <h2 className="text-3xl font-extrabold text-center mb-10 text-primary">
         Apply to Be a Trainer
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Full Name */}
         <div>
-          <label className="block mb-1 font-medium">Full Name</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Full Name
+          </label>
           <input
             type="text"
             {...register("fullName", { required: "Full Name is required" })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="John Doe"
           />
           {errors.fullName && (
-            <p className="text-red-500 text-sm">{errors.fullName.message}</p>
+            <p className="text-red-600 mt-1 text-sm">
+              {errors.fullName.message}
+            </p>
           )}
         </div>
 
         {/* Email (readonly) */}
         <div>
-          <label className="block mb-1 font-medium">Email</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Email
+          </label>
           <input
             type="email"
             value={user?.email || ""}
             readOnly
-            className="w-full p-2 border rounded bg-gray-100"
+            className="w-full p-3 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
           />
         </div>
 
         {/* Age */}
         <div>
-          <label className="block mb-1 font-medium">Age</label>
+          <label className="block mb-2 font-semibold text-secondary">Age</label>
           <input
             type="number"
             {...register("age", { required: "Age is required", min: 18 })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="e.g. 25"
           />
           {errors.age && (
-            <p className="text-red-500 text-sm">{errors.age.message}</p>
+            <p className="text-red-600 mt-1 text-sm">{errors.age.message}</p>
           )}
         </div>
 
         {/* Upload Professional Photo */}
         <div>
-          <label className="block mb-1 font-medium">Professional Photo</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Professional Photo
+          </label>
           <input
             type="file"
             onChange={handleImageUpload}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-300 rounded-md cursor-pointer"
           />
-          {uploading && <p className="text-sm text-blue-500">Uploading...</p>}
+          {uploading && (
+            <p className="text-blue-600 mt-1 text-sm font-medium">
+              Uploading...
+            </p>
+          )}
         </div>
 
         {/* Experience */}
         <div>
-          <label className="block mb-1 font-medium">Years of Experience</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Years of Experience
+          </label>
           <input
             type="number"
             {...register("experience", {
               required: "Experience is required",
               min: 0,
             })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="e.g. 3"
           />
           {errors.experience && (
-            <p className="text-red-500 text-sm">{errors.experience.message}</p>
+            <p className="text-red-600 mt-1 text-sm">
+              {errors.experience.message}
+            </p>
           )}
         </div>
 
         {/* Bio */}
         <div>
-          <label className="block mb-1 font-medium">Brief Biography</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Brief Biography
+          </label>
           <textarea
             {...register("bio", { required: "Bio is required" })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
             placeholder="Tell us a little about yourself..."
+            rows={4}
           />
           {errors.bio && (
-            <p className="text-red-500 text-sm">{errors.bio.message}</p>
+            <p className="text-red-600 mt-1 text-sm">{errors.bio.message}</p>
           )}
         </div>
 
         {/* Skills */}
         <div>
-          <label className="block mb-1 font-medium">Skills</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Skills
+          </label>
           <div className="flex flex-wrap gap-4">
             {skillsList.map((skill) => (
-              <label key={skill} className="flex items-center gap-2">
+              <label
+                key={skill}
+                className="flex items-center gap-2 cursor-pointer select-none"
+              >
                 <input
                   type="checkbox"
                   value={skill}
                   {...register("skills")}
-                  className="accent-primary"
+                  className="accent-primary w-5 h-5"
                 />
                 <span>{skill}</span>
               </label>
@@ -188,7 +242,9 @@ const BeTrainer = () => {
 
         {/* Available Days */}
         <div>
-          <label className="block mb-1 font-medium">Available Days</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Available Days
+          </label>
           <Controller
             name="availableDays"
             control={control}
@@ -204,7 +260,7 @@ const BeTrainer = () => {
             )}
           />
           {errors.availableDays && (
-            <p className="text-red-500 text-sm">
+            <p className="text-red-600 mt-1 text-sm">
               {errors.availableDays.message}
             </p>
           )}
@@ -212,26 +268,28 @@ const BeTrainer = () => {
 
         {/* Available Time */}
         <div>
-          <label className="block mb-1 font-medium">Available Time</label>
+          <label className="block mb-2 font-semibold text-secondary">
+            Available Time
+          </label>
           <input
             type="text"
             {...register("availableTime", { required: "Time is required" })}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="e.g. 4PM - 6PM"
           />
           {errors.availableTime && (
-            <p className="text-red-500 text-sm">
+            <p className="text-red-600 mt-1 text-sm">
               {errors.availableTime.message}
             </p>
           )}
         </div>
 
         {/* Submit */}
-        <div className="text-center">
+        <div className="text-center mt-8">
           <button
             type="submit"
             disabled={!photoURL || uploading}
-            className="bg-primary text-white px-6 py-2 rounded hover:bg-opacity-80 transition"
+            className="bg-primary hover:bg-primary-dark  text-white font-semibold px-8 py-3 rounded-full shadow-lg transition"
           >
             Apply
           </button>

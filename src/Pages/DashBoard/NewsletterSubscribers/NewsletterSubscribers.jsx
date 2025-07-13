@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
 
 const NewsletterSubscribers = () => {
   const axiosSecure = UseAxiosSecure();
@@ -17,39 +18,48 @@ const NewsletterSubscribers = () => {
     },
   });
 
-  if (isLoading) return <p>Loading subscribers...</p>;
+  if (isLoading) return <GlobalLoader></GlobalLoader>;
+
   if (isError)
     return <p className="text-red-500">Failed to load subscribers.</p>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white rounded shadow mt-10">
-      <h2 className="text-3xl font-bold mb-6">All Newsletter Subscribers</h2>
+    <div className="max-w-7xl mx-auto p-6 bg-white rounded-xl shadow-sm mt-10">
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
+        All Newsletter Subscribers
+      </h2>
 
       {subscribers.length === 0 ? (
-        <p>No subscribers found.</p>
+        <div className="text-center text-gray-500 py-10">
+          <p className="text-lg">📭 No subscribers found.</p>
+          <p className="text-sm mt-1">
+            Your newsletter list is currently empty.
+          </p>
+        </div>
       ) : (
-        <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2">#</th>
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {subscribers.map((sub, index) => (
-              <tr key={sub._id} className="text-center">
-                <td className="border border-gray-300 px-4 py-2">
-                  {index + 1}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">{sub.name}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {sub.email}
-                </td>
+        <div className="overflow-x-auto rounded-lg border border-gray-200">
+          <table className="min-w-full text-sm text-left whitespace-nowrap">
+            <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider">
+              <tr>
+                <th className="px-6 py-4 border-b border-gray-200">#</th>
+                <th className="px-6 py-4 border-b border-gray-200">Name</th>
+                <th className="px-6 py-4 border-b border-gray-200">Email</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {subscribers.map((sub, index) => (
+                <tr
+                  key={sub._id}
+                  className="hover:bg-gray-50 transition text-gray-800"
+                >
+                  <td className="px-6 py-4">{index + 1}</td>
+                  <td className="px-6 py-4">{sub.name}</td>
+                  <td className="px-6 py-4">{sub.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

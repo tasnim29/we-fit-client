@@ -68,75 +68,101 @@ const AddSlotForm = () => {
   }));
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-bold mb-4">Add New Slot</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Read-only Trainer Info */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <input
-            readOnly
-            value={trainer.fullName}
-            className="input input-bordered w-full"
-          />
-          <input
-            readOnly
-            value={trainer.email}
-            className="input input-bordered w-full"
-          />
-        </div>
+    <div className="max-w-7xl mx-auto py-10 px-4">
+      <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 sm:p-10">
+        {/* Header */}
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+          <span className="text-primary">➕</span> Add New Slot
+        </h2>
 
-        {/* Select Days (Read only via react-select) */}
-        <div>
-          <label className="block mb-1 font-semibold">Available Days</label>
-          <Select value={dayOptions} isMulti isDisabled />
-        </div>
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Trainer Info */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Trainer Name
+              </label>
+              <input
+                readOnly
+                value={trainer.fullName}
+                className="input input-bordered w-full bg-gray-50"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                readOnly
+                value={trainer.email}
+                className="input input-bordered w-full bg-gray-50"
+              />
+            </div>
+          </div>
 
-        {/* Slot Name */}
-        <div>
-          <label className="block mb-1 font-semibold">Slot Name</label>
-          <input
-            {...register("slotName", { required: true })}
-            className="input input-bordered w-full"
-            placeholder="Morning Slot"
-          />
-        </div>
+          {/* Days */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Available Days
+            </label>
+            <Select value={dayOptions} isMulti isDisabled />
+          </div>
 
-        {/* Slot Time */}
-        <div>
-          <label className="block mb-1 font-semibold">
-            Slot Time (e.g., 1 hour)
-          </label>
-          <input
-            {...register("slotTime", { required: true })}
-            className="input input-bordered w-full"
-            placeholder="1 hour"
-          />
-        </div>
+          {/* Slot Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Slot Name
+            </label>
+            <input
+              {...register("slotName", { required: true })}
+              placeholder="e.g., Morning Slot"
+              className="input input-bordered w-full"
+            />
+          </div>
 
-        {/* Class Selection */}
-        <div>
-          <label className="block mb-1 font-semibold">Select Class</label>
-          <select
-            {...register("classId", { required: "Please select a class" })}
-            defaultValue=""
-            className="select select-bordered w-full "
-          >
-            <option disabled value="">
-              -- Select a class --
-            </option>
-            {classes.map((cls) => (
-              <option key={cls._id} value={cls._id}>
-                {cls.className}
+          {/* Slot Time */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Slot Duration
+            </label>
+            <input
+              {...register("slotTime", { required: true })}
+              placeholder="e.g., 1 hour"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          {/* Class Selection */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Select Class
+            </label>
+            <select
+              {...register("classId", { required: "Please select a class" })}
+              defaultValue=""
+              className="select select-bordered w-full"
+            >
+              <option disabled value="">
+                -- Select a class --
               </option>
-            ))}
-          </select>
-        </div>
+              {classes.map((cls) => (
+                <option key={cls._id} value={cls._id}>
+                  {cls.className}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Submit */}
-        <button className="btn btn-primary w-full" type="submit">
-          Add Slot
-        </button>
-      </form>
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-full shadow transition"
+          >
+            Add Slot
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

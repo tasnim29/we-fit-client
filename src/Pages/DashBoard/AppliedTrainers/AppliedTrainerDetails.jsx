@@ -58,45 +58,72 @@ const AppliedTrainerDetails = () => {
     return <p className="text-red-500">Failed to load trainer data.</p>;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-bold mb-4">Trainer Details</h2>
-      <img
-        src={trainer.image}
-        alt={trainer.fullName}
-        className="w-40 h-40 object-cover rounded-full mb-4"
-      />
-      <p>
-        <strong>Name:</strong> {trainer.fullName}
-      </p>
-      <p>
-        <strong>Email:</strong> {trainer.email}
-      </p>
-      <p>
-        <strong>Age:</strong> {trainer.age}
-      </p>
-      <p>
-        <strong>Skills:</strong> {trainer.skills?.join(", ")}
-      </p>
-      <p>
-        <strong>Available Days:</strong> {trainer.availableDays?.join(", ")}
-      </p>
-      <p>
-        <strong>Available Time:</strong> {trainer.availableTime}
-      </p>
-      <p>
-        <strong>Status:</strong> {trainer.status}
-      </p>
+    <div className="max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg">
+      <h2 className="text-3xl font-extrabold mb-6 text-gray-900 text-center">
+        Trainer Details
+      </h2>
 
-      <div className="flex gap-4 mt-6">
+      <div className="flex justify-center mb-6">
+        <img
+          src={trainer.image}
+          alt={trainer.fullName}
+          className="w-40 h-40 rounded-full object-cover border-4 border-indigo-500 shadow-md"
+        />
+      </div>
+
+      <div className="space-y-3 text-gray-700 text-lg">
+        <p>
+          <span className="font-semibold text-gray-900">Name:</span>{" "}
+          {trainer.fullName || "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-900">Email:</span>{" "}
+          {trainer.email || "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-900">Age:</span>{" "}
+          {trainer.age || "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-900">Skills:</span>{" "}
+          {trainer.skills?.length ? trainer.skills.join(", ") : "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-900">Available Days:</span>{" "}
+          {trainer.availableDays?.length
+            ? trainer.availableDays.join(", ")
+            : "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-900">Available Time:</span>{" "}
+          {trainer.availableTime || "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-900">Status:</span>{" "}
+          <span
+            className={`capitalize font-semibold ${
+              trainer.status === "approved"
+                ? "text-green-600"
+                : trainer.status === "pending"
+                ? "text-yellow-600"
+                : "text-red-600"
+            }`}
+          >
+            {trainer.status || "N/A"}
+          </span>
+        </p>
+      </div>
+
+      <div className="flex justify-center gap-6 mt-8">
         <button
-          className="bg-green-600 text-white px-4 py-2 rounded"
           onClick={handleApprove}
+          className="bg-green-600 cursor-pointer hover:bg-green-700 transition-colors duration-200 text-white font-semibold px-6 py-2 rounded-lg shadow-md"
         >
           Confirm
         </button>
         <button
-          className="bg-red-600 text-white px-4 py-2 rounded"
           onClick={() => setShowRejectModal(true)}
+          className="bg-red-600 cursor-pointer hover:bg-red-700 transition-colors duration-200 text-white font-semibold px-6 py-2 rounded-lg shadow-md"
         >
           Reject
         </button>

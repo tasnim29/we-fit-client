@@ -5,6 +5,7 @@ import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import UseAxios from "../../Hooks/UseAxios";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router";
+import GlobalLoader from "../Shared/GlobalLoader/GlobalLoader";
 
 const ForumPage = () => {
   const [page, setPage] = useState(1);
@@ -37,7 +38,7 @@ const ForumPage = () => {
     }
   };
 
-  if (isLoading) return <p className="text-center py-20">Loading...</p>;
+  if (isLoading) return <GlobalLoader></GlobalLoader>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-32">

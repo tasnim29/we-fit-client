@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import {
   MdAccessTime,
@@ -8,19 +8,26 @@ import {
   MdHome,
   MdHowToReg,
   MdLibraryAdd,
+  MdLogout,
   MdMailOutline,
   MdPeopleAlt,
 } from "react-icons/md";
 import logo from "../assets/companyLogo.png";
 import UseUserRole from "../Hooks/UseUserRole";
+import { AuthContext } from "../Context/AuthContext/AuthContext";
 
 const DashBoardLayout = () => {
   const { role, isLoading } = UseUserRole();
   console.log(role);
+  const { logOutUser, user } = use(AuthContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const handleLogout = () => {
+    logOutUser();
+  };
+
   return (
-    <div className="flex min-h-screen h-screen">
+    <div className="flex min-h-screen ">
       {/* Sidebar */}
       <div
         className={`fixed z-40 top-0 left-0 w-64 h-screen bg-gray-100 shadow-md transition-transform duration-300 ease-in-out transform ${
@@ -187,10 +194,32 @@ const DashBoardLayout = () => {
             </div>
           )}
         </ul>
+        {/* Logout button at bottom */}
+        <div className="absolute bottom-0 left-0 w-full p-4 border-t bg-gray-100">
+          <div className="flex items-center gap-3 mb-2 px-2">
+            <img
+              src={user?.photoURL}
+              alt="User"
+              className="w-8 h-8 rounded-full object-cover border"
+            />
+            <span className="text-sm font-medium text-gray-700 truncate">
+              {user?.displayName || "User"}
+            </span>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 w-full px-4 py-2 text-white bg-accent transition duration-300 hover:scale-105 rounded cursor-pointer"
+          >
+            <MdLogout size={20} /> Logout
+          </button>
+        </div>
       </div>
 
       {/* Content area */}
-      <div className="flex-1 flex flex-col w-full">
+      <div
+        className="flex-1 flex flex-col w-full overflow-auto"
+        style={{ maxHeight: "100vh" }}
+      >
         {/* Top navbar on small screen */}
         <div className="bg-gray-200 p-4 flex items-center justify-between lg:hidden shadow">
           <button
@@ -212,6 +241,18 @@ const DashBoardLayout = () => {
             </svg>
           </button>
           {/* <span className="font-semibold text-lg">Dashboard</span> */}
+        </div>
+
+        {/* ✅ Top Navbar */}
+        <div className="hidden px-6 py-3 lg:flex items-center justify-between border-b shadow-sm bg-white sticky top-0 z-30">
+          <div>
+            <h2 className="text-xl font-semibold">Dashboard</h2>
+            <small>Here you can see all your important data</small>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>{user.displayName}</span>
+            <img src={user.photoURL} className="w-8 h-8 rounded-full" />
+          </div>
         </div>
 
         {/* Main content */}

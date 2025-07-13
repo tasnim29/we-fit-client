@@ -28,68 +28,97 @@ const ActivityLog = () => {
   );
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white rounded shadow">
-      <h2 className="text-3xl font-bold mb-6">
+    <div className="max-w-7xl mx-auto p-8 bg-white rounded-xl shadow-md">
+      <h2 className="text-3xl font-extrabold mb-8 text-gray-800 text-center">
         Trainer Applications Activity Log
       </h2>
 
-      {filteredApps.length === 0 && (
-        <p>No pending or rejected applications found.</p>
+      {filteredApps.length === 0 ? (
+        <p className="text-center text-gray-600">
+          No pending or rejected applications found.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-200 rounded-md">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-200">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-200">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-200">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700 border border-gray-200">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredApps.map((app) => (
+                <tr
+                  key={app._id}
+                  className="hover:bg-gray-50 transition-colors duration-150 text-gray-800"
+                >
+                  <td className="px-6 py-4 border border-gray-200 whitespace-nowrap">
+                    {app.fullName}
+                  </td>
+                  <td className="px-6 py-4 border border-gray-200 whitespace-nowrap break-all">
+                    {app.email}
+                  </td>
+                  <td className="px-6 py-4 border border-gray-200 capitalize">
+                    <span
+                      className={`px-2 py-1 rounded-full text-sm font-medium ${
+                        app.status === "rejected"
+                          ? "bg-red-100 text-red-600"
+                          : "bg-yellow-100 text-yellow-600"
+                      }`}
+                    >
+                      {app.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 border border-gray-200 text-center">
+                    {app.status === "rejected" && (
+                      <button
+                        className="text-blue-600 hover:text-blue-800 transition"
+                        title="View rejection feedback"
+                        onClick={() => setModalData(app)}
+                      >
+                        <FaEye size={20} />
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
-
-      <table className="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-4 py-2">Name</th>
-            <th className="border border-gray-300 px-4 py-2">Email</th>
-            <th className="border border-gray-300 px-4 py-2">Status</th>
-            <th className="border border-gray-300 px-4 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredApps.map((app) => (
-            <tr key={app._id} className="text-center">
-              <td className="border border-gray-300 px-4 py-2">
-                {app.fullName}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">{app.email}</td>
-              <td className="border border-gray-300 px-4 py-2 capitalize">
-                {app.status}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {app.status === "rejected" && (
-                  <button
-                    className="text-blue-600 hover:text-blue-800"
-                    title="View rejection feedback"
-                    onClick={() => setModalData(app)}
-                  >
-                    <FaEye size={20} />
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
       {/* Modal */}
       {modalData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full relative">
+        <div className="fixed inset-0 bg-white/30 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white p-6 sm:p-8 rounded-xl shadow-xl max-w-lg w-full relative">
             <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl font-bold"
+              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold transition"
               onClick={() => setModalData(null)}
             >
               &times;
             </button>
-            <h3 className="text-xl font-semibold mb-4">Rejection Feedback</h3>
-            <p>
-              <strong>Name:</strong> {modalData.fullName}
-            </p>
-            <p>
-              <strong>Email:</strong> {modalData.email}
-            </p>
-            <div className="mt-4 p-4 bg-gray-100 rounded">
+            <h3 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
+              Rejection Feedback
+            </h3>
+            <div className="text-gray-700 space-y-2">
+              <p>
+                <span className="font-medium">Name:</span> {modalData.fullName}
+              </p>
+              <p>
+                <span className="font-medium">Email:</span> {modalData.email}
+              </p>
+            </div>
+            <div className="mt-4 p-4 bg-gray-100 rounded-lg border text-gray-800">
               {modalData.feedback ? (
                 <p>{modalData.feedback}</p>
               ) : (

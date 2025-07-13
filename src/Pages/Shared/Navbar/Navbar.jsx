@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import logo from "../../../assets/companyLogo.png";
 
-const Navbar = ({ isTransparent }) => {
+const Navbar = () => {
   const { user, logOutUser } = use(AuthContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -11,169 +11,89 @@ const Navbar = ({ isTransparent }) => {
   const closeDrawer = () => setIsDrawerOpen(false);
 
   const handleLogout = () => {
-    logOutUser().then(() => {
-      console.log("log out successful");
-    });
+    logOutUser().then(() => console.log("Logged out"));
   };
 
-  const navItems = (isTransparent) => (
+  const navItems = (
     <>
-      <li>
-        <NavLink
-          to="/"
-          onClick={closeDrawer}
-          className={({ isActive }) =>
-            `block px-4 py-2 transition duration-300 ${
-              isTransparent
-                ? "text-white hover:text-secondary"
-                : "text-black hover:text-secondary"
-            } ${isActive ? "font-bold  text-xl " : ""}`
-          }
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/all-trainers"
-          onClick={closeDrawer}
-          className={({ isActive }) =>
-            `block px-4 py-2 transition duration-300 ${
-              isTransparent
-                ? "text-white hover:text-secondary"
-                : "text-black hover:text-secondary"
-            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
-          }
-        >
-          All Trainers
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/all-classes"
-          onClick={closeDrawer}
-          className={({ isActive }) =>
-            `block px-4 py-2 transition duration-300 ${
-              isTransparent
-                ? "text-white hover:text-secondary"
-                : "text-black hover:text-secondary"
-            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
-          }
-        >
-          All Classes
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/beTrainer"
-          onClick={closeDrawer}
-          className={({ isActive }) =>
-            `block px-4 py-2 transition duration-300 ${
-              isTransparent
-                ? "text-white hover:text-secondary"
-                : "text-black hover:text-secondary"
-            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
-          }
-        >
-          Be A Trainer
-        </NavLink>
-      </li>
-      {user && (
-        <li>
+      {[
+        { to: "/", label: "Home" },
+        { to: "/all-trainers", label: "All Trainers" },
+        { to: "/all-classes", label: "All Classes" },
+        { to: "/beTrainer", label: "Be A Trainer" },
+        { to: "/forums", label: "Forums" },
+        ...(user ? [{ to: "/dashboard", label: "Dashboard" }] : []),
+      ].map(({ to, label }) => (
+        <li key={to}>
           <NavLink
-            to="/dashboard"
+            to={to}
             onClick={closeDrawer}
             className={({ isActive }) =>
-              `block px-4 py-2 transition duration-300 ${
-                isTransparent
-                  ? "text-white hover:text-secondary"
-                  : "text-black hover:text-secondary"
-              } ${isActive ? "font-bold text-secondary text-xl" : ""}`
+              `px-4 py-2 font-medium rounded transition duration-200 ${
+                isActive
+                  ? "text-accent font-semibold border-b-2 border-accent"
+                  : "text-white hover:text-accent"
+              }`
             }
           >
-            Dashboard
+            {label}
           </NavLink>
         </li>
-      )}
-      <li>
-        <NavLink
-          to="/forums"
-          onClick={closeDrawer}
-          className={({ isActive }) =>
-            `block px-4 py-2 transition duration-300 ${
-              isTransparent
-                ? "text-white hover:text-secondary"
-                : "text-black hover:text-secondary"
-            } ${isActive ? "font-bold text-secondary text-xl" : ""}`
-          }
-        >
-          Forums
-        </NavLink>
-      </li>
+      ))}
     </>
   );
 
   return (
-    <header
-      className={`p-4 fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isTransparent
-          ? "bg-black/60 backdrop-blur-xl text-white"
-          : "bg-white shadow-md text-black"
-      }`}
-    >
-      <div className="container mx-auto flex justify-between items-center h-16">
+    <header className="fixed top-0 left-0 w-full z-50 bg-primary shadow-md">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <div>
-          <img className="w-32" src={logo} alt="" />
-        </div>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="w-32" />
+        </Link>
 
-        {/* Desktop nav */}
-        <ul className="hidden lg:flex space-x-4 items-center font-semibold">
-          {navItems(isTransparent)}
-        </ul>
+        {/* Desktop Nav */}
+        <ul className="hidden lg:flex items-center gap-6">{navItems}</ul>
 
-        {/* Login + menu toggle */}
-        <div className="flex items-center space-x-2">
+        {/* Login + Drawer Toggle */}
+        <div className="flex items-center space-x-4">
           {user ? (
-            <button
-              onClick={handleLogout}
-              to="login"
-              className={`px-5 py-2 rounded text-sm transition cursor-pointer ${
-                isTransparent
-                  ? "bg-secondary text-white hover:bg-light hover:text-primary"
-                  : "bg-secondary text-white hover:bg-black"
-              }`}
-            >
-              Log out
-            </button>
+            <div className="flex items-center gap-2">
+              {user.photoURL && (
+                <img
+                  src={user.photoURL}
+                  className="w-10 h-10 rounded-full border-2 border-white"
+                  alt="User"
+                />
+              )}
+              <button
+                onClick={handleLogout}
+                className="bg-accent cursor-pointer text-white px-4 py-1.5 rounded transition duration-300 hover:scale-105"
+              >
+                Log Out
+              </button>
+            </div>
           ) : (
             <Link
-              to="login"
-              className={`px-5 py-2 rounded text-sm transition ${
-                isTransparent
-                  ? "bg-secondary text-white hover:bg-light hover:text-primary"
-                  : "bg-secondary text-white hover:bg-black"
-              }`}
+              to="/login"
+              className="bg-accent text-white px-4 py-1.5 rounded transition duration-300 hover:scale-105 cursor-pointer "
             >
-              Log in
+              Log In
             </Link>
           )}
 
-          {/* Drawer toggle */}
-          <button onClick={toggleDrawer} className="lg:hidden p-2">
+          {/* Drawer Toggle */}
+          <button onClick={toggleDrawer} className="lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              className="w-7 h-7 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              className={`w-6 h-6 ${
-                isTransparent ? "text-white" : "text-gray-800"
-              }`}
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
+                strokeWidth={2}
                 d={
                   isDrawerOpen
                     ? "M6 18L18 6M6 6l12 12"
@@ -185,17 +105,17 @@ const Navbar = ({ isTransparent }) => {
         </div>
       </div>
 
-      {/* Drawer */}
+      {/* Mobile Drawer */}
       <div
-        className={`fixed top-0 left-0 w-64 h-full bg-white shadow-md transform transition-transform duration-300 ease-in-out z-40 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-primary z-40 shadow-lg transform transition-transform duration-300 lg:hidden ${
           isDrawerOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:hidden`}
+        }`}
       >
-        <div className="flex justify-between items-center p-4 border-b">
-          <span className="font-bold text-lg text-secondary">Menu</span>
+        <div className="p-4 border-b flex justify-between items-center">
+          <span className="text-xl font-semibold text-accent">Menu</span>
           <button onClick={closeDrawer}>
             <svg
-              className="h-6 w-6 text-gray-700"
+              className="w-6 h-6 text-gray-700"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -209,17 +129,12 @@ const Navbar = ({ isTransparent }) => {
             </svg>
           </button>
         </div>
-        <ul className="flex flex-col py-4 space-y-2 text-black">
-          {navItems(false)}
-        </ul>
+        <ul className="p-4 space-y-2 text-black">{navItems}</ul>
       </div>
 
       {/* Overlay */}
       {isDrawerOpen && (
-        <div
-          className="fixed inset-0 bg-black/30 z-30 lg:hidden"
-          onClick={closeDrawer}
-        />
+        <div className="fixed inset-0 bg-black/40 z-30" onClick={closeDrawer} />
       )}
     </header>
   );

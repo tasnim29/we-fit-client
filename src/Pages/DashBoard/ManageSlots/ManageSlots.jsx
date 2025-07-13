@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
+import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
 
 const ManageSlots = () => {
   const queryClient = useQueryClient();
@@ -47,66 +48,94 @@ const ManageSlots = () => {
     });
   };
 
-  if (isLoading) return <p>Loading slots...</p>;
+  if (isLoading) return <GlobalLoader></GlobalLoader>;
   if (isError) return <p>Error loading slots: {error.message}</p>;
-  if (!slots?.length) return <p>No slots found.</p>;
+
+  // for no slots
+  if (!slots?.length) {
+    return (
+      <div className="max-w-7xl mx-auto py-20 px-4 text-center">
+        <div className="inline-block bg-white border border-gray-200 rounded-lg p-8 shadow-md">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            No Slots Found
+          </h2>
+          <p className="text-gray-500 mb-4">
+            You haven’t created any slots yet. Once you add some, they’ll show
+            up here.
+          </p>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/4076/4076501.png"
+            alt="Empty"
+            className="mx-auto w-32 opacity-60"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4">
-      <h2 className="text-3xl font-bold mb-6">Manage Your Slots</h2>
-      <table className="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-4 py-2">Slot Name</th>
-            <th className="border border-gray-300 px-4 py-2">Class Name</th>
-            <th className="border border-gray-300 px-4 py-2">Booking Info</th>
-            <th className="border border-gray-300 px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {slots.map((slot) => (
-            <tr key={slot._id} className="hover:bg-gray-50">
-              <td className="border border-gray-300 px-4 py-2">
-                {slot.slotName}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {slot.className}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {slot.bookingInfo ? (
-                  <div>
-                    <p>
-                      <strong>User:</strong> {slot.bookingInfo.userName} (
-                      {slot.bookingInfo.userEmail})
-                    </p>
-                    <p>
-                      <strong>Paid:</strong> ${slot.bookingInfo.amount}
-                    </p>
-                    <p>
-                      <strong>Transaction ID:</strong>{" "}
-                      {slot.bookingInfo.transactionId}
-                    </p>
-                    <p>
-                      <strong>Date:</strong>{" "}
-                      {new Date(slot.bookingInfo.date).toLocaleString()}
-                    </p>
-                  </div>
-                ) : (
-                  <span className="italic text-gray-500">Not booked</span>
-                )}
-              </td>
-              <td className="border border-gray-300 px-4 py-2 text-center">
-                <button
-                  className="btn btn-error btn-sm"
-                  onClick={() => handleDelete(slot._id)}
-                >
-                  Delete
-                </button>
-              </td>
+    <div className="max-w-7xl mx-auto py-10 px-4">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6">
+        Manage Your Slots
+      </h2>
+
+      <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
+        <table className="min-w-full text-sm text-left whitespace-nowrap">
+          <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider">
+            <tr>
+              <th className="px-6 py-4 border-b border-gray-200">Slot Name</th>
+              <th className="px-6 py-4 border-b border-gray-200">Class Name</th>
+              <th className="px-6 py-4 border-b border-gray-200">
+                Booking Info
+              </th>
+              <th className="px-6 py-4 border-b border-gray-200 text-center">
+                Actions
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {slots.map((slot) => (
+              <tr key={slot._id} className="hover:bg-gray-50 transition">
+                <td className="px-6 py-4">{slot.slotName}</td>
+                <td className="px-6 py-4">{slot.className}</td>
+                <td className="px-6 py-4 text-gray-700">
+                  {slot.bookingInfo ? (
+                    <div className="space-y-1 text-sm">
+                      <p>
+                        <span className="font-medium">User:</span>{" "}
+                        {slot.bookingInfo.userName} (
+                        {slot.bookingInfo.userEmail})
+                      </p>
+                      <p>
+                        <span className="font-medium">Paid:</span> $
+                        {slot.bookingInfo.amount}
+                      </p>
+                      <p>
+                        <span className="font-medium">Txn ID:</span>{" "}
+                        {slot.bookingInfo.transactionId}
+                      </p>
+                      <p>
+                        <span className="font-medium">Date:</span>{" "}
+                        {new Date(slot.bookingInfo.date).toLocaleString()}
+                      </p>
+                    </div>
+                  ) : (
+                    <span className="italic text-gray-400">Not booked</span>
+                  )}
+                </td>
+                <td className="px-6 py-4 text-center">
+                  <button
+                    onClick={() => handleDelete(slot._id)}
+                    className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-4 py-2 rounded transition cursor-pointer"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

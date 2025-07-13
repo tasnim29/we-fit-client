@@ -49,8 +49,10 @@ const ProfilePage = () => {
   if (!user) return <p>Loading user data...</p>;
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Your Profile</h2>
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
+      <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">
+        Your Profile
+      </h2>
 
       {/* Profile Picture Preview */}
       <div className="flex justify-center mb-6">
@@ -61,64 +63,70 @@ const ProfilePage = () => {
               : "https://via.placeholder.com/150?text=No+Image"
           }
           alt="Profile"
-          className="w-32 h-32 rounded-full object-cover border border-gray-300"
+          className="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow"
         />
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Email (read-only) */}
         <div>
-          <label className="block mb-1 font-semibold">Email</label>
+          <label className="block mb-1 font-semibold text-gray-700">
+            Email
+          </label>
           <input
             type="email"
             value={user.email}
             readOnly
-            className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
+            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
           />
         </div>
 
         {/* Name */}
         <div>
-          <label className="block mb-1 font-semibold">Name</label>
+          <label className="block mb-1 font-semibold text-gray-700">Name</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="input input-bordered w-full"
             required
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         {/* Photo URL */}
         <div>
-          <label className="block mb-1 font-semibold">
+          <label className="block mb-1 font-semibold text-gray-700">
             Profile Picture URL
           </label>
           <input
             type="url"
             value={photoURL}
             onChange={(e) => setPhotoURL(e.target.value)}
-            className="input input-bordered w-full"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="https://example.com/photo.jpg"
           />
         </div>
 
-        {/* Last login time (from user metadata) */}
+        {/* Last login time */}
         <div>
-          <label className="block mb-1 font-semibold">Last Login</label>
-          <p className="text-gray-700">
+          <label className="block mb-1 font-semibold text-gray-700">
+            Last Login
+          </label>
+          <p className="text-gray-800 font-medium">
             {user.metadata?.lastSignInTime
               ? new Date(user.metadata.lastSignInTime).toLocaleString()
               : "N/A"}
           </p>
         </div>
 
-        {error && <p className="text-red-600">{error}</p>}
+        {/* Error message */}
+        {error && <p className="text-red-600 font-medium">{error}</p>}
 
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={updating}
-          className="btn btn-primary w-full"
+          className="w-full cursor-pointer bg-accent hover:bg-blue-700 transition text-white font-semibold py-3 rounded-lg shadow"
         >
           {updating ? "Updating..." : "Update Profile"}
         </button>

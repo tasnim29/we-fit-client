@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../Hooks/UseAxios";
+import SkeletonLoader from "../Shared/SkeletonLoader/SkeletonLoader";
 
 const FeaturedClasses = () => {
   const axiosInstance = UseAxios();
@@ -11,8 +12,18 @@ const FeaturedClasses = () => {
     },
   });
 
-  if (isLoading)
-    return <p className="text-center py-10">Loading featured classes...</p>;
+  if (isLoading) {
+    return (
+      <section className="py-14 max-w-7xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12 text-primary">
+          🔥 Featured Classes
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <SkeletonLoader type="class" count={6} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-14 max-w-7xl mx-auto px-4">

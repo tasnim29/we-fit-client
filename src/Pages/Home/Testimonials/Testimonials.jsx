@@ -1,116 +1,134 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
 import { useQuery } from "@tanstack/react-query";
-
 import TestimonialCard from "./TestimonialCard";
-import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import UseAxios from "../../../Hooks/UseAxios";
+import SkeletonLoader from "../../Shared/SkeletonLoader/SkeletonLoader";
 
 const Testimonials = () => {
-  const axiosSecure = UseAxiosSecure();
-  const [current, setCurrent] = useState(0);
+  const axiosInstance = UseAxios();
 
   const { data: testimonials = [], isLoading } = useQuery({
     queryKey: ["all-reviews"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/reviews"); // ✅ no trainerId
+      const res = await axiosInstance.get("/reviews");
       return res.data;
     },
   });
 
+  const [cardsPerView, setCardsPerView] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) setCardsPerView(3);
+      else if (width >= 768) setCardsPerView(2);
+      else setCardsPerView(1);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const total = testimonials.length;
-  const cardWidth = 320;
+  const maxIndex = Math.max(total - cardsPerView, 0);
 
-  const next = () => setCurrent((prev) => (prev + 1) % total);
-  const prev = () => setCurrent((prev) => (prev - 1 + total) % total);
+  const next = () => {
+    setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
+  };
 
-  if (isLoading) return <p className="text-center py-10">Loading reviews...</p>;
+  const prev = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
+  };
+
+  const translateX = -(currentIndex * (100 / cardsPerView));
+
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">
+            What Members Are Saying
+          </h2>
+          <p className="text-center text-gray-500 mb-10 max-w-2xl mx-auto">
+            See how our community experiences the platform
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <SkeletonLoader type="testimonial" count={cardsPerView * 2} />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   if (total === 0)
     return <p className="text-center py-10">No reviews available.</p>;
 
   return (
-    <section className="pb-16 text-center">
-      {/* <img
-        src={headingImg}
-        alt="Quote Icon"
-        className="mx-auto mb-4 w-60 h-24"
-      /> */}
-      <h2 className="text-3xl font-bold mb-2">What our members are saying</h2>
-      <p className="text-gray-500 mb-10 max-w-3xl mx-auto">
-        Real feedback from members who have experienced our platform.
-      </p>
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-4">
+          What Members Are Saying
+        </h2>
+        <p className="text-center text-gray-500 mb-10 max-w-2xl mx-auto">
+          See how our community experiences the platform
+        </p>
 
-      {/* Carousel */}
-      <div
-        className="relative mx-auto overflow-hidden"
-        style={{ width: cardWidth * 3 }}
-      >
-        <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{
-            width: `${cardWidth * total}px`,
-            transform: `translateX(${-current * cardWidth + cardWidth}px)`,
-          }}
-        >
-          {testimonials.map((item, index) => {
-            const prevIndex = (current - 1 + total) % total;
-            const nextIndex = (current + 1) % total;
-
-            // Only show current, prev, and next
-            if (
-              index !== current &&
-              index !== prevIndex &&
-              index !== nextIndex
-            ) {
-              return (
+        {/* Slider Container */}
+        <div className="relative">
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                width: `${(100 / cardsPerView) * total}%`,
+                transform: `translateX(${translateX}%)`,
+              }}
+            >
+              {testimonials.map((item) => (
                 <div
                   key={item._id}
-                  className="flex-shrink-0 w-[320px] px-2 invisible"
-                />
-              );
-            }
+                  className="p-4"
+                  style={{
+                    width: `${100 / total}%`,
+                  }}
+                >
+                  <TestimonialCard item={item} />
+                </div>
+              ))}
+            </div>
+          </div>
 
-            // Optional: emphasize the center card slightly
-            const scale = index === current ? 1.05 : 1;
-            const shadow = index === current ? "shadow-lg" : "shadow";
+          {/* Arrows */}
+          <div className="flex justify-center gap-6 mt-6">
+            <button
+              onClick={prev}
+              className="p-3 rounded-full bg-white shadow hover:bg-primary hover:text-white transition"
+            >
+              <FaArrowLeft />
+            </button>
+            <button
+              onClick={next}
+              className="p-3 rounded-full bg-primary text-white shadow hover:bg-primary/90 transition"
+            >
+              <FaArrowRight />
+            </button>
+          </div>
 
-            return (
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-4">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <div
-                key={item._id}
-                className={`flex-shrink-0 w-[320px] px-2 transition-all duration-500 ease-in-out ${shadow}`}
-                style={{ transform: `scale(${scale})` }}
-              >
-                <TestimonialCard item={item} />
-              </div>
-            );
-          })}
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full cursor-pointer ${
+                  index === currentIndex ? "bg-primary" : "bg-gray-300"
+                }`}
+              ></div>
+            ))}
+          </div>
         </div>
-      </div>
-
-      {/* Controls */}
-      <div className="flex justify-center items-center gap-4 mt-8">
-        <button
-          onClick={prev}
-          className="p-3 cursor-pointer rounded-full text-black font-bold bg-white hover:text-white"
-        >
-          <FaArrowLeft />
-        </button>
-        <div className="flex gap-2">
-          {testimonials.map((_, index) => (
-            <div
-              key={index}
-              className={`w-2 h-2 rounded-full ${
-                index === current ? "bg-primary" : "bg-gray-400"
-              }`}
-            ></div>
-          ))}
-        </div>
-        <button
-          onClick={next}
-          className="p-3 cursor-pointer rounded-full text-black font-bold bg-primary hover:text-white"
-        >
-          <FaArrowRight />
-        </button>
       </div>
     </section>
   );
