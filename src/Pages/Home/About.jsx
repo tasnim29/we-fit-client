@@ -5,7 +5,7 @@ import {
   FaRocket,
   FaClock,
 } from "react-icons/fa";
-import image3 from "../../assets/Banner/bannerImg-3.jpg";
+import image3 from "../../assets/aboutBg.png";
 
 const features = [
   {
@@ -42,7 +42,7 @@ const About = () => {
       style={{ backgroundImage: `url(${image3})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
 
       <div className="relative max-w-7xl mx-auto py-20 px-6 flex flex-col md:flex-row items-center gap-12 z-10">
         {/* Left content */}

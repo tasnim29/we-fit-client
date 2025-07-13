@@ -46,9 +46,9 @@ const DashBoardLayout = () => {
         </div>
 
         {/* Logo */}
-        <Link className="p-4" to="/">
+        <Link className="py-4" to="/">
           <div>
-            <img className="w-32" src={logo} alt="" />
+            <img className="w-24 mx-auto" src={logo} alt="" />
           </div>
         </Link>
 

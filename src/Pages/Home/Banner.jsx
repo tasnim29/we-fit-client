@@ -6,6 +6,7 @@ import image3 from "../../assets/Banner/bannerImg-3.jpg";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router";
 
 const NextArrow = ({ onClick }) => (
   <div
@@ -46,21 +47,21 @@ const Banner = () => {
   const slides = [
     {
       image: image1,
-      heading: "Track Your Fitness Journey",
+      heading: "Start Your Fitness Journey",
       subheading: "Set goals, measure progress, and stay motivated",
-      buttonText: "Get Started",
+      buttonText: <Link to="/all-classes">All Classes</Link>,
     },
     {
       image: image2,
       heading: "Join Expert Trainers",
       subheading: "Personalized classes from certified professionals",
-      buttonText: "Explore Trainers",
+      buttonText: <Link to="/all-trainers">All Trainers</Link>,
     },
     {
       image: image3,
       heading: "Connect with the Fit Community",
       subheading: "Share, inspire, and grow together",
-      buttonText: "Join Now",
+      buttonText: "Enjoy",
     },
   ];
 
@@ -84,7 +85,7 @@ const Banner = () => {
                 {slide.subheading}
               </p>
               <button
-                className="bg-accent hover:bg-white hover:text-primary transition-all duration-300
+                className="bg-accent cursor-pointer hover:bg-white hover:text-primary transition-all duration-300
                   px-7 py-3 rounded-lg text-white font-medium text-sm md:text-base shadow-xl
                   hover:scale-105 transform ease-in-out"
               >

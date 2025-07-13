@@ -4,9 +4,9 @@ import image3 from "../../assets/Banner/bannerImg-3.jpg";
 const features = [
   {
     icon: <FaSatelliteDish size={40} />,
-    title: "Real-Time Tracking",
+    title: " Goal-Based Smart Booking",
     description:
-      "Know exactly where your parcel is — live updates on every step.",
+      "Choose your fitness goal (e.g., weight loss, muscle gain, flexibility) and our system recommends the best class-slot-trainer combo",
   },
   {
     icon: <FaCreditCard size={40} />,
@@ -15,8 +15,9 @@ const features = [
   },
   {
     icon: <FaHeadset size={40} />,
-    title: "24/7 Support",
-    description: "We’re always here — chat or call us anytime.",
+    title: "Community-Driven Reviews & Forums",
+    description:
+      "Learn from the community — read reviews, post questions, and share your journey in our active forum space.",
   },
 ];
 
