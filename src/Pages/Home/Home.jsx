@@ -7,10 +7,18 @@ import FeaturedClasses from "./FeaturedClasses";
 import Testimonials from "./Testimonials/Testimonials";
 import LatestForums from "./LatestForums";
 import TeamSection from "./TeamSection/TeamSection";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>WeFit | Home</title>
+        <meta
+          name="description"
+          content="Welcome to WeFit, your fitness and wellness companion."
+        />
+      </Helmet>
       <Banner></Banner>
       <Featured></Featured>
       <About></About>

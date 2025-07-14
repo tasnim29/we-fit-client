@@ -6,6 +6,7 @@ import UseAxios from "../../Hooks/UseAxios";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router";
 import GlobalLoader from "../Shared/GlobalLoader/GlobalLoader";
+import { Helmet } from "react-helmet-async";
 
 const ForumPage = () => {
   const [page, setPage] = useState(1);
@@ -42,6 +43,9 @@ const ForumPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-32">
+      <Helmet>
+        <title>WeFit | Forums</title>
+      </Helmet>
       <h1 className="text-3xl font-bold mb-8 text-center">Community Forum</h1>
 
       {data?.forums?.map((forum) => (
@@ -76,7 +80,16 @@ const ForumPage = () => {
 
           <div className="flex items-center gap-4 mt-4 text-sm text-gray-600">
             <span>
-              Posted by: {forum.authorName} ({forum.role})
+              Posted by: {forum.authorName}{" "}
+              <span
+                className={`text-black px-2 py-1 rounded ${
+                  forum.role === "admin"
+                    ? "bg-secondary text-white"
+                    : "bg-accent text-white"
+                }`}
+              >
+                {forum.role || "No role"}
+              </span>
             </span>
             <span>{new Date(forum.createdAt).toLocaleString()}</span>
           </div>

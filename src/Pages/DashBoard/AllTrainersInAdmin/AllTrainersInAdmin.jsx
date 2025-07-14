@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
+import { Helmet } from "react-helmet-async";
 
 const AllTrainersInAdmin = () => {
   const axiosSecure = UseAxiosSecure();
@@ -66,6 +67,9 @@ const AllTrainersInAdmin = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <Helmet>
+        <title>WeFit | All-Trainers</title>
+      </Helmet>
       <h2 className="text-3xl font-extrabold mb-8 text-gray-800">
         All Trainers
       </h2>

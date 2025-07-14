@@ -6,6 +6,7 @@ import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
+import { Helmet } from "react-helmet-async";
 
 const AddSlotForm = () => {
   const { user } = use(AuthContext);
@@ -69,6 +70,9 @@ const AddSlotForm = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-4">
+      <Helmet>
+        <title>WeFit | Add Slot</title>
+      </Helmet>
       <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 sm:p-10">
         {/* Header */}
         <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">

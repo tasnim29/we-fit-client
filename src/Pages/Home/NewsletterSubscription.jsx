@@ -48,8 +48,8 @@ const NewsletterSubscription = () => {
   };
 
   return (
-    <div className="bg-primary/10 py-12 px-6 rounded-xl shadow-lg max-w-3xl mx-auto mt-12">
-      <h2 className="text-3xl font-bold text-center text-primary mb-4">
+    <div className="bg-primary/10 py-12 px-6 rounded-xl shadow-lg max-w-3xl mx-auto my-12">
+      <h2 className="text-4xl font-bold text-center text-primary mb-4">
         Subscribe to Our Newsletter
       </h2>
       <p className="text-center text-primary/70 mb-8">

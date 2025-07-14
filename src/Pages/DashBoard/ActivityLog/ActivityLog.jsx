@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaEye } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const ActivityLog = () => {
   const axiosSecure = UseAxiosSecure();
@@ -29,6 +30,9 @@ const ActivityLog = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-8 bg-white rounded-xl shadow-md">
+      <Helmet>
+        <title>WeFit | Activity-log</title>
+      </Helmet>
       <h2 className="text-3xl font-extrabold mb-8 text-gray-800 text-center">
         Trainer Applications Activity Log
       </h2>

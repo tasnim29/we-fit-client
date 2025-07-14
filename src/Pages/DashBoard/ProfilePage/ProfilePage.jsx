@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ProfilePage = () => {
   const { user, updateUser } = useContext(AuthContext);
@@ -50,6 +51,9 @@ const ProfilePage = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
+      <Helmet>
+        <title>WeFit | Profile</title>
+      </Helmet>
       <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">
         Your Profile
       </h2>

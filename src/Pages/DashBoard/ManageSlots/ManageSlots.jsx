@@ -5,6 +5,7 @@ import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
+import { Helmet } from "react-helmet-async";
 
 const ManageSlots = () => {
   const queryClient = useQueryClient();
@@ -75,6 +76,9 @@ const ManageSlots = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-4">
+      <Helmet>
+        <title>WeFit | Manage slots</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Manage Your Slots
       </h2>

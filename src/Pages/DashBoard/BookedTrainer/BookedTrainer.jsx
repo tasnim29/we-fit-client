@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import ReviewModal from "./ReviewModal";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const BookedTrainer = () => {
   const { user } = use(AuthContext);
@@ -29,6 +30,9 @@ const BookedTrainer = () => {
 
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
+      <Helmet>
+        <title>WeFit | Booked Trainers</title>
+      </Helmet>
       <h2 className="text-3xl sm:text-4xl font-extrabold mb-10 text-center text-gray-800">
         Your Booked Trainer
       </h2>

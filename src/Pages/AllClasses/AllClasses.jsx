@@ -5,6 +5,7 @@ import UseAxios from "../../Hooks/UseAxios";
 import { Link } from "react-router";
 import GlobalLoader from "../Shared/GlobalLoader/GlobalLoader";
 import ClassDescription from "./ClassDescription";
+import { Helmet } from "react-helmet-async";
 
 const AllClasses = () => {
   const [page, setPage] = useState(1);
@@ -26,6 +27,9 @@ const AllClasses = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-32 px-4">
+      <Helmet>
+        <title>WeFit | All-Classes</title>
+      </Helmet>
       <h1 className="text-4xl font-extrabold text-center mb-10 text-primary">
         All Classes
       </h1>

@@ -24,7 +24,7 @@ const features = [
 const Featured = () => {
   return (
     <section className="py-20 ">
-      <h2 className="md:text-5xl text-3xl font-bold text-center mb-10 text-primary">
+      <h2 className="md:text-4xl text-3xl font-bold text-center mb-10 text-primary">
         🚀 Features That Set Us Apart
       </h2>
 

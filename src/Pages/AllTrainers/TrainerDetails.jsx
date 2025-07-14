@@ -1,8 +1,11 @@
 import { useParams, Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../Hooks/UseAxios";
+import UseUserRole from "../../Hooks/UseUserRole";
 
 const TrainerDetails = () => {
+  const { role } = UseUserRole();
+  // console.log(role);
   const { id } = useParams();
   const axiosInstance = UseAxios();
 
@@ -84,27 +87,38 @@ const TrainerDetails = () => {
             slots.map((slot) => (
               <div
                 key={slot._id}
-                className="border rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300"
+                className="border rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col"
               >
-                <p>
-                  <strong>Slot Name:</strong> {slot.slotName}
-                </p>
-                <p>
-                  <strong>Time:</strong> {slot.slotTime}
-                </p>
-                <p>
-                  <strong>Days:</strong> {slot.days.join(", ")}
-                </p>
-                <p>
-                  <strong>Class:</strong> {slot.className}
-                </p>
-                <Link
-                  to={`/trainer-booking/${trainer._id}?slot=${slot.slotName}`}
-                >
-                  <button className="mt-4 w-full py-2 bg-primary text-white rounded hover:bg-primary/90 transition">
+                <div className="flex-1 space-y-2">
+                  <p>
+                    <strong>Slot Name:</strong> {slot.slotName}
+                  </p>
+                  <p>
+                    <strong>Time:</strong> {slot.slotTime}
+                  </p>
+                  <p>
+                    <strong>Days:</strong> {slot.days.join(", ")}
+                  </p>
+                  <p>
+                    <strong>Class:</strong> {slot.className}
+                  </p>
+                </div>
+
+                {role === "trainer" ? (
+                  <div
+                    className="mt-auto w-full text-center py-2 rounded bg-gray-300 text-gray-500 cursor-not-allowed"
+                    title="Trainers cannot book slots"
+                  >
                     Book Slot
-                  </button>
-                </Link>
+                  </div>
+                ) : (
+                  <Link
+                    to={`/trainer-booking/${trainer._id}?slot=${slot.slotName}`}
+                    className="mt-auto w-full block text-center py-2 rounded bg-primary text-white hover:bg-primary/90 transition duration-300 hover:scale-105"
+                  >
+                    Book Slot
+                  </Link>
+                )}
               </div>
             ))
           )}

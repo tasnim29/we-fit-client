@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const COLORS = ["#0088FE", "#00C49F"];
 
@@ -19,6 +20,9 @@ const Balance = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-4">
+      <Helmet>
+        <title>WeFit | Balance</title>
+      </Helmet>
       <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center text-gray-800">
         Balance Overview
       </h1>

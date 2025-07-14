@@ -5,6 +5,7 @@ import { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import { MessageCirclePlus } from "lucide-react";
 import UseUserRole from "../../../Hooks/UseUserRole";
+import { Helmet } from "react-helmet-async";
 
 const AddForum = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -34,6 +35,9 @@ const AddForum = () => {
 
   return (
     <div className="min-h-screen py-10 px-4">
+      <Helmet>
+        <title>WeFit | Add Forum</title>
+      </Helmet>
       <div className="max-w-7xl mx-auto">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 sm:p-10 w-full">
           {/* Header */}

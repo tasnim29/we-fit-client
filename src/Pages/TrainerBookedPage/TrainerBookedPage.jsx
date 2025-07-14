@@ -2,6 +2,7 @@ import { useSearchParams, useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const packages = [
   {
@@ -69,6 +70,9 @@ const TrainerBookedPage = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-32">
+      <Helmet>
+        <title>WeFit | trainer booked</title>
+      </Helmet>
       <h1 className="text-3xl font-bold mb-6 text-center">
         Trainer Booking Summary
       </h1>

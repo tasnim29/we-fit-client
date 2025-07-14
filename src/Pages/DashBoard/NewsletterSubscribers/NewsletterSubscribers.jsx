@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
+import { Helmet } from "react-helmet-async";
 
 const NewsletterSubscribers = () => {
   const axiosSecure = UseAxiosSecure();
@@ -25,6 +26,9 @@ const NewsletterSubscribers = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-xl shadow-sm mt-10">
+      <Helmet>
+        <title>WeFit | All-Subs</title>
+      </Helmet>
       <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
         All Newsletter Subscribers
       </h2>

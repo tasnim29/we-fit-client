@@ -41,7 +41,16 @@ const ForumDetails = () => {
       <h1 className="text-3xl font-bold mb-4">{forum.title}</h1>
       <div className="text-gray-600 mb-4">
         <span className="mr-4">
-          By {forum.authorName} ({forum.role})
+          By {forum.authorName}{" "}
+          <span
+            className={`text-black px-2 py-1 rounded ${
+              forum.role === "admin"
+                ? "bg-secondary text-white"
+                : "bg-accent text-white"
+            }`}
+          >
+            {forum.role || "No role"}
+          </span>
         </span>
         <span>{new Date(forum.createdAt).toLocaleString()}</span>
       </div>

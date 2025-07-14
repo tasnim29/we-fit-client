@@ -20,7 +20,7 @@ const Navbar = () => {
         { to: "/", label: "Home" },
         { to: "/all-trainers", label: "All Trainers" },
         { to: "/all-classes", label: "All Classes" },
-        { to: "/beTrainer", label: "Be A Trainer" },
+        // { to: "/beTrainer", label: "Be A Trainer" },
         { to: "/forums", label: "Forums" },
         ...(user ? [{ to: "/dashboard", label: "Dashboard" }] : []),
       ].map(({ to, label }) => (

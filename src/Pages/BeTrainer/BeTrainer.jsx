@@ -6,6 +6,7 @@ import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import axios from "axios";
 import UseUserRole from "../../Hooks/UseUserRole";
+import { Helmet } from "react-helmet-async";
 
 const dayOptions = [
   { value: "Sunday", label: "Sunday" },
@@ -95,6 +96,9 @@ const BeTrainer = () => {
   if (role === "trainer") {
     return (
       <div className="max-w-xl mx-auto my-32 text-center bg-white rounded-lg shadow-lg p-10">
+        <Helmet>
+          <title>WeFit | All-Trainers</title>
+        </Helmet>
         <h2 className="text-3xl font-extrabold mb-4 text-primary">
           You are already a trainer
         </h2>
@@ -103,7 +107,7 @@ const BeTrainer = () => {
           apply again.
         </p>
         <a
-          href="/trainer-dashboard"
+          href="/dashboard"
           className="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-primary-dark transition"
         >
           Go to Trainer Dashboard

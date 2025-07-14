@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const AddClassForm = () => {
   const axiosSecure = UseAxiosSecure();
@@ -29,6 +30,9 @@ const AddClassForm = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
+      <Helmet>
+        <title>WeFit | Add Classes </title>
+      </Helmet>
       <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">
         Add New Class
       </h2>

@@ -16,6 +16,7 @@ import {
   FiMessageCircle,
 } from "react-icons/fi";
 import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
+import { Helmet } from "react-helmet-async";
 
 const DashboardHome = () => {
   const axiosSecure = UseAxiosSecure();
@@ -40,6 +41,9 @@ const DashboardHome = () => {
 
   return (
     <div className="p-6 space-y-8 bg-gray-50 min-h-screen">
+      <Helmet>
+        <title>WeFit | DashBoard Home</title>
+      </Helmet>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card

@@ -34,7 +34,7 @@ const LatestForums = () => {
   return (
     <section className="py-20 bg-base-100">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-10">
+        <h2 className="text-4xl font-bold text-center mb-10">
           Latest Community Posts
         </h2>
 
@@ -56,10 +56,24 @@ const LatestForums = () => {
                 <p className="text-sm text-gray-600 mb-3 line-clamp-3">
                   {forum.description}
                 </p>
-                <p className="text-xs text-gray-500 mt-auto">
-                  By {forum.authorName} ({forum.role}) —{" "}
-                  {new Date(forum.createdAt).toLocaleDateString()}
+
+                <p className="text-xs text-gray-500 mt-auto flex items-center gap-2 flex-wrap">
+                  By{" "}
+                  <span className="font-medium text-gray-700">
+                    {forum.authorName}
+                  </span>
+                  <span
+                    className={`text-black px-2 py-1 rounded ${
+                      forum.role === "admin"
+                        ? "bg-secondary text-white"
+                        : "bg-accent text-white"
+                    }`}
+                  >
+                    {forum.role || "No role"}
+                  </span>
+                  — {new Date(forum.createdAt).toLocaleDateString()}
                 </p>
+
                 <Link
                   to={`/forums/${forum._id}`}
                   className="mt-4 inline-block text-primary font-medium hover:underline"

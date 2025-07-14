@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import UseAxios from "../../Hooks/UseAxios";
 import GlobalLoader from "../Shared/GlobalLoader/GlobalLoader";
+import { Helmet } from "react-helmet-async";
 
 const AllTrainers = () => {
   const axiosInstance = UseAxios();
@@ -26,7 +27,10 @@ const AllTrainers = () => {
     );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-32">
+    <div className="max-w-7xl mx-auto px-4 py-32">
+      <Helmet>
+        <title>WeFit | All-Trainers</title>
+      </Helmet>
       <h2 className="text-3xl font-extrabold text-center mb-12 text-primary">
         👨‍🏫 Meet Our Trainers
       </h2>
