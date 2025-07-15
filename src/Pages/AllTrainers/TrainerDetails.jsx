@@ -20,7 +20,7 @@ const TrainerDetails = () => {
   const { data: slots = [] } = useQuery({
     queryKey: ["trainer-slots", id],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/slots/trainer/${id}`);
+      const res = await axiosInstance.get(`/public/slots/trainer/${id}`);
       return res.data;
     },
     enabled: !!trainer?._id,
