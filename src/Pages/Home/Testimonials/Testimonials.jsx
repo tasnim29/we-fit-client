@@ -43,7 +43,8 @@ const Testimonials = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
   };
 
-  const translateX = -(currentIndex * (100 / cardsPerView));
+  // const translateX = -(currentIndex * (100 / cardsPerView));
+  const translateX = -(currentIndex * (100 / total)); // smaller steps
 
   if (isLoading) {
     return (
@@ -66,6 +67,8 @@ const Testimonials = () => {
   if (total === 0)
     return <p className="text-center py-10">No reviews available.</p>;
 
+  const centerIndex = currentIndex + Math.floor(cardsPerView / 2);
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
@@ -86,17 +89,29 @@ const Testimonials = () => {
                 transform: `translateX(${translateX}%)`,
               }}
             >
-              {testimonials.map((item) => (
-                <div
-                  key={item._id}
-                  className="p-4"
-                  style={{
-                    width: `${100 / total}%`,
-                  }}
-                >
-                  <TestimonialCard item={item} />
-                </div>
-              ))}
+              {testimonials.map((item, index) => {
+                const isCenter = index === centerIndex;
+
+                return (
+                  <div
+                    key={item._id}
+                    className="p-4"
+                    style={{
+                      width: `${100 / cardsPerView}%`,
+                    }}
+                  >
+                    <div
+                      className={`transition-transform duration-300 ease-in-out ${
+                        isCenter
+                          ? "scale-105  shadow-xl bg-white"
+                          : "opacity-90"
+                      }`}
+                    >
+                      <TestimonialCard item={item} />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
