@@ -26,6 +26,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Invalid Password");
       });
   };
   return (
@@ -94,7 +95,7 @@ const Login = () => {
           </button>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer position="top-center" />
     </div>
   );
 };

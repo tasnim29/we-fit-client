@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import UseAxios from "../../../Hooks/UseAxios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
   const [profilePic, setProfilePic] = useState("");
@@ -169,6 +169,7 @@ const Register = () => {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 };

@@ -8,6 +8,8 @@ import { Link } from "react-router";
 import GlobalLoader from "../Shared/GlobalLoader/GlobalLoader";
 import { Helmet } from "react-helmet-async";
 
+import Swal from "sweetalert2";
+
 const ForumPage = () => {
   const [page, setPage] = useState(1);
   const { user } = use(AuthContext);
@@ -24,7 +26,11 @@ const ForumPage = () => {
 
   const handleVote = async (id, type) => {
     if (!user) {
-      return alert("You must log in to vote");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You must log in to vote",
+      });
     }
 
     try {
@@ -33,9 +39,20 @@ const ForumPage = () => {
         voteType: type,
       });
       refetch();
+      Swal.fire({
+        icon: "success",
+        title: "Voted!",
+        text: "Your vote has been recorded.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Vote failed");
+      Swal.fire({
+        icon: "error",
+        title: "Vote failed",
+        text: err.response?.data?.message || "Something went wrong",
+      });
     }
   };
 
