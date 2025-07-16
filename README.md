@@ -93,3 +93,12 @@ git clone https://github.com/yourusername/fitconnect.git
 cd fitconnect
 
 ```
+
+### 🔧 Setup Frontend
+
+```bash
+cd client
+npm install
+npm run dev
+
+```
