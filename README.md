@@ -1,12 +1,95 @@
-# React + Vite
+# WeFit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Empower Your Fitness Journey
 
-Currently, two official plugins are available:
+![FitConnect Screenshot](https://i.ibb.co/MDzF68DP/pic1-5.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📌 Project Overview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**FitConnect** is a next-gen fitness platform built to connect health enthusiasts, personal trainers, and community members all in one place. Whether you're starting your journey or looking to elevate your fitness game, FitConnect helps you discover trainers, explore classes, track your progress, and engage with a vibrant, supportive community.
+
+---
+
+## 🚀 Live Demo
+
+🔗 [Live Site](https://we-fit-838bc.web.app/)
+
+🔐 **Admin Login:**
+
+- **Email:** admin@fitconnect.com
+- **Password:** 123456
+
+---
+
+## ✨ What This Website Offers
+
+- 🧑‍🏫 **Explore Trainers** – Browse experienced trainers and view their availability, expertise, and class offerings.
+- 📆 **Book Sessions** – Schedule 1-on-1 sessions with trainers through easy-to-navigate booking slots.
+- 🏋️ **Join Classes** – Explore diverse fitness classes, view the most popular ones, and see which trainers specialize in each.
+- 💳 **Flexible Membership Plans** – Choose from Basic, Standard, and Premium memberships with clear benefits and pricing.
+- 💬 **Community Forums** – Ask questions, share tips, and vote on popular topics in an active community space.
+- 📝 **Leave Reviews** – Share your feedback after training and help others choose the right trainers.
+- ✍️ **Become a Trainer** – Fitness professionals can apply to be listed and start offering sessions right on the platform.
+- 📣 **Newsletter Signup** – Stay in the loop with platform updates and fitness news—no login required.
+- 🌟 **Featured Homepage** – Discover trending classes, recent forum posts, and member reviews all in one place.
+- 📱 **Fully Responsive** – Designed for mobile, tablet, and desktop for a seamless experience everywhere.
+
+---
+
+## 🧑‍💻 Roles & Dashboards
+
+### 👤 Member (Default)
+
+- View and join classes.
+- Book trainers and sessions.
+- Access personalized dashboard and submit reviews.
+- View application status if applied to be a trainer.
+
+### 🧑‍🎓 Trainer
+
+- Add and manage available time slots.
+- See who booked their sessions.
+- Contribute to the forums.
+- Manage their training-related content.
+
+### 🧑‍💼 Admin
+
+- Approve or reject trainer applications with feedback.
+- Manage all trainers, classes, and newsletter subscribers.
+- View latest payments and compare membership vs newsletter data with visual charts.
+- Post to the forum as an Admin.
+
+---
+
+## 🔐 Security & Access Control
+
+- Secure login via Email/Password or Social Accounts.
+- Role-based access with dynamic navigation.
+- Protected private pages using token-based authentication.
+- All sensitive routes are protected and unauthorized access is restricted.
+
+---
+
+## 🧭 Website Navigation
+
+- 🏠 Home
+- 👥 All Trainers
+- 📚 All Classes
+- 🗂️ Community Forum
+- 🧑 Dashboard (Role-based)
+- 🔐 Login/Register
+- 👤 Profile
+
+---
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/yourusername/fitconnect.git
+cd fitconnect
+
+```
