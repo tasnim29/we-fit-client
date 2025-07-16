@@ -102,3 +102,44 @@ npm install
 npm run dev
 
 ```
+
+### 🔧 🔧 Setup Backend
+
+```bash
+cd client
+npm install
+nodemon index.js
+
+```
+
+## 🧪 Bonus Functionalities
+
+🔍 Backend-powered search on the All Classes page.
+
+📛 Role-specific badges for forum posts (Admin, Trainer).
+
+🛑 Rejection system for trainer applicants with feedback modals.
+
+📊 Visual dashboard analytics for Admin.
+
+🌐 Dynamic page titles using React Helmet.
+
+## 🔗 Useful Links
+
+🔥 Firebase Docs: https://firebase.google.com/docs
+
+🧾 MongoDB Docs: https://www.mongodb.com/docs/
+
+💳 Stripe Docs: https://stripe.com/docs
+
+📘 React Docs: https://react.dev/
+
+#### © 2025 FitConnect — Built with 💪 by Tasnim Mahmud
+
+---
+
+Would you like me to generate a **downloadable README.md file** or help with the **repository link setup** too?
+
+```
+
+```
