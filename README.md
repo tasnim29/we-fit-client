@@ -1,4 +1,4 @@
-# WeFit
+# 💪 WeFit – A Fitness Platform
 
 # Empower Your Fitness Journey
 
