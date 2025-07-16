@@ -18,8 +18,8 @@
 
 🔐 **Admin Login:**
 
-- **Email:** admin@fitconnect.com
-- **Password:** 123456
+- **Email:** mag@gmail.com
+- **Password:** 12345678
 
 ---
 
