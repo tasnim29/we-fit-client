@@ -34,74 +34,71 @@ const AddForum = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 px-4">
+    <div>
       <Helmet>
         <title>WeFit | Add Forum</title>
       </Helmet>
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 sm:p-10 w-full">
-          {/* Header */}
-          <div className="flex items-center gap-3 mb-8">
-            <MessageCirclePlus className="text-primary w-6 h-6" />
-            <h2 className="text-3xl font-semibold text-gray-800">
-              Create a New Forum Post
-            </h2>
+
+      <div className="bg-white  min-h-screen py-10 px-4 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-10 justify-center">
+          <MessageCirclePlus className="text-primary w-6 h-6" />
+          <h2 className="text-3xl font-bold">Create a New Forum Post</h2>
+        </div>
+
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {/* Title */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Post Title
+            </label>
+            <input
+              type="text"
+              placeholder="Enter title"
+              {...register("title", { required: true })}
+              className="w-full border border-gray-300 rounded-xl px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition"
+            />
           </div>
 
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
-            {/* Title */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Post Title
-              </label>
-              <input
-                type="text"
-                placeholder="e.g., How to improve endurance?"
-                {...register("title", { required: true })}
-                className="input input-bordered w-full"
-              />
-            </div>
+          {/* Image URL */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Image URL
+            </label>
+            <input
+              type="url"
+              placeholder="Enter image URL"
+              {...register("image", { required: true })}
+              className="w-full border border-gray-300 rounded-xl px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition"
+            />
+          </div>
 
-            {/* Image URL */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Image URL
-              </label>
-              <input
-                type="url"
-                placeholder="https://example.com/image.jpg"
-                {...register("image", { required: true })}
-                className="input input-bordered w-full"
-              />
-            </div>
+          {/* Description */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Description
+            </label>
+            <textarea
+              placeholder="Write your discussion or question here..."
+              {...register("description", { required: true })}
+              className="w-full border border-gray-300 rounded-xl px-4 py-2 shadow-sm min-h-[160px] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition resize-none"
+            />
+          </div>
 
-            {/* Description */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Description
-              </label>
-              <textarea
-                placeholder="Write your discussion or question here..."
-                {...register("description", { required: true })}
-                className="textarea textarea-bordered w-full min-h-[160px]"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="md:col-span-2">
-              <button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-full shadow transition"
-              >
-                Post to Forum
-              </button>
-            </div>
-          </form>
-        </div>
+          {/* Submit Button */}
+          <div className="md:col-span-2 flex justify-center">
+            <button
+              type="submit"
+              className="px-8 py-2 bg-primary text-white font-medium  rounded-xl hover:-translate-y-1 transition transform duration-300"
+            >
+              Post to Forum
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

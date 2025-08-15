@@ -50,13 +50,11 @@ const ProfilePage = () => {
   if (!user) return <p>Loading user data...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-md">
+    <div className="max-w-7xl mx-auto py-10 px-4 bg-white  ">
       <Helmet>
         <title>WeFit | Profile</title>
       </Helmet>
-      <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">
-        Your Profile
-      </h2>
+      <h2 className="text-3xl font-bold mb-8 text-center ">Your Profile</h2>
 
       {/* Profile Picture Preview */}
       <div className="flex justify-center mb-6">
@@ -127,13 +125,15 @@ const ProfilePage = () => {
         {error && <p className="text-red-600 font-medium">{error}</p>}
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={updating}
-          className="w-full cursor-pointer bg-accent hover:bg-blue-700 transition text-white font-semibold py-3 rounded-lg shadow"
-        >
-          {updating ? "Updating..." : "Update Profile"}
-        </button>
+        <div className="md:col-span-2 flex justify-center">
+          <button
+            type="submit"
+            disabled={updating}
+            className="px-8 py-2 bg-primary text-white font-medium  rounded-xl hover:-translate-y-1 transition transform duration-300"
+          >
+            {updating ? "Updating..." : "Update Profile"}
+          </button>
+        </div>
       </form>
     </div>
   );

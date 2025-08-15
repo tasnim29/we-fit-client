@@ -82,6 +82,15 @@ const DashBoardLayout = () => {
             <div>
               <li>
                 <NavLink
+                  to="/dashboard/profile"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <i className="fa-solid fa-user"></i> Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/dashboard/newsletter-subscribers"
                   className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"
                   onClick={() => setIsSidebarOpen(false)}
