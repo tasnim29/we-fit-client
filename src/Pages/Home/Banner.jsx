@@ -66,7 +66,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className=" pt-5">
+    <div className=" pt-16">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative h-[600px] md:h-[700px] w-full">

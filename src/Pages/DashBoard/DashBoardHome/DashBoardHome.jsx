@@ -40,7 +40,7 @@ const DashboardHome = () => {
   }
 
   return (
-    <div className="p-6 space-y-8 bg-gray-50 min-h-screen">
+    <div className="py-10 px-4 space-y-8  min-h-screen">
       <Helmet>
         <title>WeFit | DashBoard Home</title>
       </Helmet>
@@ -69,7 +69,7 @@ const DashboardHome = () => {
       </div>
 
       {/* Bar Chart */}
-      <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-6xl mx-auto">
+      <div className="bg-white  rounded-xl shadow-lg w-full max-w-7xl mx-auto">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">
           📊 Platform Stats Overview
         </h2>

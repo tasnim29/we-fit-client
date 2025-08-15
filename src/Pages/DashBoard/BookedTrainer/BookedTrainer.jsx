@@ -29,16 +29,16 @@ const BookedTrainer = () => {
   const { trainer, classInfo, slotInfo } = data;
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4">
+    <div className="max-w-7xl mx-auto py-10 px-4">
       <Helmet>
         <title>WeFit | Booked Trainers</title>
       </Helmet>
-      <h2 className="text-3xl sm:text-4xl font-extrabold mb-10 text-center text-gray-800">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center ">
         Your Booked Trainer
       </h2>
 
       {/* Trainer Info */}
-      <section className="mb-10 bg-white shadow rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+      <section className="mb-10 bg-white justify-center p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
         <img
           src={
             trainer?.image || "https://via.placeholder.com/150?text=No+Image"
@@ -90,7 +90,7 @@ const BookedTrainer = () => {
       {/* Review Button */}
       <div className="text-center">
         <button
-          className="bg-accent cursor-pointer hover:bg-blue-700 transition text-white font-semibold px-6 py-3 rounded-lg shadow"
+          className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg"
           onClick={() => setReviewOpen(true)}
         >
           Review Trainer

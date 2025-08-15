@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaEye } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
+import GlobalLoader from "../../Shared/GlobalLoader/GlobalLoader";
+import { MessageCirclePlus } from "lucide-react";
 
 const ActivityLog = () => {
   const axiosSecure = UseAxiosSecure();
@@ -20,7 +22,7 @@ const ActivityLog = () => {
     },
   });
 
-  if (isLoading) return <p>Loading applications...</p>;
+  if (isLoading) return <GlobalLoader></GlobalLoader>;
   if (isError) return <p className="text-red-500">Failed to load data.</p>;
 
   // Filter only pending or rejected status (backend should do this ideally)
@@ -29,7 +31,7 @@ const ActivityLog = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto p-8 bg-white rounded-xl shadow-md">
+    <div className="max-w-7xl mx-auto py-10 px-4 bg-white ">
       <Helmet>
         <title>WeFit | Activity-log</title>
       </Helmet>
@@ -103,31 +105,50 @@ const ActivityLog = () => {
 
       {/* Modal */}
       {modalData && (
-        <div className="fixed inset-0 bg-white/30 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white p-6 sm:p-8 rounded-xl shadow-xl max-w-lg w-full relative">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden">
+            {/* Close Button */}
             <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold transition"
               onClick={() => setModalData(null)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-3xl font-bold transition"
             >
               &times;
             </button>
-            <h3 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
-              Rejection Feedback
-            </h3>
-            <div className="text-gray-700 space-y-2">
-              <p>
-                <span className="font-medium">Name:</span> {modalData.fullName}
-              </p>
-              <p>
-                <span className="font-medium">Email:</span> {modalData.email}
-              </p>
+
+            {/* Top Section with Icon */}
+            <div className="bg-primary/10 p-6 flex flex-col items-center">
+              <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mb-4 shadow-md">
+                <MessageCirclePlus className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-primary text-center">
+                Rejection Feedback
+              </h3>
             </div>
-            <div className="mt-4 p-4 bg-gray-100 rounded-lg border text-gray-800">
-              {modalData.feedback ? (
-                <p>{modalData.feedback}</p>
-              ) : (
-                <p className="italic text-gray-500">No feedback provided.</p>
-              )}
+
+            {/* Content Section */}
+            <div className="p-6 space-y-5">
+              {/* User Info */}
+              <div className="grid grid-cols-2 gap-4 text-gray-700">
+                <div className="font-medium">Name:</div>
+                <div className="text-gray-800">{modalData.fullName}</div>
+                <div className="font-medium">Email:</div>
+                <div className="text-gray-800">{modalData.email}</div>
+              </div>
+
+              {/* Feedback */}
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-800 min-h-[80px] flex items-center justify-center">
+                {modalData.feedback ? (
+                  <p className="whitespace-pre-wrap text-center">
+                    {modalData.feedback}
+                  </p>
+                ) : (
+                  <p className="italic text-gray-500 text-center">
+                    No feedback provided.
+                  </p>
+                )}
+              </div>
+
+              {/* Optional: Action Buttons can go here if needed */}
             </div>
           </div>
         </div>
