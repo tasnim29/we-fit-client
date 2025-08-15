@@ -42,7 +42,7 @@ const LatestForums = () => {
           {forums.map((forum) => (
             <div
               key={forum._id}
-              className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col"
+              className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col hover:-translate-y-2 hover:shadow-xl transition-all duration-300 "
             >
               {forum.image && (
                 <img

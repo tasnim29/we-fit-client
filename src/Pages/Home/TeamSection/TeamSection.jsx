@@ -39,7 +39,7 @@ const TeamSection = () => {
             <div
               key={trainer._id}
               className="bg-white rounded-xl shadow-xl p-6 border-t-4 border-primary 
-                         hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 
+                         hover:-translate-y-2 hover:shadow-xl transition-all duration-300 
                          flex flex-col"
             >
               {/* Avatar */}

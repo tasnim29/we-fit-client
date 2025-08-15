@@ -34,7 +34,7 @@ const FeaturedClasses = () => {
         {classes.map((cls) => (
           <div
             key={cls._id}
-            className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+            className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2  transition-all duration-300 "
           >
             <img
               src={cls.image || "/default-class.jpg"}

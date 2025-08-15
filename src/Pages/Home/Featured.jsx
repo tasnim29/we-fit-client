@@ -6,7 +6,7 @@ const features = [
     icon: <FaSatelliteDish size={40} />,
     title: " Goal-Based Smart Booking",
     description:
-      "Choose your fitness goal (e.g., weight loss, muscle gain, flexibility) and our system recommends the best class-slot-trainer combo",
+      "Choose your fitness goal and our system recommends the best class-slot-trainer combo",
   },
   {
     icon: <FaCreditCard size={40} />,
@@ -34,7 +34,7 @@ const Featured = () => {
             key={index}
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="relative p-8 rounded-2xl border overflow-hidden shadow-md backdrop-blur-md 
-    border-blue-100 text-center bg-white/80 transition-all duration-300 group cursor-pointer"
+    border-blue-100 text-center bg-white/80 transition-all duration-300 group cursor-pointer hover:-translate-y-2 hover:shadow-2xl  "
           >
             {/* Hover background image */}
             <div
