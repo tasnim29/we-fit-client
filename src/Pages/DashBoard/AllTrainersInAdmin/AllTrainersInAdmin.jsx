@@ -66,13 +66,11 @@ const AllTrainersInAdmin = () => {
   if (isError) return <p className="text-red-500">Failed to load trainers.</p>;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-7xl mx-auto py-10 px-4 bg-white ">
       <Helmet>
         <title>WeFit | All-Trainers</title>
       </Helmet>
-      <h2 className="text-3xl font-extrabold mb-8 text-gray-800">
-        All Trainers
-      </h2>
+      <h2 className="text-3xl font-bold mb-10 text-center">All Trainers</h2>
 
       {trainers.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">No trainers found.</p>

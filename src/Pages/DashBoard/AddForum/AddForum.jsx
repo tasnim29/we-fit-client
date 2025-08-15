@@ -93,7 +93,7 @@ const AddForum = () => {
           <div className="md:col-span-2 flex justify-center">
             <button
               type="submit"
-              className="px-8 py-2 bg-primary text-white font-medium  rounded-xl hover:-translate-y-1 transition transform duration-300"
+              className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg"
             >
               Post to Forum
             </button>

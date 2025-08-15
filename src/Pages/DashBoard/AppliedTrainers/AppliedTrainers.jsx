@@ -27,11 +27,11 @@ const AppliedTrainers = () => {
     );
 
   return (
-    <div className="p-6 max-w-7xl mx-auto bg-white rounded-lg shadow-md">
+    <div className="py-10 px-4 max-w-7xl mx-auto bg-white ">
       <Helmet>
         <title>WeFit | Applied Trainers</title>
       </Helmet>
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center">
         Applied Trainers
       </h2>
 

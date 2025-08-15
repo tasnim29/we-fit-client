@@ -91,7 +91,7 @@ const ProfilePage = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -104,7 +104,7 @@ const ProfilePage = () => {
             type="url"
             value={photoURL}
             onChange={(e) => setPhotoURL(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="https://example.com/photo.jpg"
           />
         </div>
@@ -129,7 +129,7 @@ const ProfilePage = () => {
           <button
             type="submit"
             disabled={updating}
-            className="px-8 py-2 bg-primary text-white font-medium  rounded-xl hover:-translate-y-1 transition transform duration-300"
+            className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg"
           >
             {updating ? "Updating..." : "Update Profile"}
           </button>

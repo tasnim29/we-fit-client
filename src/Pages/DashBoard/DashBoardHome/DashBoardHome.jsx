@@ -89,11 +89,11 @@ const DashboardHome = () => {
 
 // Updated Card with icon and color enhancements
 const Card = ({ title, value, icon }) => (
-  <div className="bg-white shadow-md hover:shadow-xl transition-shadow rounded-2xl p-5 flex items-center gap-4 border border-gray-200 cursor-pointer">
+  <div className="bg-gradient-to-r from-primary to-secondary shadow-md hover:scale-105 transition duration-300 rounded-xl p-5 flex items-center gap-4  cursor-pointer">
     <div className="text-4xl">{icon}</div>
     <div>
-      <p className="text-sm text-gray-500">{title}</p>
-      <h3 className="text-3xl font-bold text-gray-800">{value ?? 0}</h3>
+      <p className="text-sm text-white">{title}</p>
+      <h3 className="text-3xl font-bold text-white">{value ?? 0}</h3>
     </div>
   </div>
 );

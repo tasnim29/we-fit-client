@@ -23,12 +23,12 @@ const Balance = () => {
       <Helmet>
         <title>WeFit | Balance</title>
       </Helmet>
-      <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center text-gray-800">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-10 text-center ">
         Balance Overview
       </h1>
 
       {/* Total Balance */}
-      <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 sm:p-8 rounded-xl text-2xl sm:text-3xl font-semibold shadow mb-10 text-center">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-6 sm:p-8 rounded-xl text-2xl sm:text-3xl font-semibold shadow mb-10 text-center">
         💰 Total Earnings: ${balanceData?.totalBalance || 0}
       </div>
 

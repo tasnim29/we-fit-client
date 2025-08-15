@@ -25,11 +25,11 @@ const NewsletterSubscribers = () => {
     return <p className="text-red-500">Failed to load subscribers.</p>;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-white rounded-xl shadow-sm mt-10">
+    <div className="max-w-7xl mx-auto py-10 px-4 bg-white  ">
       <Helmet>
         <title>WeFit | All-Subs</title>
       </Helmet>
-      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">
         All Newsletter Subscribers
       </h2>
 
