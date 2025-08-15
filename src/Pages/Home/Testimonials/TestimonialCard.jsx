@@ -2,7 +2,7 @@ import { FaStar, FaQuoteLeft } from "react-icons/fa";
 
 const TestimonialCard = ({ item }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-between h-full">
+    <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-between h-80">
       <img
         src={
           item.userImage ||
@@ -20,7 +20,7 @@ const TestimonialCard = ({ item }) => {
 
       <FaQuoteLeft className="text-2xl text-primary mb-2" />
 
-      <p className="text-gray-600 text-sm italic text-center flex-grow px-2">
+      <p className="text-gray-600 text-sm italic text-center flex-grow px-2 line-clamp-3">
         {item.feedback}
       </p>
 
