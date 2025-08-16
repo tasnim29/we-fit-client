@@ -2,6 +2,7 @@ import React, { use, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import logo from "../../../assets/companyLogo.png";
+import DarkMode from "../DarkMode/DarkMode";
 
 const Navbar = () => {
   const { user, logOutUser } = use(AuthContext);
@@ -46,10 +47,15 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-primary shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/">
-          <img src={logo} alt="Logo" className="w-16" />
-        </Link>
+        <div className="flex gap-3 items-center">
+          {/* Logo */}
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-16" />
+          </Link>
+          <div>
+            <DarkMode></DarkMode>
+          </div>
+        </div>
 
         {/* Desktop Nav */}
         <ul className="hidden lg:flex items-center gap-6">{navItems}</ul>

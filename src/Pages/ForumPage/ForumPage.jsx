@@ -59,76 +59,88 @@ const ForumPage = () => {
   if (isLoading) return <GlobalLoader></GlobalLoader>;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-32">
+    <div className="max-w-7xl mx-auto px-4 py-32">
       <Helmet>
         <title>WeFit | Forums</title>
       </Helmet>
       <h1 className="text-3xl font-bold mb-8 text-center">Community Forum</h1>
 
-      {data?.forums?.map((forum) => (
-        <div key={forum._id} className="bg-white rounded-lg p-6 shadow-md mb-6">
-          {/* Image */}
-          {forum.image && (
-            <img
-              src={forum.image}
-              alt={forum.title}
-              className="w-full h-52 object-cover rounded-md mb-4"
-            />
-          )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data?.forums?.map((forum) => (
+          <div
+            key={forum._id}
+            className="bg-white rounded-2xl shadow-md hover:shadow-lg transition p-5 flex flex-col"
+          >
+            {/* Image */}
+            {forum.image && (
+              <img
+                src={forum.image}
+                alt={forum.title}
+                className="w-full h-48 object-cover rounded-xl mb-4"
+              />
+            )}
 
-          <h2 className="text-xl font-semibold">{forum.title}</h2>
+            {/* Title */}
+            <h2 className="text-lg font-bold text-gray-900 line-clamp-2">
+              {forum.title}
+            </h2>
 
-          {/* Truncated Description */}
-          <p className="text-gray-700 mt-2">
-            {forum.description.length > 150
-              ? `${forum.description.slice(0, 150)}...`
-              : forum.description}
-          </p>
+            {/* Description */}
+            <p className="text-gray-600 mt-2 text-sm leading-relaxed flex-grow">
+              {forum.description.length > 120
+                ? `${forum.description.slice(0, 120)}...`
+                : forum.description}
+            </p>
 
-          {/* Read More Button */}
-          <div className="mt-2">
+            {/* Read More */}
             <Link
               to={`/forums/${forum._id}`}
-              className="text-primary font-medium hover:underline"
+              className="text-primary font-medium mt-2 inline-block hover:underline"
             >
-              Read More
+              Read More →
             </Link>
-          </div>
 
-          <div className="flex items-center gap-4 mt-4 text-sm text-gray-600">
-            <span>
-              Posted by: {forum.authorName}{" "}
-              <span
-                className={`text-black px-2 py-1 rounded ${
-                  forum.role === "admin"
-                    ? "bg-secondary text-white"
-                    : "bg-accent text-white"
-                }`}
-              >
-                {forum.role || "No role"}
+            {/* Footer */}
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-gray-500">
+              {/* Author + Role */}
+              <span>
+                By{" "}
+                <span className="font-medium text-gray-800">
+                  {forum.authorName}
+                </span>{" "}
+                <span
+                  className={`ml-2 px-2 py-0.5 rounded-full text-[11px] uppercase tracking-wide ${
+                    forum.role === "admin"
+                      ? "bg-secondary text-white"
+                      : "bg-accent text-white"
+                  }`}
+                >
+                  {forum.role || "User"}
+                </span>
               </span>
-            </span>
-            <span>{new Date(forum.createdAt).toLocaleString()}</span>
-          </div>
 
-          <div className="flex items-center gap-4 mt-3">
-            <button
-              onClick={() => handleVote(forum._id, "up")}
-              className="flex items-center gap-1 text-green-600 hover:scale-110 transition"
-            >
-              <ThumbsUp size={20} />
-              {forum.upvotes}
-            </button>
-            <button
-              onClick={() => handleVote(forum._id, "down")}
-              className="flex items-center gap-1 text-red-500 hover:scale-110 transition"
-            >
-              <ThumbsDown size={20} />
-              {forum.downvotes}
-            </button>
+              {/* Time */}
+              <span>{new Date(forum.createdAt).toLocaleDateString()}</span>
+            </div>
+
+            {/* Voting */}
+            <div className="flex items-center gap-4 mt-4">
+              <button
+                onClick={() => handleVote(forum._id, "up")}
+                className="flex items-center gap-1 text-green-600 hover:scale-110 transition"
+              >
+                <ThumbsUp size={18} /> {forum.upvotes}
+              </button>
+              <button
+                onClick={() => handleVote(forum._id, "down")}
+                className="flex items-center gap-1 text-red-500 hover:scale-110 transition"
+              >
+                <ThumbsDown size={18} /> {forum.downvotes}
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {/* Pagination */}
       <div className="text-center mt-10 space-x-2">

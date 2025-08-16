@@ -8,6 +8,16 @@
 /* google font */
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 
+html.dark body {
+  color: white;
+  @apply bg-gray-950;
+  transition: 1s;
+}
+html.light body {
+  @apply bg-white;
+  transition: 1s;
+}
+
 .oswald {
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;

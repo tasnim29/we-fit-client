@@ -32,9 +32,7 @@ const AllClasses = () => {
       <Helmet>
         <title>WeFit | All-Classes</title>
       </Helmet>
-      <h1 className="text-4xl font-extrabold text-center mb-10 text-primary">
-        All Classes
-      </h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">All Classes</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
         <div className="md:col-span-3">

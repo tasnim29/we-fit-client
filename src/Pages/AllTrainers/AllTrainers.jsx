@@ -31,7 +31,7 @@ const AllTrainers = () => {
       <Helmet>
         <title>WeFit | All-Trainers</title>
       </Helmet>
-      <h2 className="text-3xl font-extrabold text-center mb-12 text-primary">
+      <h2 className="text-3xl font-bold mb-8 text-center">
         👨‍🏫 Meet Our Trainers
       </h2>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
