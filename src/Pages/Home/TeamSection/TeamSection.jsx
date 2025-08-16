@@ -101,7 +101,11 @@ const TeamSection = () => {
                   {trainer.skills?.map((skill, idx) => (
                     <li
                       key={idx}
-                      className="bg-primary/10 text-primary px-3 py-1 rounded-full shadow-sm"
+                      className={` px-3 py-1 rounded-full shadow-sm ${
+                        theme === "dark"
+                          ? "bg-accent text-white"
+                          : "bg-primary/30 text-primary"
+                      }`}
                     >
                       {skill}
                     </li>
@@ -112,8 +116,8 @@ const TeamSection = () => {
               {/* Know More Button */}
               <Link
                 to={`/trainer-details/${trainer._id}`}
-                className="mt-6 block w-full py-2 bg-primary text-white font-semibold rounded-lg
-                           hover:bg-primary/90 transition text-center"
+                className="mt-6 block w-full py-2 bg-accent text-white font-semibold rounded-lg
+                            transition text-center"
               >
                 Know more
               </Link>

@@ -102,7 +102,7 @@ const NewsletterSubscription = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full cursor-pointer md:w-auto bg-primary text-white font-semibold px-6 py-2 rounded shadow hover:bg-accent transition disabled:opacity-60"
+          className="w-full cursor-pointer md:w-auto bg-accent text-white font-semibold px-6 py-2 rounded shadow hover:bg-accent transition disabled:opacity-60"
         >
           {loading ? "Subscribing..." : "Subscribe Now"}
         </button>
