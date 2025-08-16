@@ -1,5 +1,7 @@
 import { FaSatelliteDish, FaHeadset, FaCreditCard } from "react-icons/fa";
 import image3 from "../../assets/Banner/bannerImg-3.jpg";
+import { use } from "react";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const features = [
   {
@@ -22,19 +24,28 @@ const features = [
 ];
 
 const Featured = () => {
+  const { theme } = use(AuthContext);
   return (
-    <section className="py-20 ">
-      <h2 className="md:text-4xl text-3xl font-bold text-center mb-10 text-primary">
-        🚀 Features That Set Us Apart
+    <section className="py-20">
+      <h2
+        className={`md:text-4xl text-3xl font-bold text-center mb-10 
+          ${theme === "dark" ? "text-white" : "text-primary"}`}
+      >
+        Features That Set Us Apart
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
         {features.map((feature, index) => (
           <div
             key={index}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="relative p-8 rounded-2xl border overflow-hidden shadow-md backdrop-blur-md 
-    border-blue-100 text-center bg-white/80 transition-all duration-300 group cursor-pointer hover:-translate-y-2 hover:shadow-2xl  "
+            className={`relative p-8 rounded-2xl border overflow-hidden shadow-md backdrop-blur-md 
+              border-blue-100 text-center transition-all duration-300 group cursor-pointer 
+              hover:-translate-y-2 hover:shadow-2xl
+              ${
+                theme === "dark"
+                  ? "bg-gray-800 text-gray-200 border-gray-700"
+                  : "bg-white/80 text-gray-800"
+              }`}
           >
             {/* Hover background image */}
             <div
@@ -52,16 +63,27 @@ const Featured = () => {
 
             {/* Content */}
             <div className="relative z-20">
-              {/* ICON stays the same color */}
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-blue-100 text-accent rounded-full">
+              <div
+                className={`w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full
+                ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-accent"
+                    : "bg-blue-100 text-accent"
+                }`}
+              >
                 {feature.icon}
               </div>
 
-              {/* TEXT turns white on hover */}
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-white transition duration-300">
+              <h3
+                className={`text-xl font-semibold mb-2 group-hover:text-white transition duration-300
+                ${theme === "dark" ? "text-gray-100" : "text-gray-800"}`}
+              >
                 {feature.title}
               </h3>
-              <p className="text-gray-600 group-hover:text-white transition duration-300">
+              <p
+                className={`group-hover:text-white transition duration-300
+                ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}
+              >
                 {feature.description}
               </p>
             </div>

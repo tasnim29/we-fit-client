@@ -69,7 +69,7 @@ const Banner = () => {
     <div className=" pt-16">
       <Slider {...settings}>
         {slides.map((slide, index) => (
-          <div key={index} className="relative h-[600px] md:h-[700px] w-full">
+          <div key={index} className="relative h-[600px]  w-full">
             <img
               src={slide.image}
               alt={`Slide ${index + 1}`}

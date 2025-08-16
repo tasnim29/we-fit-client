@@ -2,8 +2,11 @@ import { useParams, Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../Hooks/UseAxios";
 import UseUserRole from "../../Hooks/UseUserRole";
+import { use } from "react";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const TrainerDetails = () => {
+  const { theme } = use(AuthContext);
   const { role } = UseUserRole();
   // console.log(role);
   const { id } = useParams();
@@ -28,6 +31,11 @@ const TrainerDetails = () => {
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
 
+  const bgClass = theme === "dark" ? "bg-gray-800" : "bg-white";
+  const textClass = theme === "dark" ? "text-gray-200" : "text-gray-800";
+  const subTextClass = theme === "dark" ? "text-gray-400" : "text-gray-700";
+  const borderClass = theme === "dark" ? "border-gray-700" : "border-gray-200";
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-32 space-y-16">
       {/* Be A Trainer CTA */}
@@ -43,7 +51,9 @@ const TrainerDetails = () => {
       </div>
 
       {/* Trainer Info */}
-      <div className="grid md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-xl shadow-md">
+      <div
+        className={`grid md:grid-cols-2 gap-8 items-center p-8 rounded-xl shadow-md ${bgClass}`}
+      >
         <div>
           <img
             src={trainer.image}
@@ -52,42 +62,47 @@ const TrainerDetails = () => {
           />
         </div>
         <div className="space-y-3">
-          <h2 className="text-3xl font-bold text-gray-800">
+          <h2 className={`text-3xl font-bold ${textClass}`}>
             {trainer.fullName}
           </h2>
-          <p className="text-gray-700 text-sm italic">{trainer.bio}</p>
+          <p className={`text-sm italic ${subTextClass}`}>{trainer.bio}</p>
           <p>
-            <strong>Age:</strong> {trainer.age}
+            <strong>Age:</strong>{" "}
+            <span className={textClass}>{trainer.age}</span>
           </p>
           <p>
             <strong>Skills:</strong>{" "}
             <span className="text-primary">{trainer.skills.join(", ")}</span>
           </p>
           <p>
-            <strong>Available Days:</strong> {trainer.availableDays.join(", ")}
+            <strong>Available Days:</strong>{" "}
+            <span className={textClass}>
+              {trainer.availableDays.join(", ")}
+            </span>
           </p>
           <p>
-            <strong>Available Time:</strong> {trainer.availableTime}
+            <strong>Available Time:</strong>{" "}
+            <span className={textClass}>{trainer.availableTime}</span>
           </p>
         </div>
       </div>
 
       {/* Slot Section */}
-      <div className="bg-white p-8 rounded-xl shadow-md">
-        <h3 className="text-2xl font-semibold mb-6 text-center text-primary">
+      <div className={`p-8 rounded-xl shadow-md ${bgClass}`}>
+        <h3 className={`text-2xl font-semibold mb-6 text-center text-primary`}>
           📅 Available Slots
         </h3>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {slots.length === 0 ? (
-            <p className="text-center col-span-full text-gray-500">
+            <p className={`text-center col-span-full ${subTextClass}`}>
               No slots added by this trainer yet.
             </p>
           ) : (
             slots.map((slot) => (
               <div
                 key={slot._id}
-                className="border rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col"
+                className={`border ${borderClass} rounded-xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col`}
               >
                 <div className="flex-1 space-y-2">
                   <p>

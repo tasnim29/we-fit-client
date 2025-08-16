@@ -6,6 +6,8 @@ import {
   FaClock,
 } from "react-icons/fa";
 import image3 from "../../assets/aboutBg.png";
+import { use } from "react";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const features = [
   {
@@ -36,6 +38,7 @@ const features = [
 ];
 
 const About = () => {
+  const { theme } = use(AuthContext);
   return (
     <section
       className="relative w-full bg-cover bg-center bg-no-repeat"
@@ -61,18 +64,36 @@ const About = () => {
         </div>
 
         {/* Right features */}
-        <div className="md:w-1/2 grid grid-cols-2 gap-8 ">
+        <div className="md:w-1/2 grid grid-cols-2 gap-8">
           {features.map(({ id, icon: Icon, title, subtitle }) => (
             <div
               key={id}
-              className="flex bg-white hover:text-light flex-col items-center p-6 rounded-lg shadow-lg cursor-pointer transition hover:bg-secondary/50 group "
+              className={`flex flex-col items-center p-6 rounded-lg shadow-lg cursor-pointer transition group 
+        ${
+          theme === "dark"
+            ? "bg-gray-800 text-gray-200 hover:bg-secondary/60"
+            : "bg-white text-secondary hover:bg-secondary/50 hover:text-light"
+        }`}
             >
-              <Icon className="mb-4 w-10 h-10 text-accent" />
-              <h3 className="text-lg font-semibold text-center text-secondary group-hover:text-light">
+              <Icon
+                className={`mb-4 w-10 h-10 
+          ${theme === "dark" ? "text-accent" : "text-accent"}`}
+              />
+              <h3
+                className={`text-lg font-semibold text-center 
+          ${
+            theme === "dark"
+              ? "text-gray-100 group-hover:text-light"
+              : "text-secondary group-hover:text-light"
+          }`}
+              >
                 {title}
               </h3>
               {subtitle && (
-                <p className="text-center mt-1 text-sm text-light">
+                <p
+                  className={`text-center mt-1 text-sm 
+            ${theme === "dark" ? "text-gray-300" : "text-gray-900"}`}
+                >
                   {subtitle}
                 </p>
               )}

@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 const ForumPage = () => {
   const [page, setPage] = useState(1);
-  const { user } = use(AuthContext);
+  const { user, theme } = use(AuthContext);
   const axiosInstance = UseAxios();
   const axiosSecure = UseAxiosSecure();
 
@@ -63,13 +63,24 @@ const ForumPage = () => {
       <Helmet>
         <title>WeFit | Forums</title>
       </Helmet>
-      <h1 className="text-3xl font-bold mb-8 text-center">Community Forum</h1>
+
+      <h1
+        className={`text-3xl font-bold mb-8 text-center ${
+          theme === "dark" ? "text-gray-200" : "text-gray-900"
+        }`}
+      >
+        Community Forum
+      </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {data?.forums?.map((forum) => (
           <div
             key={forum._id}
-            className="bg-white rounded-2xl shadow-md hover:shadow-lg transition p-5 flex flex-col"
+            className={`rounded-2xl shadow-md hover:shadow-lg transition p-5 flex flex-col ${
+              theme === "dark"
+                ? "bg-gray-800 text-gray-200"
+                : "bg-white text-gray-900"
+            }`}
           >
             {/* Image */}
             {forum.image && (
@@ -81,12 +92,14 @@ const ForumPage = () => {
             )}
 
             {/* Title */}
-            <h2 className="text-lg font-bold text-gray-900 line-clamp-2">
-              {forum.title}
-            </h2>
+            <h2 className="text-lg font-bold line-clamp-2">{forum.title}</h2>
 
             {/* Description */}
-            <p className="text-gray-600 mt-2 text-sm leading-relaxed flex-grow">
+            <p
+              className={`mt-2 text-sm leading-relaxed flex-grow ${
+                theme === "dark" ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               {forum.description.length > 120
                 ? `${forum.description.slice(0, 120)}...`
                 : forum.description}
@@ -101,11 +114,15 @@ const ForumPage = () => {
             </Link>
 
             {/* Footer */}
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-gray-500">
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
               {/* Author + Role */}
               <span>
                 By{" "}
-                <span className="font-medium text-gray-800">
+                <span
+                  className={`${
+                    theme === "dark" ? "text-gray-200" : "text-gray-800"
+                  } font-medium`}
+                >
                   {forum.authorName}
                 </span>{" "}
                 <span
@@ -120,7 +137,13 @@ const ForumPage = () => {
               </span>
 
               {/* Time */}
-              <span>{new Date(forum.createdAt).toLocaleDateString()}</span>
+              <span
+                className={`${
+                  theme === "dark" ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
+                {new Date(forum.createdAt).toLocaleDateString()}
+              </span>
             </div>
 
             {/* Voting */}
@@ -149,7 +172,11 @@ const ForumPage = () => {
             key={idx}
             onClick={() => setPage(idx + 1)}
             className={`px-4 py-2 rounded ${
-              page === idx + 1 ? "bg-primary text-white" : "bg-gray-200"
+              page === idx + 1
+                ? "bg-primary text-white shadow"
+                : theme === "dark"
+                ? "bg-gray-700 text-gray-200 hover:bg-primary hover:text-white transition"
+                : "bg-gray-200 hover:bg-primary hover:text-white transition"
             }`}
           >
             {idx + 1}

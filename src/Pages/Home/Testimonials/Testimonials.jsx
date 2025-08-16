@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import TestimonialCard from "./TestimonialCard";
 import UseAxios from "../../../Hooks/UseAxios";
 import SkeletonLoader from "../../Shared/SkeletonLoader/SkeletonLoader";
+import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 const Testimonials = () => {
+  const { theme } = use(AuthContext);
   const axiosInstance = UseAxios();
 
   const { data: testimonials = [], isLoading } = useQuery({
@@ -70,12 +72,20 @@ const Testimonials = () => {
   const centerIndex = currentIndex + Math.floor(cardsPerView / 2);
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section
+      className={`py-16 ${
+        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-4">
           What Members Are Saying
         </h2>
-        <p className="text-center text-gray-500 mb-10 max-w-2xl mx-auto">
+        <p
+          className={`text-center mb-10 max-w-2xl mx-auto ${
+            theme === "dark" ? "text-gray-300" : "text-gray-500"
+          }`}
+        >
           See how our community experiences the platform
         </p>
 
@@ -103,7 +113,9 @@ const Testimonials = () => {
                     <div
                       className={`transition-transform duration-300 ease-in-out ${
                         isCenter
-                          ? "scale-105  shadow-xl bg-white"
+                          ? theme === "dark"
+                            ? "scale-105 shadow-xl bg-gray-800"
+                            : "scale-105 shadow-xl bg-white"
                           : "opacity-90"
                       }`}
                     >
@@ -119,7 +131,11 @@ const Testimonials = () => {
           <div className="flex justify-center gap-6 mt-6">
             <button
               onClick={prev}
-              className="p-3 rounded-full bg-white shadow hover:bg-primary hover:text-white transition"
+              className={`p-3 rounded-full shadow transition ${
+                theme === "dark"
+                  ? "bg-gray-800 text-white hover:bg-primary"
+                  : "bg-white hover:bg-primary hover:text-white"
+              }`}
             >
               <FaArrowLeft />
             </button>
@@ -138,7 +154,11 @@ const Testimonials = () => {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`w-3 h-3 rounded-full cursor-pointer ${
-                  index === currentIndex ? "bg-primary" : "bg-gray-300"
+                  index === currentIndex
+                    ? "bg-primary"
+                    : theme === "dark"
+                    ? "bg-gray-600"
+                    : "bg-gray-300"
                 }`}
               ></div>
             ))}

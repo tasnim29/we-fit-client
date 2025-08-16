@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Swal from "sweetalert2";
 import UseAxios from "../../Hooks/UseAxios";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const NewsletterSubscription = () => {
+  const { theme } = use(AuthContext);
   const axiosInstance = UseAxios();
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(false);
@@ -48,11 +50,23 @@ const NewsletterSubscription = () => {
   };
 
   return (
-    <div className="bg-primary/10 py-12 px-6 rounded-xl shadow-lg max-w-3xl mx-auto my-12">
-      <h2 className="text-4xl font-bold text-center text-primary mb-4">
+    <div
+      className={`py-12 px-6 rounded-xl shadow-lg max-w-3xl mx-auto my-12 ${
+        theme === "dark" ? "bg-gray-800" : "bg-primary/10"
+      }`}
+    >
+      <h2
+        className={`text-4xl font-bold text-center mb-4 ${
+          theme === "dark" ? "text-white" : "text-primary"
+        }`}
+      >
         Subscribe to Our Newsletter
       </h2>
-      <p className="text-center text-primary/70 mb-8">
+      <p
+        className={`text-center mb-8 ${
+          theme === "dark" ? "text-gray-300" : "text-primary/70"
+        }`}
+      >
         Get the latest updates, tips, and insights delivered straight to your
         inbox.
       </p>
@@ -67,7 +81,11 @@ const NewsletterSubscription = () => {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your Name"
-          className="w-full md:w-1/3 rounded border border-primary/50 bg-white px-4 py-2 text-primary placeholder-primary/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+          className={`w-full md:w-1/3 rounded border px-4 py-2 placeholder-opacity-60 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+            theme === "dark"
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:ring-primary"
+              : "bg-white border-primary/50 text-primary placeholder-primary/60 focus:ring-primary"
+          }`}
         />
         <input
           type="email"
@@ -75,7 +93,11 @@ const NewsletterSubscription = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Your Email"
-          className="w-full md:w-1/3 rounded border border-primary/50 bg-white px-4 py-2 text-primary placeholder-primary/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+          className={`w-full md:w-1/3 rounded border px-4 py-2 placeholder-opacity-60 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+            theme === "dark"
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:ring-primary"
+              : "bg-white border-primary/50 text-primary placeholder-primary/60 focus:ring-primary"
+          }`}
         />
         <button
           type="submit"

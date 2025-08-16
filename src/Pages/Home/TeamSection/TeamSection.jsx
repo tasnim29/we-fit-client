@@ -2,9 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../../Hooks/UseAxios";
 import { Link } from "react-router";
 import SkeletonLoader from "../../Shared/SkeletonLoader/SkeletonLoader";
+import { use } from "react";
+import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 const TeamSection = () => {
   const axiosInstance = UseAxios();
+  const { theme } = use(AuthContext);
 
   const { data: trainers = [], isLoading } = useQuery({
     queryKey: ["team-trainers"],
@@ -30,17 +33,29 @@ const TeamSection = () => {
   }
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section
+      className={`py-16 ${theme === "dark" ? "bg-gray-900" : "bg-gray-50"}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl font-bold mb-10">Meet Our Trainers</h2>
+        <h2
+          className={`text-4xl font-bold mb-10 ${
+            theme === "dark" ? "text-white" : "text-gray-900"
+          }`}
+        >
+          Meet Our Trainers
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {trainers.map((trainer) => (
             <div
               key={trainer._id}
-              className="bg-white rounded-xl shadow-xl p-6 border-t-4 border-primary 
-                         hover:-translate-y-2 hover:shadow-xl transition-all duration-300 
-                         flex flex-col"
+              className={`rounded-xl shadow-xl p-6 border-t-4 border-primary 
+                hover:-translate-y-2 hover:shadow-xl transition-all duration-300 
+                flex flex-col ${
+                  theme === "dark"
+                    ? "bg-gray-800 text-gray-100"
+                    : "bg-white text-gray-800"
+                }`}
             >
               {/* Avatar */}
               <div className="w-20 h-20 sm:w-28 sm:h-28 mx-auto relative mb-4">
@@ -54,12 +69,20 @@ const TeamSection = () => {
               </div>
 
               {/* Name */}
-              <h3 className="text-xl font-semibold text-gray-800 mt-4">
+              <h3
+                className={`text-xl font-semibold mt-4 ${
+                  theme === "dark" ? "text-white" : "text-gray-800"
+                }`}
+              >
                 {trainer.fullName}
               </h3>
 
               {/* Bio */}
-              <p className="text-sm text-gray-600 mt-2 italic flex-grow">
+              <p
+                className={`text-sm mt-2 italic flex-grow ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 {trainer.bio?.length > 100
                   ? trainer.bio.slice(0, 100) + "..."
                   : trainer.bio}
@@ -67,7 +90,11 @@ const TeamSection = () => {
 
               {/* Skills */}
               <div className="mt-5">
-                <h4 className="font-medium text-gray-700 text-sm mb-2 uppercase tracking-wide">
+                <h4
+                  className={`font-medium text-sm mb-2 uppercase tracking-wide ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
                   Areas of Expertise
                 </h4>
                 <ul className="flex flex-wrap justify-center gap-2 text-sm">

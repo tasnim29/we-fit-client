@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../Hooks/UseAxios";
@@ -6,8 +6,10 @@ import { Link } from "react-router";
 import GlobalLoader from "../Shared/GlobalLoader/GlobalLoader";
 import ClassDescription from "./ClassDescription";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const AllClasses = () => {
+  const { theme } = useContext(AuthContext);
   const [sortOrder, setSortOrder] = useState("asc");
 
   const [page, setPage] = useState(1);
@@ -32,13 +34,20 @@ const AllClasses = () => {
       <Helmet>
         <title>WeFit | All-Classes</title>
       </Helmet>
-      <h1 className="text-3xl font-bold mb-8 text-center">All Classes</h1>
+
+      <h1
+        className={`text-3xl font-bold mb-8 text-center ${
+          theme === "dark" ? "text-gray-200" : "text-gray-900"
+        }`}
+      >
+        All Classes
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-        <div className="md:col-span-3">
-          {/* 🔍 Search bar */}
-          <div className="mb-3">
-            <div className="relative w-full max-w-md">
+        {/* Sidebar */}
+        <div className="md:col-span-2 space-y-3">
+          <div className="flex flex-col gap-3">
+            <div className="relative w-full">
               <input
                 type="text"
                 placeholder="Search by class name..."
@@ -47,7 +56,11 @@ const AllClasses = () => {
                   setSearchText(e.target.value);
                   setPage(1);
                 }}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300  shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                className={`w-full pl-12 pr-4 py-3 rounded-lg border shadow-sm ${
+                  theme === "dark"
+                    ? "border-gray-700 bg-gray-700 text-gray-200 placeholder-gray-400 focus:ring-accent"
+                    : "border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:ring-accent"
+                } focus:outline-none focus:ring-2 focus:border-transparent transition`}
               />
               <svg
                 className="absolute left-4 top-3.5 text-gray-400 w-5 h-5"
@@ -64,53 +77,90 @@ const AllClasses = () => {
                 />
               </svg>
             </div>
+
+            <select
+              value={sortOrder}
+              onChange={(e) => {
+                setSortOrder(e.target.value);
+                setPage(1);
+              }}
+              className={`w-full pl-4 pr-4 py-3 rounded-lg border shadow-sm ${
+                theme === "dark"
+                  ? "border-gray-700 bg-gray-700 text-gray-200 focus:ring-accent"
+                  : "border-gray-300 bg-white text-gray-900 focus:ring-accent"
+              } focus:outline-none focus:ring-2 focus:border-transparent transition`}
+            >
+              <option value="asc">Sort: A → Z</option>
+              <option value="desc">Sort: Z → A</option>
+            </select>
           </div>
-          {/* sorting */}
-          <select
-            value={sortOrder}
-            onChange={(e) => {
-              setSortOrder(e.target.value);
-              setPage(1);
-            }}
-            className="w-full pl-12 pr-4 py-3 border border-gray-300  shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-          >
-            <option value="asc">Sort: A → Z</option>
-            <option value="desc">Sort: Z → A</option>
-          </select>
         </div>
 
-        <div className="md:col-span-9">
-          {/* Grid of class cards */}
+        {/* Class Grid */}
+        <div className="md:col-span-10">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {data?.classes?.map((cls) => (
               <div
                 key={cls._id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col"
+                className={`flex flex-col rounded-2xl shadow-lg overflow-hidden ${
+                  theme === "dark" ? "bg-gray-800" : "bg-white"
+                }`}
               >
                 <img
-                  src={cls.image}
-                  alt={cls.name}
+                  src={cls.image || "/default-class.jpg"}
+                  alt={cls.className}
                   className="w-full h-44 object-cover"
                 />
                 <div className="p-5 flex-grow space-y-2">
-                  <h2 className="text-2xl font-bold text-primary">
+                  <h2
+                    className={`text-2xl font-bold ${
+                      theme === "dark" ? "text-white" : "text-primary"
+                    }`}
+                  >
                     {cls.className}
                   </h2>
-                  <ClassDescription details={cls.details} />
-                  <p className="text-sm text-gray-500">
+                  <ClassDescription
+                    details={cls.details}
+                    className={
+                      theme === "dark" ? "text-gray-400" : "text-gray-500"
+                    }
+                  />
+                  <p
+                    className={
+                      theme === "dark"
+                        ? "text-gray-400 text-sm"
+                        : "text-gray-500 text-sm"
+                    }
+                  >
                     <strong>Level:</strong> {cls.level}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p
+                    className={
+                      theme === "dark"
+                        ? "text-gray-400 text-sm"
+                        : "text-gray-500 text-sm"
+                    }
+                  >
                     <strong>Category:</strong> {cls.category}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p
+                    className={
+                      theme === "dark"
+                        ? "text-gray-400 text-sm"
+                        : "text-gray-500 text-sm"
+                    }
+                  >
                     <strong>Duration:</strong> {cls.duration}
                   </p>
 
-                  {/* 👥 Trainers */}
+                  {/* Trainers */}
                   {cls.trainers?.length > 0 && (
                     <div className="mt-3">
-                      <p className="text-sm font-medium text-gray-700 mb-1">
+                      <p
+                        className={`text-sm font-medium mb-1 ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-900"
+                        }`}
+                      >
                         Trainers:
                       </p>
                       <div className="flex items-center space-x-2">
@@ -146,6 +196,8 @@ const AllClasses = () => {
             className={`px-4 py-2 rounded-full font-semibold ${
               page === idx + 1
                 ? "bg-primary text-white shadow"
+                : theme === "dark"
+                ? "bg-gray-700 text-gray-200 hover:bg-primary hover:text-white transition"
                 : "bg-gray-200 hover:bg-primary hover:text-white transition"
             }`}
           >
