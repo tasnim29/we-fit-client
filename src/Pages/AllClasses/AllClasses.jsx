@@ -47,6 +47,7 @@ const AllClasses = () => {
         {/* Sidebar */}
         <div className="md:col-span-2 space-y-3">
           <div className="flex flex-col gap-3">
+            {/* Search Input */}
             <div className="relative w-full">
               <input
                 type="text"
@@ -56,14 +57,14 @@ const AllClasses = () => {
                   setSearchText(e.target.value);
                   setPage(1);
                 }}
-                className={`w-full pl-12 pr-4 py-3 rounded-lg border shadow-sm ${
+                className={`w-full pl-9 pr-3 py-2.5 rounded-lg border shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition ${
                   theme === "dark"
-                    ? "border-gray-700 bg-gray-700 text-gray-200 placeholder-gray-400 focus:ring-accent"
-                    : "border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:ring-accent"
-                } focus:outline-none focus:ring-2 focus:border-transparent transition`}
+                    ? "border-gray-700 bg-gray-700 text-gray-200 placeholder-gray-400"
+                    : "border-gray-300 bg-white text-gray-900 placeholder-gray-400"
+                }`}
               />
               <svg
-                className="absolute left-4 top-3.5 text-gray-400 w-5 h-5"
+                className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 w-4.5 h-4.5"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -78,17 +79,18 @@ const AllClasses = () => {
               </svg>
             </div>
 
+            {/* Sort Dropdown */}
             <select
               value={sortOrder}
               onChange={(e) => {
                 setSortOrder(e.target.value);
                 setPage(1);
               }}
-              className={`w-full pl-4 pr-4 py-3 rounded-lg border shadow-sm ${
+              className={`w-full pl-3 pr-3 py-2.5 rounded-lg border shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition ${
                 theme === "dark"
-                  ? "border-gray-700 bg-gray-700 text-gray-200 focus:ring-accent"
-                  : "border-gray-300 bg-white text-gray-900 focus:ring-accent"
-              } focus:outline-none focus:ring-2 focus:border-transparent transition`}
+                  ? "border-gray-700 bg-gray-700 text-gray-200"
+                  : "border-gray-300 bg-white text-gray-900"
+              }`}
             >
               <option value="asc">Sort: A → Z</option>
               <option value="desc">Sort: Z → A</option>
