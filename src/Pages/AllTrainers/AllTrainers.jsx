@@ -91,7 +91,7 @@ const AllTrainers = () => {
 
             <Link
               to={`/trainer-details/${trainer._id}`}
-              className="w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition"
+              className="w-full py-3 border-2 border-accent hover:bg-accent text-white rounded-lg font-semibold  transition"
             >
               Know More
             </Link>

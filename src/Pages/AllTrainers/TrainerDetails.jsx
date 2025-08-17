@@ -44,7 +44,7 @@ const TrainerDetails = () => {
         <p className="mb-4">Join our growing team of professional trainers!</p>
         <Link
           to="/beTrainer"
-          className="px-5 py-2 rounded-lg bg-white text-primary font-semibold hover:bg-gray-200 transition"
+          className="px-5 py-2 rounded-lg border-2 border-light font-semibold hover:bg-light hover:text-primary transition"
         >
           Become a Trainer
         </Link>
@@ -72,7 +72,11 @@ const TrainerDetails = () => {
           </p>
           <p>
             <strong>Skills:</strong>{" "}
-            <span className="text-primary">{trainer.skills.join(", ")}</span>
+            <span
+              className={`${theme === "dark" ? "text-white" : "text-class"}`}
+            >
+              {trainer.skills.join(", ")}
+            </span>
           </p>
           <p>
             <strong>Available Days:</strong>{" "}
@@ -89,7 +93,11 @@ const TrainerDetails = () => {
 
       {/* Slot Section */}
       <div className={`p-8 rounded-xl shadow-md ${bgClass}`}>
-        <h3 className={`text-2xl font-semibold mb-6 text-center text-primary`}>
+        <h3
+          className={`text-2xl font-semibold mb-6 text-center ${
+            theme === "dark" ? "text-white" : "text-primary"
+          }`}
+        >
           📅 Available Slots
         </h3>
 
@@ -129,7 +137,7 @@ const TrainerDetails = () => {
                 ) : (
                   <Link
                     to={`/trainer-booking/${trainer._id}?slot=${slot.slotName}`}
-                    className="mt-auto w-full block text-center py-2 rounded bg-primary text-white hover:bg-primary/90 transition duration-300 hover:scale-105"
+                    className=" w-full block text-center py-2 rounded bg-accent mt-3 text-white  transition duration-300 hover:scale-105"
                   >
                     Book Slot
                   </Link>

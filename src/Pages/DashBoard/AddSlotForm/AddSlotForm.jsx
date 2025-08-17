@@ -214,12 +214,14 @@ const AddSlotForm = () => {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-full shadow transition"
-          >
-            Add Slot
-          </button>
+          <div className="md:col-span-2 flex justify-center">
+            <button
+              type="submit"
+              className="bg-accent cursor-pointer transition duration-300 hover:scale-105 text-white font-semibold px-8 py-3 rounded-lg"
+            >
+              Add Slot
+            </button>
+          </div>
         </form>
       </div>
     </div>
