@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 
 const ProfilePage = () => {
-  const { user, updateUser } = useContext(AuthContext);
+  const { user, updateUser, theme } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [updating, setUpdating] = useState(false);
@@ -50,11 +50,17 @@ const ProfilePage = () => {
   if (!user) return <p>Loading user data...</p>;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4 bg-white  ">
+    <div className={`max-w-7xl mx-auto py-10 px-4 `}>
       <Helmet>
         <title>WeFit | Profile</title>
       </Helmet>
-      <h2 className="text-3xl font-bold mb-8 text-center ">Your Profile</h2>
+      <h2
+        className={`text-3xl font-bold mb-8 text-center ${
+          theme === "dark" ? "text-white" : "text-gray-900"
+        }`}
+      >
+        Your Profile
+      </h2>
 
       {/* Profile Picture Preview */}
       <div className="flex justify-center mb-6">
@@ -72,49 +78,83 @@ const ProfilePage = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Email (read-only) */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Email
           </label>
           <input
             type="email"
             value={user.email}
             readOnly
-            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+            className={`w-full p-3 border rounded-lg cursor-not-allowed ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-600 text-gray-400"
+                : "bg-gray-100 border-gray-300 text-gray-500"
+            }`}
           />
         </div>
 
         {/* Name */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">Name</label>
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
+            Name
+          </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                : "bg-white border-gray-300 text-gray-900"
+            }`}
           />
         </div>
 
         {/* Photo URL */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Profile Picture URL
           </label>
           <input
             type="url"
             value={photoURL}
             onChange={(e) => setPhotoURL(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                : "bg-white border-gray-300 text-gray-900"
+            }`}
             placeholder="https://example.com/photo.jpg"
           />
         </div>
 
         {/* Last login time */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Last Login
           </label>
-          <p className="text-gray-800 font-medium">
+          <p
+            className={`font-medium ${
+              theme === "dark" ? "text-gray-300" : "text-gray-800"
+            }`}
+          >
             {user.metadata?.lastSignInTime
               ? new Date(user.metadata.lastSignInTime).toLocaleString()
               : "N/A"}
@@ -129,7 +169,7 @@ const ProfilePage = () => {
           <button
             type="submit"
             disabled={updating}
-            className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg"
+            className="bg-accent cursor-pointer transition duration-300 hover:scale-105 text-white font-semibold px-8 py-3 rounded-lg"
           >
             {updating ? "Updating..." : "Update Profile"}
           </button>

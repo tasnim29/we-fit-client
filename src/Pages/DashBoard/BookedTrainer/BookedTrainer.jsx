@@ -7,7 +7,7 @@ import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { Helmet } from "react-helmet-async";
 
 const BookedTrainer = () => {
-  const { user } = use(AuthContext);
+  const { user, theme } = use(AuthContext);
   const axiosSecure = UseAxiosSecure();
   const [reviewOpen, setReviewOpen] = useState(false);
 
@@ -33,12 +33,23 @@ const BookedTrainer = () => {
       <Helmet>
         <title>WeFit | Booked Trainers</title>
       </Helmet>
-      <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center ">
+
+      <h2
+        className={`text-2xl sm:text-3xl font-bold mb-10 text-center ${
+          theme === "dark" ? "text-white" : "text-gray-800"
+        }`}
+      >
         Your Booked Trainer
       </h2>
 
       {/* Trainer Info */}
-      <section className="mb-10 bg-white justify-center p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+      <section
+        className={`mb-10 p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 rounded-lg ${
+          theme === "dark"
+            ? "bg-gray-800 text-gray-300"
+            : "bg-white text-gray-800"
+        } shadow`}
+      >
         <img
           src={
             trainer?.image || "https://via.placeholder.com/150?text=No+Image"
@@ -47,50 +58,88 @@ const BookedTrainer = () => {
           className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border border-gray-300 shadow"
         />
         <div className="text-center sm:text-left">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+          <h3
+            className={`text-2xl font-semibold mb-2 ${
+              theme === "dark" ? "text-white" : "text-gray-800"
+            }`}
+          >
             {trainer?.fullName}
           </h3>
-          <p className="text-gray-600">
+          <p className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>
             <strong>Email:</strong> {trainer?.email}
           </p>
         </div>
       </section>
 
       {/* Class Info */}
-      <section className="mb-6 bg-white shadow rounded-lg p-6">
-        <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+      <section
+        className={`mb-6 p-6 rounded-lg shadow ${
+          theme === "dark"
+            ? "bg-gray-800 text-gray-300"
+            : "bg-white text-gray-800"
+        }`}
+      >
+        <h3
+          className={`text-2xl font-semibold mb-4 ${
+            theme === "dark" ? "text-white" : "text-gray-800"
+          }`}
+        >
           Class Info
         </h3>
         {classInfo ? (
-          <ul className="list-disc ml-5 text-gray-700">
+          <ul className="list-disc ml-5">
             <li>
               <strong>{classInfo.className}</strong> – {classInfo.details}
             </li>
           </ul>
         ) : (
-          <p className="text-gray-500 italic">No class info found.</p>
+          <p
+            className={
+              theme === "dark" ? "text-gray-400 italic" : "text-gray-500 italic"
+            }
+          >
+            No class info found.
+          </p>
         )}
       </section>
 
       {/* Slot Info */}
-      <section className="mb-8 bg-white shadow rounded-lg p-6">
-        <h3 className="text-2xl font-semibold mb-4 text-gray-800">Slot Info</h3>
+      <section
+        className={`mb-8 p-6 rounded-lg shadow ${
+          theme === "dark"
+            ? "bg-gray-800 text-gray-300"
+            : "bg-white text-gray-800"
+        }`}
+      >
+        <h3
+          className={`text-2xl font-semibold mb-4 ${
+            theme === "dark" ? "text-white" : "text-gray-800"
+          }`}
+        >
+          Slot Info
+        </h3>
         {slotInfo ? (
-          <ul className="list-disc ml-5 text-gray-700">
+          <ul className="list-disc ml-5">
             <li>
               {slotInfo.slotName} – {slotInfo.slotTime} (
               {slotInfo.days?.join(", ")})
             </li>
           </ul>
         ) : (
-          <p className="text-gray-500 italic">No slot info found.</p>
+          <p
+            className={
+              theme === "dark" ? "text-gray-400 italic" : "text-gray-500 italic"
+            }
+          >
+            No slot info found.
+          </p>
         )}
       </section>
 
       {/* Review Button */}
       <div className="text-center">
         <button
-          className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg"
+          className="bg-accent cursor-pointer transition duration-300 hover:scale-105 text-white font-semibold px-8 py-3 rounded-lg"
           onClick={() => setReviewOpen(true)}
         >
           Review Trainer

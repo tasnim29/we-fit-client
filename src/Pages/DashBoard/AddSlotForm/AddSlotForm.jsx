@@ -9,7 +9,7 @@ import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import { Helmet } from "react-helmet-async";
 
 const AddSlotForm = () => {
-  const { user } = use(AuthContext);
+  const { user, theme } = use(AuthContext);
   const axiosSecure = UseAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
 
@@ -73,9 +73,13 @@ const AddSlotForm = () => {
       <Helmet>
         <title>WeFit | Add Slot</title>
       </Helmet>
-      <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 sm:p-10">
+      <div className={`p-6 sm:p-10 rounded-xl shadow-sm  `}>
         {/* Header */}
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+        <h2
+          className={`text-2xl font-semibold mb-6 flex items-center gap-2 ${
+            theme === "dark" ? "text-white" : "text-gray-800"
+          }`}
+        >
           <span className="text-primary">➕</span> Add New Slot
         </h2>
 
@@ -84,68 +88,119 @@ const AddSlotForm = () => {
           {/* Trainer Info */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                className={`block text-sm font-medium mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Trainer Name
               </label>
               <input
                 readOnly
                 value={trainer.fullName}
-                className="input input-bordered w-full bg-gray-50"
+                className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+                  theme === "dark"
+                    ? "bg-gray-800 border-gray-700 text-gray-300"
+                    : "bg-gray-50 border-gray-300 text-gray-800"
+                }`}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                className={`block text-sm font-medium mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 Email
               </label>
               <input
                 readOnly
                 value={trainer.email}
-                className="input input-bordered w-full bg-gray-50"
+                className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+                  theme === "dark"
+                    ? "bg-gray-800 border-gray-700 text-gray-300"
+                    : "bg-gray-50 border-gray-300 text-gray-800"
+                }`}
               />
             </div>
           </div>
 
           {/* Days */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Available Days
             </label>
-            <Select value={dayOptions} isMulti isDisabled />
+            <Select
+              value={dayOptions}
+              isMulti
+              isDisabled
+              classNamePrefix={
+                theme === "dark" ? "react-select-dark" : "react-select-light"
+              }
+            />
           </div>
 
           {/* Slot Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Slot Name
             </label>
             <input
               {...register("slotName", { required: true })}
               placeholder="e.g., Morning Slot"
-              className="input input-bordered w-full"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+                theme === "dark"
+                  ? "bg-gray-800 border-gray-700 text-gray-300"
+                  : "bg-white border-gray-300 text-gray-800"
+              }`}
             />
           </div>
 
           {/* Slot Time */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Slot Duration
             </label>
             <input
               {...register("slotTime", { required: true })}
               placeholder="e.g., 1 hour"
-              className="input input-bordered w-full"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+                theme === "dark"
+                  ? "bg-gray-800 border-gray-700 text-gray-300"
+                  : "bg-white border-gray-300 text-gray-800"
+              }`}
             />
           </div>
 
           {/* Class Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Select Class
             </label>
             <select
               {...register("classId", { required: "Please select a class" })}
               defaultValue=""
-              className="select select-bordered w-full"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+                theme === "dark"
+                  ? "bg-gray-800 border-gray-700 text-gray-300"
+                  : "bg-white border-gray-300 text-gray-800"
+              }`}
             >
               <option disabled value="">
                 -- Select a class --
@@ -158,7 +213,7 @@ const AddSlotForm = () => {
             </select>
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-full shadow transition"

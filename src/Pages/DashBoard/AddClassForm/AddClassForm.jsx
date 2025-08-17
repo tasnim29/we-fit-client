@@ -1,11 +1,13 @@
-import React from "react";
+import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 const AddClassForm = () => {
   const axiosSecure = UseAxiosSecure();
+  const { theme } = use(AuthContext);
   const {
     register,
     handleSubmit,
@@ -29,22 +31,37 @@ const AddClassForm = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4 bg-white ">
+    <div className={`max-w-7xl mx-auto py-10 px-4`}>
       <Helmet>
-        <title>WeFit | Add Classes </title>
+        <title>WeFit | Add Classes</title>
       </Helmet>
-      <h2 className="text-3xl font-bold mb-10 text-center ">Add New Class</h2>
+
+      <h2
+        className={`text-3xl font-bold mb-10 text-center ${
+          theme === "dark" ? "text-white" : "text-gray-900"
+        }`}
+      >
+        Add New Class
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Class Name */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Class Name
           </label>
           <input
             type="text"
             {...register("className", { required: true })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
             placeholder="Enter class name"
           />
           {errors.className && (
@@ -54,13 +71,21 @@ const AddClassForm = () => {
 
         {/* Image URL */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Image URL
           </label>
           <input
             type="text"
             {...register("image", { required: true })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
             placeholder="Enter image URL"
           />
           {errors.image && (
@@ -70,12 +95,20 @@ const AddClassForm = () => {
 
         {/* Details */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Details
           </label>
           <textarea
             {...register("details", { required: true })}
-            className="w-full p-3 border border-gray-300 rounded-lg h-28 resize-none focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 rounded-lg h-28 resize-none focus:outline-none focus:ring-2 focus:ring-accent transition border ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
             placeholder="Write a description of the class.."
           />
           {errors.details && (
@@ -85,13 +118,21 @@ const AddClassForm = () => {
 
         {/* Duration */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Duration
           </label>
           <input
             type="text"
             {...register("duration", { required: true })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
             placeholder="Enter duration"
           />
           {errors.duration && (
@@ -101,12 +142,20 @@ const AddClassForm = () => {
 
         {/* Category */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Category
           </label>
           <select
             {...register("category", { required: true })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
           >
             <option value="">Select category</option>
             <option value="HIIT">HIIT</option>
@@ -124,12 +173,20 @@ const AddClassForm = () => {
 
         {/* Level */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Level
           </label>
           <select
             {...register("level", { required: true })}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
           >
             <option value="">Select level</option>
             <option value="Beginner">Beginner</option>
@@ -143,13 +200,21 @@ const AddClassForm = () => {
 
         {/* Equipment */}
         <div>
-          <label className="block mb-1 font-semibold text-gray-700">
+          <label
+            className={`block mb-1 font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-700"
+            }`}
+          >
             Equipment Needed
           </label>
           <input
             type="text"
             {...register("equipment")}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent transition ${
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700 text-gray-300"
+                : "bg-white border-gray-300 text-gray-800"
+            }`}
             placeholder="Enter the equipments"
           />
           {errors.equipment && (
@@ -161,7 +226,7 @@ const AddClassForm = () => {
         <div className="text-center pt-4">
           <button
             type="submit"
-            className="bg-accent cursor-pointer transition duration-300 hover:scale-105  text-white font-semibold px-8 py-3 rounded-lg"
+            className="bg-accent cursor-pointer transition duration-300 hover:scale-105 text-white font-semibold px-8 py-3 rounded-lg"
           >
             Add Class
           </button>

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
 import RejectModal from "./RejectModal";
+import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 const AppliedTrainerDetails = () => {
+  const { theme } = use(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosSecure = UseAxiosSecure();
@@ -58,8 +60,14 @@ const AppliedTrainerDetails = () => {
     return <p className="text-red-500">Failed to load trainer data.</p>;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4 bg-white ">
-      <h2 className="text-3xl font-bold mb-10  text-center">Trainer Details</h2>
+    <div className={`max-w-7xl mx-auto py-10 px-4 `}>
+      <h2
+        className={`text-3xl font-bold mb-10 text-center ${
+          theme === "dark" ? "text-white" : "text-gray-900"
+        }`}
+      >
+        Trainer Details
+      </h2>
 
       <div className="flex justify-center mb-6">
         <img
@@ -69,35 +77,81 @@ const AppliedTrainerDetails = () => {
         />
       </div>
 
-      <div className="space-y-3 text-gray-700 text-lg">
+      <div
+        className={`space-y-3 text-lg ${
+          theme === "dark" ? "text-gray-300" : "text-gray-700"
+        }`}
+      >
         <p>
-          <span className="font-semibold text-gray-900">Name:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Name:
+          </span>{" "}
           {trainer.fullName || "N/A"}
         </p>
         <p>
-          <span className="font-semibold text-gray-900">Email:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Email:
+          </span>{" "}
           {trainer.email || "N/A"}
         </p>
         <p>
-          <span className="font-semibold text-gray-900">Age:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Age:
+          </span>{" "}
           {trainer.age || "N/A"}
         </p>
         <p>
-          <span className="font-semibold text-gray-900">Skills:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Skills:
+          </span>{" "}
           {trainer.skills?.length ? trainer.skills.join(", ") : "N/A"}
         </p>
         <p>
-          <span className="font-semibold text-gray-900">Available Days:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Available Days:
+          </span>{" "}
           {trainer.availableDays?.length
             ? trainer.availableDays.join(", ")
             : "N/A"}
         </p>
         <p>
-          <span className="font-semibold text-gray-900">Available Time:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Available Time:
+          </span>{" "}
           {trainer.availableTime || "N/A"}
         </p>
         <p>
-          <span className="font-semibold text-gray-900">Status:</span>{" "}
+          <span
+            className={`font-semibold ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Status:
+          </span>{" "}
           <span
             className={`capitalize font-semibold ${
               trainer.status === "approved"
@@ -115,7 +169,7 @@ const AppliedTrainerDetails = () => {
       <div className="flex justify-center gap-6 mt-8">
         <button
           onClick={handleApprove}
-          className="bg-green-600 cursor-pointer hover:bg-green-700 hover:scale-105  transition-colors duration-300 text-white font-semibold px-6 py-2 rounded-lg shadow-md"
+          className="bg-green-600 cursor-pointer hover:bg-green-700 hover:scale-105 transition-colors duration-300 text-white font-semibold px-6 py-2 rounded-lg shadow-md"
         >
           Confirm
         </button>
@@ -133,6 +187,7 @@ const AppliedTrainerDetails = () => {
           trainer={trainer}
           onClose={() => setShowRejectModal(false)}
           onSubmit={handleRejectSubmit}
+          theme={theme}
         />
       )}
     </div>

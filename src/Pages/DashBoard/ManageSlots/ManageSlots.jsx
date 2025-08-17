@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 const ManageSlots = () => {
   const queryClient = useQueryClient();
   const axiosSecure = UseAxiosSecure();
-  const { user } = use(AuthContext);
+  const { user, theme } = use(AuthContext);
 
   const {
     data: slots,
@@ -75,17 +75,34 @@ const ManageSlots = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4">
+    <div className={`max-w-7xl mx-auto py-10 px-4`}>
       <Helmet>
-        <title>WeFit | Manage slots</title>
+        <title>WeFit | Manage Slots</title>
       </Helmet>
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">
+
+      <h2
+        className={`text-3xl font-bold text-center mb-6 ${
+          theme === "dark" ? "text-white" : "text-gray-900"
+        }`}
+      >
         Manage Your Slots
       </h2>
 
-      <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
+      <div
+        className={`overflow-x-auto rounded-lg shadow border ${
+          theme === "dark"
+            ? "border-gray-700 bg-gray-800"
+            : "border-gray-200 bg-white"
+        }`}
+      >
         <table className="min-w-full text-sm text-left whitespace-nowrap">
-          <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider">
+          <thead
+            className={`uppercase text-xs tracking-wider ${
+              theme === "dark"
+                ? "bg-gray-700 text-gray-200"
+                : "bg-gray-100 text-gray-700"
+            }`}
+          >
             <tr>
               <th className="px-6 py-4 border-b border-gray-200">Slot Name</th>
               <th className="px-6 py-4 border-b border-gray-200">Class Name</th>
@@ -97,12 +114,37 @@ const ManageSlots = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody
+            className={`divide-y ${
+              theme === "dark" ? "divide-gray-700" : "divide-gray-100"
+            }`}
+          >
             {slots.map((slot) => (
-              <tr key={slot._id} className="hover:bg-gray-50 transition">
-                <td className="px-6 py-4">{slot.slotName}</td>
-                <td className="px-6 py-4">{slot.className}</td>
-                <td className="px-6 py-4 text-gray-700">
+              <tr
+                key={slot._id}
+                className={`transition hover:${
+                  theme === "dark" ? "bg-gray-700" : "bg-gray-50"
+                }`}
+              >
+                <td
+                  className={`${
+                    theme === "dark" ? "text-gray-200" : "text-gray-900"
+                  } px-6 py-4`}
+                >
+                  {slot.slotName}
+                </td>
+                <td
+                  className={`${
+                    theme === "dark" ? "text-gray-200" : "text-gray-900"
+                  } px-6 py-4`}
+                >
+                  {slot.className}
+                </td>
+                <td
+                  className={`${
+                    theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  } px-6 py-4`}
+                >
                   {slot.bookingInfo ? (
                     <div className="space-y-1 text-sm">
                       <p>

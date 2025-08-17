@@ -6,7 +6,7 @@ import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
 const ReviewModal = ({ isOpen, onClose, trainerId }) => {
   const axiosSecure = UseAxiosSecure();
-  const { user } = use(AuthContext);
+  const { user, theme } = use(AuthContext);
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -52,16 +52,28 @@ const ReviewModal = ({ isOpen, onClose, trainerId }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xl flex flex-col items-center"
+        className={`rounded-xl shadow-lg p-6 w-full max-w-xl flex flex-col items-center ${
+          theme === "dark"
+            ? "bg-gray-800 text-gray-300"
+            : "bg-white text-gray-800"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-3xl font-semibold text-center mb-4">
+        <h2
+          className={`text-3xl font-semibold text-center mb-4 ${
+            theme === "dark" ? "text-white" : "text-gray-800"
+          }`}
+        >
           Your opinion matters!
         </h2>
 
         {/* Star Rating */}
         <div className="flex flex-col items-center py-4 space-y-3 w-full">
-          <span className="text-center text-gray-700 text-lg">
+          <span
+            className={`text-center text-lg ${
+              theme === "dark" ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
             How was your experience?
           </span>
           <div className="flex space-x-3">
@@ -78,7 +90,11 @@ const ReviewModal = ({ isOpen, onClose, trainerId }) => {
         {/* Feedback Box */}
         <div className="w-full">
           <textarea
-            className="w-full p-4 rounded-md border border-gray-300 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+            className={`w-full p-4 rounded-md border resize-none focus:outline-none focus:ring-2 ${
+              theme === "dark"
+                ? "border-gray-600 focus:ring-blue-400 bg-gray-700 text-gray-200"
+                : "border-gray-300 focus:ring-blue-500 bg-white text-gray-800"
+            }`}
             rows="4"
             placeholder="Write your feedback..."
             value={feedback}
@@ -88,7 +104,7 @@ const ReviewModal = ({ isOpen, onClose, trainerId }) => {
 
         {/* Submit Button */}
         <button
-          className="mt-6 cursor-pointer w-full py-3 font-semibold text-white bg-accent hover:bg-blue-700 rounded-md transition "
+          className="mt-6 cursor-pointer w-full py-3 font-semibold text-white bg-accent hover:bg-blue-700 rounded-md transition"
           onClick={handleSubmit}
           disabled={submitting}
         >
@@ -97,7 +113,9 @@ const ReviewModal = ({ isOpen, onClose, trainerId }) => {
 
         {/* Optional: Cancel/Skip */}
         <div
-          className="mt-4 text-sm text-gray-500 hover:underline cursor-pointer"
+          className={`mt-4 text-sm hover:underline cursor-pointer ${
+            theme === "dark" ? "text-gray-400" : "text-gray-500"
+          }`}
           onClick={onClose}
         >
           Maybe later
