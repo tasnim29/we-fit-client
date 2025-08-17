@@ -26,6 +26,7 @@ import Balance from "../Pages/DashBoard/Balance/Balance";
 import ManageSlots from "../Pages/DashBoard/ManageSlots/ManageSlots";
 import BookedTrainer from "../Pages/DashBoard/BookedTrainer/BookedTrainer";
 import ForumDetails from "../Pages/ForumPage/ForumDetails";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -157,5 +158,9 @@ export const router = createBrowserRouter([
         Component: BookedTrainer,
       },
     ],
+  },
+  {
+    path: "/*",
+    Component: ErrorPage,
   },
 ]);
